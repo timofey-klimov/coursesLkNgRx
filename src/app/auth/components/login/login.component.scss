@@ -1,0 +1,21 @@
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 300px;
+}
+
+
+.errorMessage {
+    color:red;
+    margin: 0 .5rem;    
+}
+
+.form-control {
+    margin: .5rem;
+}
+

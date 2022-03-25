@@ -1,0 +1,26 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import "../node_modules/font-awesome/scss/font-awesome.scss";             
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Roboto";
+}
+ul {
+    list-style: none;
+    
+    li{
+        display: block;
+    }
+}
+
+.container {
+    min-width: 1200;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

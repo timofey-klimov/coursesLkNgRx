@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    align-self: center;
+  }
+  .filter {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      margin: .5rem;
+    }
+    mat-form-field{
+      margin: .5rem;
+    }
+  }
+}
+
+.actionButton {
+  width: 9rem;
+}

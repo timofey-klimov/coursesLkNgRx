@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="nav">
+        <h2>Админка</h2>
+        <ul>
+            <li>{{(user$ | async)?.login}}</li>
+            <li (click)="logout()">Выйти</li>
+        </ul>
+    </div>
+    <div>
+        <mat-card class="admin-panel">
+            <h2 class="admin-header">Админская панель</h2>
+            <mat-divider></mat-divider>
+            <mat-card-content class="content">
+                <router-outlet></router-outlet>
+            </mat-card-content>
+        </mat-card>
+        <spinner *ngIf="(isLoading$ | async)"></spinner>
+    </div>
+</div>

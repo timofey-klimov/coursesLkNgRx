@@ -1,0 +1,33 @@
+<div>
+    <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form">
+            <ng-container *ngIf="(error$ | async) as errorMessage">
+                <div class="errorMessage">
+                    {{errorMessage}}
+                </div>
+            </ng-container>
+            <mat-form-field class="form-control">
+                <mat-label>Логин</mat-label>
+                <input type="text" matInput placeholder="Введите логин" formControlName="login">
+                <mat-error *ngIf="form.get('login').touched && form.get('login')?.errors?.email">Неверный формат email</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-control">
+                <mat-label>Пароль</mat-label>
+                <input type="text" matInput placeholder="Введите пароль" type="password" formControlName="password">
+            </mat-form-field>
+            <mat-form-field *ngIf="isFirstSignUp" class="form-control">
+                <mat-label>Новый пароль</mat-label>
+                <input type="text" matInput placeholder="Введите пароль" type="password" formControlName="newPassword" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="form.get('newPassword').touched && form.get('newPassword')?.errors?.minlength">Минимальная длина пароля 6 символов</mat-error>
+            </mat-form-field>
+
+            <button mat-button 
+                    color="primary" 
+                    type="submit"
+                    [disabled]="form.invalid">
+                        Войти
+            </button>
+        </div>
+    </form>
+</div>
+<spinner *ngIf="isLoading$ | async"></spinner>

@@ -1,0 +1,42 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-control">
+        <mat-form-field>
+            <mat-label>Имя</mat-label>
+            <input type="text" matInput placeholder="Введите имя" formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Фамилия</mat-label>
+            <input type="text" matInput placeholder="Введите фамилию" formControlName="surname">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Логин</mat-label>
+            <input type="text" matInput placeholder="Введите логин" formControlName="login">
+            <mat-error *ngIf="form.get('login').touched && form.get('login').errors?.email">
+                Неверный формат email
+            </mat-error>
+            <mat-error *ngIf="form.get('login').touched && form.get('login').errors?.loginAvailable">
+                Логин занят
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Пароль</mat-label>
+            <input type="text" matInput placeholder="Введите пароль" formControlName="password">
+            <mat-error *ngIf="form.get('password').touched && form.get('password').errors?.minlength">
+                Пароль должен содержать не меньше 6 символов
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field  >
+            <mat-label>Роль учетной записи</mat-label>
+            <mat-select formControlName="role" >
+            <mat-option value="User">Ученик</mat-option>
+            <mat-option value="Manager">Преподаватель</mat-option>
+            <mat-option value="Admin">Администратор</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('role').hasError('required')">Обязательное поле</mat-error>
+        </mat-form-field>
+        <button mat-button color="primary" 
+                type="submit"
+                [disabled]="form.invalid">Создать
+        </button>
+    </div>
+</form>

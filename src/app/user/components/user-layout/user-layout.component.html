@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="nav">
+        <h2>Тесты</h2>
+        <ul>
+            <li>Назначенные тесты</li>
+            <li>Пройденный тесты</li>
+            <li>
+                {{(user$ | async).login}}
+            </li>
+            <li (click)="logout()">Выйти</li>
+        </ul>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
