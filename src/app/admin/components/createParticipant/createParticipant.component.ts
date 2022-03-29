@@ -7,14 +7,14 @@ import { createParticipantAction } from "../../store/action/createParticipant.ac
 import { ICreateParticipant } from "../../types/createParticipant.request";
 
 @Component({
-    selector: 'createUser',
-    templateUrl: './createUser.component.html',
-    styleUrls: ['./createUser.component.scss']
+    selector: 'createParticipant',
+    templateUrl: './createParticipant.component.html',
+    styleUrls: ['./createParticipant.component.scss']
 })
-export class CreateUserComponent implements OnInit {
+export class CreateParticipantComponent implements OnInit {
 
     form: FormGroup;
-    constructor(private store: Store, private matDialogRef: MatDialogRef<CreateUserComponent>, private notify: NotificationService) {
+    constructor(private store: Store, private matDialogRef: MatDialogRef<CreateParticipantComponent>, private notify: NotificationService) {
 
     }
 

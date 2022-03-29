@@ -6,7 +6,7 @@ import { environment } from "src/environments/environment";
 import { ICreateParticipant } from "../types/createParticipant.request";
 import { IGetUsersRequest } from "../types/getUsers.request";
 import { IGetUsersResponse } from "../types/getUsers.response";
-import { IUser } from "../../shared/types/user.interface";
+import { IParticipant } from "../../shared/types/participant.interface";
 
 @Injectable()
 export class UsersApiService {
@@ -36,20 +36,20 @@ export class UsersApiService {
             httpParams = httpParams.append('isOnlyActive', String(request.filter.isOnlyActive))
         }
 
-        return this.http.get<IApiResponseWithData<IGetUsersResponse>>(`${environment.apiUrl}/user/all`, {
+        return this.http.get<IApiResponseWithData<IGetUsersResponse>>(`${environment.apiUrl}/participants/all`, {
             params: httpParams
         });
     }
 
-    createUser(request: ICreateParticipant): Observable<IApiResponseWithData<IUser>> {
-        return this.http.post<IApiResponseWithData<IUser>>(`${environment.apiUrl}/user/sign-up`, request);
+    createUser(request: ICreateParticipant): Observable<IApiResponseWithData<IParticipant>> {
+        return this.http.post<IApiResponseWithData<IParticipant>>(`${environment.apiUrl}/participants/sign-up`, request);
     }
 
     blockUser(id: number): Observable<IApiResponseWithData<number>> {
-        return this.http.post<IApiResponseWithData<number>>(`${environment.apiUrl}/user/block/${id}`, null);
+        return this.http.post<IApiResponseWithData<number>>(`${environment.apiUrl}/participants/block/${id}`, null);
     }
 
     unblockUser(id: number): Observable<IApiResponseWithData<number>> {
-        return this.http.post<IApiResponseWithData<number>>(`${environment.apiUrl}/user/unblock/${id}`, null)
+        return this.http.post<IApiResponseWithData<number>>(`${environment.apiUrl}/participants/unblock/${id}`, null)
     }
 }

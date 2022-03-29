@@ -5,7 +5,6 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { NotificationService } from "src/app/shared/services/notification.service";
-import { CreateUserComponent } from "../../components/createUser/createUser.component";
 import { UsersApiService } from "../../services/usersApi.service";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "../action/createParticipant.actions";
 

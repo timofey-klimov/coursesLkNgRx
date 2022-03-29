@@ -6,7 +6,7 @@ import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { UserState } from "src/app/shared/types/userState.enum";
+import { UserState } from "../../../shared/types/userState.enum";
 
 @Injectable()
 export class LoginEffects {
@@ -21,7 +21,7 @@ export class LoginEffects {
                 .pipe(
                     map((response) => {
                         localStorage.setItem('token', response.data.token);
-                        return loginSuccessAction({user: response.data.user})
+                        return loginSuccessAction({user: response.data.participant})
                     }),
                     catchError((response: HttpErrorResponse)=> {
                         const code = response.status;
@@ -44,17 +44,17 @@ export class LoginEffects {
                 return;
             }
 
-            const roles = x.user.roles;
-            if (roles.includes('User')) {
+            const role = x.user.role;
+            if (role == 'User') {
                 this.router.navigate(['/user']);
                 return;
             }
 
-            if (roles.includes('Manager')) {
-                this.router.navigate(['/manager']);
+            if (role == 'Teacher') {
+                this.router.navigate(['/teacher']);
             }
 
-            if (roles.includes('Admin')) {
+            if (role == 'Admin') {
                 this.router.navigate(['/admin']);
                 return;
             }

@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "CoursesNgRx"
+  "defaultProject": "CoursesNgRx",
+  "cli": {
+    "analytics": false
+  }
 }

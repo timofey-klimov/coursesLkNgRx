@@ -1,0 +1,29 @@
+.form-control {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        align-self: flex-start;
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.default-title {
+    margin: 1rem 0;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.answers {
+    margin-top: .3rem;
+}

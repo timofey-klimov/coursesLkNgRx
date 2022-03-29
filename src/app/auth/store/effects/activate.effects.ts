@@ -41,18 +41,18 @@ export class ActivateUserEffects {
         ofType(activateSuccessAction),
         withLatestFrom(this.store.select(userSelector)),
         tap(([type,user]) => {
-            const roles = user.roles;
-            if (roles.includes('User')) {
+            const role = user.role;
+            if (role == 'User') {
                 this.router.navigate(['/user']);
                 return;
             }
 
-            if (roles.includes('Manager')) {
-                this.router.navigate(['/manager']);
+            if (role == 'Teacher') {
+                this.router.navigate(['/teacher']);
                 return;
             }
 
-            if (roles.includes('Admin')) {
+            if (role == 'Admin') {
                 this.router.navigate(['/admin']);
                 return;
             }

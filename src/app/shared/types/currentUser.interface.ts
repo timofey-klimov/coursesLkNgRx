@@ -4,6 +4,6 @@ export interface ICurrentUser {
     name: string;
     surname: string;
     login: string;
-    roles: string[];
+    role: string;
     state: UserState;
 }

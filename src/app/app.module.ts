@@ -12,7 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AdminModule } from './admin/admin.module';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { UserModule } from './user/user.module';
-import { ManagerModule } from './manager/manager.module';
+import { TeacherModule } from './teacher/teacher.module';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ManagerModule } from './manager/manager.module';
     HttpClientModule,
     AdminModule,
     UserModule,
-    ManagerModule
+    TeacherModule,
+    QuillModule.forRoot()
   ],
   providers: [
     {

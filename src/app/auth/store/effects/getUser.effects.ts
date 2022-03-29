@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
-import { UserState } from "src/app/shared/types/userState.enum";
+import { UserState } from "../../../shared/types/userState.enum";
 import { AuthService } from "../../services/auth.service";
 import { getUserAction, getUserFailedAction, getUserSuccessAction } from "../actions/getUser.actions";
 
@@ -41,21 +41,21 @@ export class GetUserEffects {
         ofType(getUserSuccessAction),
         tap(x => {
             if (x.user.state != UserState.Created) {
-                if (x.user.roles.includes('User')) {
+                if (x.user.role == 'User') {
                     this.router.navigate(['/user'])
                     return;
                 }
 
-                if(x.user.roles.includes('Admin')) {
+                if(x.user.role == 'Admin') {
                     this.router.navigate(['/admin'])
                     return;
                 }
 
-                if (x.user.roles.includes('Manager')) {
-                    this.router.navigate(['/manager'])
+                if (x.user.role == 'Teacher') {
+                    this.router.navigate(['/teacher'])
                     return;
                 }
             }
         })
-    ), {dispatch: false})
+    ), { dispatch: false })
 }

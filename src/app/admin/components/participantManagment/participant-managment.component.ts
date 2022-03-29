@@ -6,19 +6,19 @@ import { Store } from "@ngrx/store";
 import { BehaviorSubject, Observable, ReplaySubject, Subscription } from "rxjs";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { blockParticipantAction } from "../../store/action/blockParticipant.action";
-import { getUsersAction } from "../../store/action/manageUsers.actions";
+import { getParticipantsAction } from "../../store/action/manageUsers.actions";
 import { unblockParticipantAction } from "../../store/action/unblockParticipant.action";
 import { isLoadingSelector, managedUsersSelector } from "../../store/selector";
 import { IGetUsersRequest } from "../../types/getUsers.request";
 import { IGetUsersResponse } from "../../types/getUsers.response";
-import { CreateUserComponent } from "../createUser/createUser.component";
+import { CreateParticipantComponent } from "../createParticipant/createParticipant.component";
 
 @Component({
-    selector: 'user-managment',
-    templateUrl: './user-managment.component.html',
-    styleUrls: ['./user-managment.component.scss'],
+    selector: 'participant-managment',
+    templateUrl: './participant-managment.component.html',
+    styleUrls: ['./participant-managment.component.scss'],
 })
-export class UserManagmentComponent implements OnInit {
+export class ParticipantManagmentComponent implements OnInit {
 
     managedUsers$: Observable<IGetUsersResponse>;
     displayedColumns: string[];
@@ -63,7 +63,7 @@ export class UserManagmentComponent implements OnInit {
     }
 
     createUser(): void {
-        this.matDialog.open(CreateUserComponent,{
+        this.matDialog.open(CreateParticipantComponent,{
             width: '20vw',
             height: '45vh'
         })
@@ -88,6 +88,6 @@ export class UserManagmentComponent implements OnInit {
             offset: offset,
             filter: this.form.value 
         }
-        this.store.dispatch(getUsersAction({request}))
+        this.store.dispatch(getParticipantsAction({request}))
     }
 }

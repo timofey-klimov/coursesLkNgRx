@@ -15,14 +15,14 @@ export class AuthService {
     }
 
     login(request: ILoginRequest): Observable<IApiResponseWithData<ILoginResponse>> {
-        return this.http.post<IApiResponseWithData<ILoginResponse>>(`${environment.apiUrl}/user/sign-in`, request);
+        return this.http.post<IApiResponseWithData<ILoginResponse>>(`${environment.apiUrl}/participants/sign-in`, request);
     }
 
     activate(password: string): Observable<IApiResponse> {
-        return this.http.post<IApiResponse>(`${environment.apiUrl}/user/activate`,{password});
+        return this.http.post<IApiResponse>(`${environment.apiUrl}/participants/activate`,{password});
     }
 
     getUser(): Observable<IApiResponseWithData<ICurrentUser>> {
-        return this.http.get<IApiResponseWithData<ICurrentUser>>(`${environment.apiUrl}/user/info`);
+        return this.http.get<IApiResponseWithData<ICurrentUser>>(`${environment.apiUrl}/participants/info`);
     }
 }

@@ -1,0 +1,130 @@
+<mat-horizontal-stepper>
+    <mat-step errorMessage="Заполните название" [stepControl]="titleForm" [hasError]="titleForm.invalid">
+        <form [formGroup]="titleForm">
+            <ng-template matStepLabel>Введите название теста</ng-template>
+            <mat-form-field>
+                <mat-label>Название теста</mat-label>
+                <input matInput formControlName="title" required/>
+            </mat-form-field>
+            <div>
+                <button mat-stroked-button color="primary" matStepperNext [disabled]="titleForm.invalid">Дальше</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="form">
+        <ng-template matStepLabel>Создавайте вопросы</ng-template>
+        <div class="header">
+            <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" *ngIf="!isTypeSelected">Тип вопроса</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="changeQuestionType('WithAnswerOptions')">С вариантами ответов</button>
+                <button mat-menu-item (click)="changeQuestionType('WithTextInput')">С текстовым ответом</button>
+                <button mat-menu-item (click)="changeQuestionType('WithFileInput')">C файловым ответом</button>
+            </mat-menu>
+            <button mat-stroked-button color="primary" *ngIf="questions.length > 0 && !isTypeSelected" matStepperNext>Проверить тест</button>
+        </div>
+
+        <ng-container [ngSwitch]="type">
+            <!--Вопрос с выбором ответа-->
+            <form [formGroup]="form" *ngSwitchCase="0">
+                <div class="form-control">
+                    <div class="title">
+                        <h3>{{questions.length + 1}}</h3>
+                        <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
+                    </div>
+
+                    <quill-editor formControlName="content"></quill-editor>
+        
+                    <div formGroupName="answerOptions">
+                        <div *ngFor="let control of form.get('answerOptions')['controls'];let idx = index">
+                            <ng-container [formGroupName]="idx">
+                                <mat-form-field>
+                                    <mat-label>Вариант ответа</mat-label>
+                                    <input type="text" matInput placeholder="Вариант ответа" formControlName="content" [errorStateMatcher]="matcher">
+                                </mat-form-field>
+                                <mat-checkbox formControlName="isCorrect"></mat-checkbox>
+                            </ng-container>
+                        </div>
+                    </div>
+        
+                    <button mat-stroked-button color="primary" (click)="createAnswerOption()">Добавить вариант ответа</button>
+        
+                    <button mat-stroked-button color="primary" 
+                            (click)="addQuestionWithOptionsInTest()" 
+                            *ngIf="this.form.get('answerOptions')['controls'].length > 0" 
+                            [disabled]="form.invalid">
+                                Добавить вопрос в тест
+                    </button>
+                </div>
+            </form>
+
+            <!--Вопрос с текстовым ответом-->
+            <form [formGroup]="form" *ngSwitchCase="1">
+                <div class="form-control">
+                    <div class="title">
+                        <h3>{{questions.length + 1}}</h3>
+                        <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
+                    </div>
+        
+                    <quill-editor formControlName="content"></quill-editor>
+        
+                    <button mat-stroked-button color="primary"
+                            (click)="addQuestionWithTextInput()"
+                            [disabled]="form.invalid">
+                        Добавить вопрос в тест
+                    </button>
+                </div>
+            </form>
+
+            <!--Вопрос с файловым ответом-->
+            <form [formGroup]="form" *ngSwitchCase="2">
+                <div class="form-control">
+                    <div class="title">
+                        <h3>{{questions.length + 1}}</h3>
+                        <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
+                    </div>
+        
+                    <quill-editor formControlName="content"></quill-editor>
+        
+                    <button mat-stroked-button color="primary"
+                            (click)="addQuestionWithFileInput()"
+                            [disabled]="form.invalid">
+                        Добавить вопрос в тест
+                    </button>
+                </div>
+            </form>
+
+            <h3 *ngSwitchDefault class="default-title">
+                <span>Выберите тип вопрос</span>
+                <span *ngIf="questions.length > 0"> или проверьте тест</span>
+            </h3>
+        </ng-container>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Проверьте тест</ng-template>
+
+       <mat-accordion>
+           <mat-expansion-panel *ngFor="let question of questions; let idx = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Вопрос {{idx + 1}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="form-control">
+                    <quill-editor [(ngModel)]="question.content"></quill-editor>
+                    <container *ngIf="question?.answerOptions" class="answers">
+                        <div *ngFor="let answerOption of question.answerOptions; let idx = index">
+                          <mat-form-field>
+                            <mat-label>Вариант ответа</mat-label>
+                            <input matInput [(ngModel)]="answerOption.content">
+                          </mat-form-field>
+                          <mat-checkbox [(ngModel)]="answerOption.isCorrect"></mat-checkbox>
+                        </div>
+                    </container>
+                </div>
+
+           </mat-expansion-panel>
+       </mat-accordion>
+    </mat-step>
+</mat-horizontal-stepper>

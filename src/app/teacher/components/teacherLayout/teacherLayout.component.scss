@@ -1,0 +1,49 @@
+.nav {
+    background-color: #3f51b5;
+    opacity: .9;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    z-index: 1000;
+
+    h2 {
+       color: white;
+       text-align: center;
+    }
+
+    ul {
+        display: flex;
+
+        li {
+            color:white;
+            font-size: 1.1rem;
+            padding: 0.8rem;
+        }
+
+        li:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+}
+
+.admin-panel {
+    margin:0 auto;
+    max-width: 70vw;
+    min-height: 80vh;
+    margin-top: 5rem;
+
+    .content {
+        margin-top: 2rem;
+        width: 100%;
+    }
+}
+
+.admin-header {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    color: #3f51b5
+}

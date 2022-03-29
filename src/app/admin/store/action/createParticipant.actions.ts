@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { ICreateParticipant } from "../../types/createParticipant.request";
-import { IUser } from "../../../shared/types/user.interface";
+import { IParticipant } from "../../../shared/types/participant.interface";
 import { ActionTypes } from "../actionTypes";
 
 export const createParticipantAction = createAction(
@@ -10,7 +10,7 @@ export const createParticipantAction = createAction(
 
 export const createParticipantSuccessAction = createAction(
     ActionTypes.CreateParticipant_Success,
-    props<{user:IUser}>()
+    props<{user:IParticipant}>()
 )
 
 export const createParticipantFailedAction = createAction(

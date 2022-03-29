@@ -5,7 +5,6 @@ import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { debounceTime, delay } from "rxjs/operators";
 import { isLoadingSelector } from "../../store/selector";
-import { UserManagmentComponent } from "../userManagment/user-managment.component";
 
 @Component({
     selector: 'admin',
@@ -19,6 +18,6 @@ export class AdminComponent {
     }
 
     onUserManage(): void {
-        this.router.navigate(['/admin','manage-users'])        
+        this.router.navigate(['/admin','manage-participants'])        
     }
 }

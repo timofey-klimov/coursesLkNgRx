@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";
-import { getUsersAction, getUsersFailAction, getUsersSuccessAction } from "./action/manageUsers.actions";
+import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
 import { IAdminPageState } from "./admin-page.state";
 
@@ -14,16 +14,16 @@ const initialState: IAdminPageState = {
 
 export const reducer = createReducer(
     initialState,
-    on(getUsersAction, (state) => ({
+    on(getParticipantsAction, (state) => ({
         ...state,
         isLoading: true,
     })),
-    on(getUsersSuccessAction, (state, action) => ({
+    on(getParticipantsSuccessAction, (state, action) => ({
         ...state,
         manageUsers: action.users,
         isLoading: false
     })),
-    on(getUsersFailAction, (state, action) => ({
+    on(getParticipantsFailAction, (state, action) => ({
         ...state,
         isLoading: false,
         error: action.error

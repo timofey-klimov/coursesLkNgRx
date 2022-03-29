@@ -1,6 +1,6 @@
-import { IUser } from "../../shared/types/user.interface";
+import { IParticipant } from "../../shared/types/participant.interface";
 
 export interface IGetUsersResponse {
-    data: IUser[],
+    data: IParticipant[],
     count: number
 }

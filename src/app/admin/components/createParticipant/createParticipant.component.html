@@ -28,8 +28,8 @@
         <mat-form-field  >
             <mat-label>Роль учетной записи</mat-label>
             <mat-select formControlName="role" >
-            <mat-option value="User">Ученик</mat-option>
-            <mat-option value="Manager">Преподаватель</mat-option>
+            <mat-option value="Student">Ученик</mat-option>
+            <mat-option value="Teacher">Преподаватель</mat-option>
             <mat-option value="Admin">Администратор</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('role').hasError('required')">Обязательное поле</mat-error>

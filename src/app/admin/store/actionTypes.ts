@@ -1,7 +1,7 @@
 export enum ActionTypes {
-    GetManagedUsers = '[Admin] GetManagedUsers',
-    GetManagedUsers_Success = '[Admin] GetManagedUsers_Success',
-    GetManagedUsers_Fail = '[Admin] GetManagedUsers_Fail',
+    GetManagedParticipants = '[Admin] GetManagedParticipants',
+    GetManagedParticipants_Success = '[Admin] GetManagedParticipants_Success',
+    GetManagedParticipants_Fail = '[Admin] GetManagedParticipants_Fail',
 
     CreateParticipant = '[Admin] CreateParticipant',
     CreateParticipant_Success = '[Admin] CreateParticipant_Success',
