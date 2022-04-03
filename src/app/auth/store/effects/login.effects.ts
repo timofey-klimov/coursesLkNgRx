@@ -45,7 +45,7 @@ export class LoginEffects {
             }
 
             const role = x.user.role;
-            if (role == 'User') {
+            if (role == 'Student') {
                 this.router.navigate(['/user']);
                 return;
             }
