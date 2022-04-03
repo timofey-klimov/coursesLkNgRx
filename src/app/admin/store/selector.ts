@@ -9,3 +9,5 @@ export const isLoadingSelector = createSelector(adminPageFeatureSelector, (state
 export const managedUsersSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageUsers);
 
 export const managedGroupsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroups);
+
+export const availabledTeachersSelector = createSelector(adminPageFeatureSelector, (state) => state?.availabledTeachers);
