@@ -37,8 +37,8 @@ export class GroupsManagmentComponent implements OnInit {
 
     createGroup(): void {
         this.matDialog.open(CreateGroupComponent, {
-            width: '40vw',
-            height: '45vh'
+            width: '70vw',
+            height: '70vh'
         })
         
     }

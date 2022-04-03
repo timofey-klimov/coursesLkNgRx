@@ -13,24 +13,51 @@ import { IGetTeachersRequest } from "../../types/getTeachers.request";
     styleUrls: ['./createGroup.component.scss']
 })
 export class CreateGroupComponent implements OnInit {
-    titleGroup: FormGroup;
-    teacherForm: FormGroup;
+    groupTitleForm: FormGroup;
+    filterTeacherForm: FormGroup;
+    selectedTeacherForm: FormGroup;
     teachers: Observable<ITeacher[]>;
     displayedColumns: string[];
-    constructor(private store: Store){
 
+    constructor(private store: Store){
     }
+
     ngOnInit(): void {
+       this._initializeVariables();
+       this._initialForm();
+        
+    }
+    
+    applyFilter() {
+        this._initialForm();
+    }
+
+    private _initializeVariables(): void {
         this.teachers = this.store.select(availabledTeachersSelector);
-        this.titleGroup = new FormGroup({
+        this.displayedColumns = ['name', 'surname', 'login'];
+        this.filterTeacherForm = new FormGroup({
+            name: new FormControl(null),
+            surname: new FormControl(null)
+        })
+        this.groupTitleForm = new FormGroup({
             title: new FormControl('',Validators.required)
         });
-        this.teacherForm = new FormGroup({
-            name: new FormControl('',Validators.required),
-            surname: new FormControl('', Validators.required)
-        });
-        this.displayedColumns = ['name', 'surname', 'login'];
-        const request: IGetTeachersRequest = {name: null, surname: null}
-        this.store.dispatch(getTeachersAction({request}))
+        this.selectedTeacherForm = new FormGroup({
+            id: new FormControl(null, Validators.required)
+        })
     }
+
+    private _initialForm(): void {
+        const request: IGetTeachersRequest = this.filterTeacherForm.value;
+        this.store.dispatch(getTeachersAction({request}));
+    }
+
+    selectTeacher(value: any){
+        const previousValue = this.selectedTeacherForm.get('id').value;
+
+        const currentValue = previousValue === value.id ? null : value.id;
+
+        this.selectedTeacherForm.setValue({id: currentValue})
+    }
+
 }

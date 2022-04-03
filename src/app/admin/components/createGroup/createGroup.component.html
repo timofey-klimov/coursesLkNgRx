@@ -1,50 +1,55 @@
-<mat-horizontal-stepper>
-    <mat-step>
-        <form [formGroup]="titleGroup">
+<mat-horizontal-stepper #stepper linear>
+    <mat-step [stepControl]="groupTitleForm"> 
+        <form [formGroup]="groupTitleForm">
             <ng-template matStepLabel>Введите название группы</ng-template>
             <mat-form-field>
                 <mat-label>Название группы</mat-label>
                 <input matInput formControlName="title" required/>
             </mat-form-field>
             <div>
-                <button mat-stroked-button color="primary" matStepperNext [disabled]="titleGroup.invalid">Дальше</button>
+                <button mat-stroked-button color="primary" matStepperNext [disabled]="groupTitleForm.invalid">Дальше</button>
             </div>
         </form>
     </mat-step>
-    <mat-step>
-        <form [formGroup]="teacherForm">
-            <ng-template matStepLabel>Выбор преподавателя</ng-template>
-            <div class = "filter">
-                <mat-form-field>
-                    <mat-label>Имя преподавателя</mat-label>
-                    <input matInput formControlName="name" required/>
+    <mat-step [stepControl]="selectedTeacherForm">
+        <ng-template matStepLabel>Выбор преподавателя</ng-template>
+            <form [formGroup]="filterTeacherForm" (ngSubmit)="applyFilter()">
+                <mat-form-field class="form-control">
+                    <mat-label>Имя</mat-label>
+                    <input matInput formControlName="name"/>
                 </mat-form-field>
-                <mat-form-field>  
-                    <mat-label>Фамилия преподавателя</mat-label>
-                    <input matInput formControlName="surname" required/>
-                </mat-form-field>    
+                <mat-form-field class="form-control">  
+                    <mat-label>Фамилия</mat-label>
+                    <input matInput formControlName="surname"/>
+                </mat-form-field>
+                <button mat-stroked-button color="primary" type="submit" class="form-control">Искать</button>
+            </form>    
+        <ng-container *ngIf="(teachers | async) as teachers">
+            <table mat-table [dataSource]="teachers" class="table">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Имя</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="surname">
+                    <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+                    <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+                </ng-container>
+                <ng-container matColumnDef="login">
+                    <th mat-header-cell *matHeaderCellDef>Логин</th>
+                    <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row 
+                    *matRowDef="let row; columns: displayedColumns;"
+                    [class.selectedTeacher]="row.id === selectedTeacherForm.get('id').value"
+                    (click)="selectTeacher(row)"></tr>
+            </table>
+            <div class="nextButton">
+                <button mat-stroked-button color="primary" matStepperNext [disabled]="selectedTeacherForm.invalid">Дальше</button>
             </div>
-            <ng-container *ngIf="(teachers | async) as teachers">
-                <table mat-table [dataSource]="teachers" class="table">
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef>Имя</th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="surname">
-                        <th mat-header-cell *matHeaderCellDef>Фамилия</th>
-                        <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="login">
-                        <th mat-header-cell *matHeaderCellDef>Логин</th>
-                        <td mat-cell *matCellDef="let element"> {{element.login}} </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-            </ng-container>
-            <div>
-                <button mat-stroked-button color="primary" matStepperNext [disabled]="titleGroup.invalid">Дальше</button>
-            </div>
-        </form>
+        </ng-container>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Выбор студентов</ng-template>
     </mat-step>
 </mat-horizontal-stepper>

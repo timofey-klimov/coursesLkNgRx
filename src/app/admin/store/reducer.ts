@@ -6,21 +6,29 @@ import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success 
 import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "./action/manageGroups.action";
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
-import { IAdminPageState } from "./admin-page.state";
+import { IAdminPageState } from "./states/admin-page.state";
+import { IManageGroupState } from "./states/manage-group.state";
+
+
+const initialManageGroupState: IManageGroupState = {
+    availabledTeachers: null,
+    manageGroups: null
+}
 
 const initialState: IAdminPageState = {
     isLoading: false,
     manageUsers: null,
     error: null,
-    manageGroups: null,
-    availabledTeachers: null
+    manageGroupState: initialManageGroupState
 }
+
 
 export const reducer = createReducer(
     initialState,
     on(getParticipantsAction, (state) => ({
         ...state,
         isLoading: true,
+        manageGroupState: initialManageGroupState
     })),
     on(getParticipantsSuccessAction, (state, action) => ({
         ...state,
@@ -34,7 +42,8 @@ export const reducer = createReducer(
     })),
     on(createParticipantAction, (state) => ({
         ...state,
-        isLoading: true
+        isLoading: true,
+        manageGroupState: initialManageGroupState
     })),
     on(createParticipantSuccessAction, (state, action) => {
 
@@ -55,7 +64,8 @@ export const reducer = createReducer(
     })),
     on(blockParticipantAction, (state) => ({
         ...state,
-        isLoading: true
+        isLoading: true,
+        manageGroupState: initialManageGroupState
     })),
     on(blockParticipantSuccessAction, (state, action) => {
 
@@ -85,7 +95,8 @@ export const reducer = createReducer(
     })),
     on(unblockParticipantAction, (state) => ({
         ...state,
-        isLoading: true
+        isLoading: true,
+        manageGroupState: initialManageGroupState
     })),
     on(unblockParticipantSuccessAction, (state, action) => {
         const user = state.manageUsers.data.find(x => x.id == action.id);
@@ -121,21 +132,28 @@ export const reducer = createReducer(
     on(getGroupsActionSuccess, (state, action) => ({
         ...state,
         isLoading: false,
-        manageGroups: action.groups
+        manageGroupState: {
+            manageGroups: action.groups,
+            availabledTeachers: null
+        }
     })),
     on(getGroupsActionFailed, (state, action) => ({
         ...state,
         isLoading: false,
         error: action.message
     })),
-    on(getTeachersAction,(state) =>({
+    on(getTeachersAction, (state) =>({
         ...state,
-        isLoading: true 
+        isLoading: true,
+        manageUsers: null 
     })),
     on(getTeachersAction_Success, (state, action) => ({
         ...state,
         isLoading: false,
-        availabledTeachers: action.response
+        manageGroupState: {
+            manageGroups: state.manageGroupState.manageGroups,
+            availabledTeachers: action.response
+        }
     })),
     on(getTeachersAction_Failed, (state, action) => ({
         ...state,

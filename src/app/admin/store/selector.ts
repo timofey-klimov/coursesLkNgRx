@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IAppState } from "src/app/shared/types/app.state";
-import { IAdminPageState } from "./admin-page.state";
+import { IAdminPageState } from "./states/admin-page.state";
 
 export const adminPageFeatureSelector = createFeatureSelector<IAppState, IAdminPageState>('adminPage');
 
@@ -8,6 +8,6 @@ export const isLoadingSelector = createSelector(adminPageFeatureSelector, (state
 
 export const managedUsersSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageUsers);
 
-export const managedGroupsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroups);
+export const managedGroupsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.manageGroups);
 
-export const availabledTeachersSelector = createSelector(adminPageFeatureSelector, (state) => state?.availabledTeachers);
+export const availabledTeachersSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.availabledTeachers);
