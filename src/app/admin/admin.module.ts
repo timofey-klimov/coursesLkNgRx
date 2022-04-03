@@ -17,13 +17,17 @@ import { CreateParticipantEffect } from "./store/effects/createParticipant.effec
 import { BlockParticipantEffects } from "./store/effects/blockParticipant.effects";
 import { UnBlockParticipantEffect } from "./store/effects/ublockParticipant.effect";
 import { MaterialModule } from "../materials/materials.module";
+import { GroupsManagmentComponent } from "./components/groupsManagment/groupsManagment.component";
+import { GroupsApiService } from "./services/groupsApi.service";
+import { ManageGroupsEffects } from "./store/effects/manageGroups.effect";
 
 
 
 const routes: Routes = [
     { path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard], children: [
         { path: '', component: AdminComponent},
-        { path: 'manage-participants', component: ParticipantManagmentComponent}
+        { path: 'manage-participants', component: ParticipantManagmentComponent },
+        { path: 'manage-groups', component: GroupsManagmentComponent }
     ]}
 ]
 
@@ -32,7 +36,11 @@ const routes: Routes = [
         CommonModule, 
         RouterModule.forChild(routes),
         StoreModule.forFeature('adminPage', reducer),
-        EffectsModule.forFeature([ManageUsersEffect, CreateParticipantEffect, BlockParticipantEffects, UnBlockParticipantEffect]),
+        EffectsModule.forFeature([ManageUsersEffect, 
+            CreateParticipantEffect, 
+            BlockParticipantEffects, 
+            UnBlockParticipantEffect,
+            ManageGroupsEffects]),
         SpinnerModule,
         ReactiveFormsModule,
         MaterialModule
@@ -41,10 +49,11 @@ const routes: Routes = [
         AdminComponent, 
         AdminLayoutComponent, 
         ParticipantManagmentComponent, 
-        CreateParticipantComponent
+        CreateParticipantComponent,
+        GroupsManagmentComponent
     ],
     exports: [RouterModule, MaterialModule],
-    providers: [UsersApiService]
+    providers: [UsersApiService, GroupsApiService], 
 })
 export class AdminModule {
 

@@ -13,5 +13,9 @@ export enum ActionTypes {
 
     UnBlockParticipant = '[Admin] UnBlockParticipant',
     UnBlockParticipantSuccess = '[Admin] UnBlockParticipantSuccess',
-    UnBlockParticipantFailed = '[Admin] UnBlockParticipantFailed'
+    UnBlockParticipantFailed = '[Admin] UnBlockParticipantFailed',
+
+    GetGroups = '[Admin] GetGroups',
+    GetGroupsSuccess = '[Admin] GetGroupsSuccess',
+    GetGroupsFailed = '[Admin] GetGroupsFailed'
 }

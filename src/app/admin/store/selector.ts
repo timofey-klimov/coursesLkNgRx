@@ -7,3 +7,5 @@ export const adminPageFeatureSelector = createFeatureSelector<IAppState, IAdminP
 export const isLoadingSelector = createSelector(adminPageFeatureSelector, (state) => state?.isLoading);
 
 export const managedUsersSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageUsers);
+
+export const managedGroupsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroups);

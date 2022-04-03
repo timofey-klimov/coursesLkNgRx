@@ -2,6 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";
+import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "./action/manageGroups.action";
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
 import { IAdminPageState } from "./admin-page.state";
@@ -9,7 +10,8 @@ import { IAdminPageState } from "./admin-page.state";
 const initialState: IAdminPageState = {
     isLoading: false,
     manageUsers: null,
-    error: null
+    error: null,
+    manageGroups: null
 }
 
 export const reducer = createReducer(
@@ -107,5 +109,21 @@ export const reducer = createReducer(
     on(unblockParticipantFailedAction, (state) => ({
         ...state,
         isLoading: false
+    })),
+    on(getGroupsAction, (state) => ({
+        ...state,
+        isLoading: true,
+        error: null,
+        manageUsers: null
+    })),
+    on(getGroupsActionSuccess, (state, action) => ({
+        ...state,
+        isLoading: false,
+        manageGroups: action.groups
+    })),
+    on(getGroupsActionFailed, (state, action) => ({
+        ...state,
+        isLoading: false,
+        error: action.message
     }))
 )
