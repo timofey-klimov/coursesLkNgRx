@@ -42,7 +42,7 @@ export class ActivateUserEffects {
         withLatestFrom(this.store.select(userSelector)),
         tap(([type,user]) => {
             const role = user.role;
-            if (role == 'User') {
+            if (role == 'Student') {
                 this.router.navigate(['/user']);
                 return;
             }
