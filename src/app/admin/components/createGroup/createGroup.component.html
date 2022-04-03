@@ -1,4 +1,4 @@
-<mat-horizontal-stepper #stepper linear>
+<mat-horizontal-stepper #stepper linear (selectionChange)="stepChanged($event)">
     <mat-step [stepControl]="groupTitleForm"> 
         <form [formGroup]="groupTitleForm">
             <ng-template matStepLabel>Введите название группы</ng-template>
@@ -51,5 +51,6 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Выбор студентов</ng-template>
+
     </mat-step>
 </mat-horizontal-stepper>

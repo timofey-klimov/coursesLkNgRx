@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { ITeacher } from "src/app/shared/types/teacher.interface";
-import {IGetTeachersRequest } from "../../types/getTeachers.request";
+import { IGetTeachersRequest } from "../../types/getTeachers.request";
 import { ActionTypes } from "../actionTypes";
 
 export const getTeachersAction = createAction(
