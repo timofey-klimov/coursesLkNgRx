@@ -2,6 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";
+import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success } from "./action/getTeachers.actions";
 import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "./action/manageGroups.action";
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
@@ -11,7 +12,8 @@ const initialState: IAdminPageState = {
     isLoading: false,
     manageUsers: null,
     error: null,
-    manageGroups: null
+    manageGroups: null,
+    availabledTeachers: null
 }
 
 export const reducer = createReducer(
@@ -122,6 +124,20 @@ export const reducer = createReducer(
         manageGroups: action.groups
     })),
     on(getGroupsActionFailed, (state, action) => ({
+        ...state,
+        isLoading: false,
+        error: action.message
+    })),
+    on(getTeachersAction,(state) =>({
+        ...state,
+        isLoading: true 
+    })),
+    on(getTeachersAction_Success, (state, action) => ({
+        ...state,
+        isLoading: false,
+        availabledTeachers: action.response
+    })),
+    on(getTeachersAction_Failed, (state, action) => ({
         ...state,
         isLoading: false,
         error: action.message

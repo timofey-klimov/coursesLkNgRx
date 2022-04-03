@@ -1,0 +1,40 @@
+<mat-horizontal-stepper>
+    <mat-step>
+        <form [formGroup]="titleGroup">
+            <ng-template matStepLabel>Введите название группы</ng-template>
+            <mat-form-field>
+                <mat-label>Название группы</mat-label>
+                <input matInput formControlName="title" required/>
+            </mat-form-field>
+            <div>
+                <button mat-stroked-button color="primary" matStepperNext [disabled]="titleGroup.invalid">Дальше</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <form [formGroup]="teacherForm">
+            <ng-template matStepLabel>Выбор преподавателя</ng-template>
+            <div class = "filter">
+                <mat-form-field>
+                    <mat-label>Имя преподавателя</mat-label>
+                    <input matInput formControlName="name" required/>
+                </mat-form-field>
+                <mat-form-field>  
+                    <mat-label>Фамилия преподавателя</mat-label>
+                    <input matInput formControlName="surname" required/>
+                </mat-form-field>    
+            </div>
+            <mat-form-field>
+                <mat-label>Выберите нужного преподавателя</mat-label>
+                <mat-select disableRipple>
+                    <mat-option value="1">Option 1</mat-option>
+                    <mat-option value="2">Option 2</mat-option>
+                    <mat-option value="3">Option 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-stroked-button color="primary" matStepperNext [disabled]="titleGroup.invalid">Дальше</button>
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper>

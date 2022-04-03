@@ -20,6 +20,9 @@ import { MaterialModule } from "../materials/materials.module";
 import { GroupsManagmentComponent } from "./components/groupsManagment/groupsManagment.component";
 import { GroupsApiService } from "./services/groupsApi.service";
 import { ManageGroupsEffects } from "./store/effects/manageGroups.effect";
+import { CreateGroupComponent } from "./components/createGroup/createGroup.component";
+import { GetTeachersEffect } from "./store/effects/getTeachers.effects";
+import { TeachersApiService } from "./services/teachersApi.service";
 
 
 
@@ -40,6 +43,7 @@ const routes: Routes = [
             CreateParticipantEffect, 
             BlockParticipantEffects, 
             UnBlockParticipantEffect,
+            GetTeachersEffect,
             ManageGroupsEffects]),
         SpinnerModule,
         ReactiveFormsModule,
@@ -50,10 +54,11 @@ const routes: Routes = [
         AdminLayoutComponent, 
         ParticipantManagmentComponent, 
         CreateParticipantComponent,
-        GroupsManagmentComponent
+        GroupsManagmentComponent,
+        CreateGroupComponent
     ],
     exports: [RouterModule, MaterialModule],
-    providers: [UsersApiService, GroupsApiService], 
+    providers: [UsersApiService, GroupsApiService, TeachersApiService], 
 })
 export class AdminModule {
 

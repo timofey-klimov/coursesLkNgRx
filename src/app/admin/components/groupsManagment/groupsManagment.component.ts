@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { getGroupsAction } from "../../store/action/manageGroups.action";
 import { isLoadingSelector, managedGroupsSelector } from "../../store/selector";
 import { IGetGroupsRequest } from "../../types/getGroups.request";
 import { IGetGroupsResponse } from "../../types/getGroups.response";
+import { CreateGroupComponent } from "../createGroup/createGroup.component";
 
 @Component({
     selector: 'groupsManagment',
@@ -17,7 +19,7 @@ export class GroupsManagmentComponent implements OnInit {
     displayedColumns: string[];
     isLoading$: Observable<boolean>;
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private matDialog: MatDialog) {
 
     }
 
@@ -34,6 +36,10 @@ export class GroupsManagmentComponent implements OnInit {
     }
 
     createGroup(): void {
+        this.matDialog.open(CreateGroupComponent, {
+            width: '40vw',
+            height: '45vh'
+        })
         
     }
     
