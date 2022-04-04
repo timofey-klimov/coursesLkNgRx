@@ -29,4 +29,9 @@ export class CreateGroupEffect {
         ofType(createGroupSuccessAction),
         tap(x => this.notify.showSuccess('Успешно','Группа создана'))
     ), {dispatch: false})
+
+    createGroupFailed$ = createEffect(() => this.actions.pipe(
+        ofType(createGroupFailedAction),
+        tap(x => this.notify.showError('Ошибка', x.message))
+    ), {dispatch: false})
 }
