@@ -20,4 +20,8 @@ export class AdminComponent {
     onUserManage(): void {
         this.router.navigate(['/admin','manage-participants'])        
     }
+
+    onGroupsManage(): void {
+        this.router.navigate(['/admin', 'manage-groups'])
+    }
 }

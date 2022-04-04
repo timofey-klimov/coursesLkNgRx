@@ -13,6 +13,9 @@ import {MatCardModule} from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 
 @NgModule({
     imports:[
@@ -29,7 +32,9 @@ import { MatSelectModule } from '@angular/material/select';
         MatCardModule,
         MatTableModule,
         MatPaginatorModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     exports:[
         MatButtonModule,
@@ -45,8 +50,11 @@ import { MatSelectModule } from '@angular/material/select';
         MatCardModule,
         MatTableModule,
         MatPaginatorModule,
-        MatSelectModule
-    ]
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ],
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }]
 })
 export class MaterialModule {
 }

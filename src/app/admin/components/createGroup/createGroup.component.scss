@@ -1,0 +1,27 @@
+.filter {
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    width: 100%;
+}
+.form-control {
+    margin: .5rem;
+}
+
+.selectedTeacher {
+    font-weight: bold;;
+}
+
+tr[mat-row] {
+    cursor: pointer;
+    &:hover{
+        background: whitesmoke;
+    }
+}
+.nextButton {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.3rem;
+}

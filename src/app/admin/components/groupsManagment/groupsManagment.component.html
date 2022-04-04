@@ -1,0 +1,28 @@
+<ng-container *ngIf="(groups$ | async) as groups">
+
+    <div class="header">
+        <button mat-stroked-button color="primary" (click)="createGroup()"><i class="fa fa-plus"></i> Создать</button>
+    </div>
+    
+    <table mat-table [dataSource]="groups.data" class="table">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Название группы</th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+        <ng-container matColumnDef="teacher">
+            <th mat-header-cell *matHeaderCellDef>Преподаватель</th>
+            <td mat-cell *matCellDef="let element">{{getTeacherFullName(element.teacher?.name, element.teacher?.surname)}}</td>
+        </ng-container>
+        <ng-container matColumnDef="createDate">
+            <th mat-header-cell *matHeaderCellDef>Время создания</th>
+            <td mat-cell *matCellDef="let element"> {{element.createDate | date:'d/MM/YYYY H:m'}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator 
+        [length]="groups.count" 
+        [pageSizeOptions]="[5,10,20]"
+        (page)="changePage($event)"></mat-paginator>
+</ng-container>
+<spinner *ngIf="(isLoading$ | async)"></spinner>
