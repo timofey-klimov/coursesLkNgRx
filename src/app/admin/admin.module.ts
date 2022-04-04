@@ -25,6 +25,7 @@ import { GetTeachersEffect } from "./store/effects/getTeachers.effects";
 import { TeachersApiService } from "./services/teachersApi.service";
 import { StudentsApiService } from "./services/studentsApi.service";
 import { GetAllStudentsEffect } from "./store/effects/getAllStudents.effect";
+import { CreateGroupEffect } from "./store/effects/createGroup.effects";
 
 
 
@@ -47,7 +48,8 @@ const routes: Routes = [
             UnBlockParticipantEffect,
             GetTeachersEffect,
             ManageGroupsEffects,
-            GetAllStudentsEffect]),
+            GetAllStudentsEffect,
+            CreateGroupEffect]),
         SpinnerModule,
         ReactiveFormsModule,
         MaterialModule

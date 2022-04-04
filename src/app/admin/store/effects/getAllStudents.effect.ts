@@ -16,7 +16,7 @@ export class GetAllStudentsEffect{
     $getAllStudentsEffect = createEffect(() => this.actions$.pipe(
         ofType(getAllStudentsAction),
         switchMap(x => {
-            return this.api.getAllStudents().pipe(
+            return this.api.getAllStudents(x.request).pipe(
                 map( x => getAllStudentsAction_Success({response: x.data})),
                 catchError((err: HttpErrorResponse) => {
                     return of(getAllStudentsAction_Failed({message: 'Неизвестная ошибка'}))

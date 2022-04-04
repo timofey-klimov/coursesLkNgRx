@@ -3,6 +3,7 @@ import { createReducer, on } from "@ngrx/store";
 import { Action } from "rxjs/internal/scheduler/Action";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
+import { createGroupAction, createGroupFailedAction, createGroupSuccessAction } from "./action/createGroup.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";
 import { getAllStudentsAction, getAllStudentsAction_Failed, getAllStudentsAction_Success } from "./action/getAllStudents.action";
 import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success } from "./action/getTeachers.actions";
@@ -185,4 +186,29 @@ export const reducer = createReducer(
         isLoading: false,
         error: action.message
     })),
+    on(createGroupAction, (state) => ({
+        ...state,
+        isLoading: true,
+        manageUsers: null
+    })),
+    on(createGroupSuccessAction, (state,action) => {
+        const groups = {
+            ...state.manageGroupState.manageGroups,
+            data: [...state.manageGroupState.manageGroups.data, action.group]
+        }
+
+        return {
+            ...state,
+            manageGroupState: {
+                allStudents: state.manageGroupState.allStudents,
+                manageGroups: groups,
+                availabledTeachers: state.manageGroupState.availabledTeachers
+            },
+            isLoading: false
+        }
+    }),
+    on(createGroupFailedAction, (state) => ({
+        ...state,
+        isLoading: false
+    }))
 )
