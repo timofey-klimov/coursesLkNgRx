@@ -14,4 +14,8 @@ export const availabledTeachersSelector = createSelector(adminPageFeatureSelecto
 
 export const allStudentsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.allStudents);
 
-export const studyGroupInfoSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.groupInfo);
+export const studyGroupInfoSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.groupInfoState?.groupInfo);
+
+export const isLoadingStudyGroupInfoSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.groupInfoState?.isLoading);
+
+export const wasErrorStudyGroupInfoSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.groupInfoState?.wasError)

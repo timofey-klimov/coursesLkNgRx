@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+}
+table {
+    width: 100%;
+}
+  
+  mat-header-cell, mat-cell {
+    justify-content: center;
+}
+
+  th.mat-header-cell {
+    text-align: center !important;
+}
+
+  td.mat-cell{
+    text-align: center !important;
+}
+
+.students {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.teacher {
+    display: flex;
+    justify-content: space-around;
+}

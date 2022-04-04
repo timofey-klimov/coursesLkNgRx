@@ -31,6 +31,6 @@ export class GroupsApiService {
     }
 
     getInfo(request: IGetStudyGroupInfoRequest): Observable<IApiResponseWithData<IGetStudyGroupInfoResponse>> {
-        return this.httpClient.get<IApiResponseWithData<IGetStudyGroupInfoResponse>>(`${environment.apiUrl}/studyGroups/${request.teacherId}/${request.groupId}`)
+        return this.httpClient.get<IApiResponseWithData<IGetStudyGroupInfoResponse>>(`${environment.apiUrl}/studyGroups/info/${request.teacherId}/${request.groupId}`)
     }
 }

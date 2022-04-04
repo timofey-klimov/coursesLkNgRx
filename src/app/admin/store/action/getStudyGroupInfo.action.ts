@@ -1,11 +1,11 @@
 import { createAction, props } from "@ngrx/store";
-import { IGetStudentsRequest } from "../../types/getStudents.request";
+import { IGetStudyGroupInfoRequest } from "../../types/getStudyGroupInfo.request";
 import { IGetStudyGroupInfoResponse } from "../../types/getStudyGroupInfo.response";
 import { ActionTypes } from "../actionTypes";
 
 export const getStudyGroupInfoAction = createAction(
     ActionTypes.GetStudyGroupInfo,
-    props<{request: IGetStudentsRequest}>()
+    props<{request: IGetStudyGroupInfoRequest}>()
 )
 
 export const getStudyGroupInfoSuccessAction = createAction(

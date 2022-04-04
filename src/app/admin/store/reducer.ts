@@ -12,14 +12,20 @@ import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
 import { IAdminPageState } from "./states/admin-page.state";
+import { IGetGroupInfoState } from "./states/getGroupInfo.state";
 import { IManageGroupState } from "./states/manage-group.state";
 
+const initialGetGroupInfoState: IGetGroupInfoState = {
+    isLoading: false,
+    wasError: false,
+    groupInfo: null
+}
 
 const initialManageGroupState: IManageGroupState = {
     availabledTeachers: null,
     manageGroups: null,
     allStudents: null,
-    groupInfo: null
+    groupInfoState: initialGetGroupInfoState
 }
 
 const initialState: IAdminPageState = {
@@ -143,7 +149,7 @@ export const reducer = createReducer(
             manageGroups: action.groups,
             availabledTeachers: null,
             allStudents: null,
-            groupInfo: null
+            groupInfoState: initialGetGroupInfoState
         }
     })),
     on(getGroupsActionFailed, (state, action) => ({
@@ -163,7 +169,7 @@ export const reducer = createReducer(
             manageGroups: state.manageGroupState.manageGroups,
             availabledTeachers: action.response,
             allStudents: null,
-            groupInfo: null
+            groupInfoState: initialGetGroupInfoState
         }
     })),
     on(getTeachersAction_Failed, (state, action) => ({
@@ -183,7 +189,7 @@ export const reducer = createReducer(
             manageGroups: state.manageGroupState.manageGroups,
             availabledTeachers: state.manageGroupState.availabledTeachers,   
             allStudents: action.response,
-            groupInfo: null
+            groupInfoState: initialGetGroupInfoState
        } 
     })),
     on(getAllStudentsAction_Failed, (state, action) => ({
@@ -208,7 +214,7 @@ export const reducer = createReducer(
                 allStudents: null,
                 manageGroups: groups,
                 availabledTeachers: null,
-                groupInfo: null
+                groupInfoState:initialGetGroupInfoState
             },
             isLoading: false
         }
@@ -219,21 +225,43 @@ export const reducer = createReducer(
     })),
     on(getStudyGroupInfoAction, (state) => ({
         ...state,
-        isLoading: true,
-        manageUsers: null
+        manageUsers: null,
+        manageGroupState: {
+            availabledTeachers: null,
+            allStudents: null,
+            manageGroups: state.manageGroupState.manageGroups,
+            groupInfoState: {
+                isLoading: true,
+                wasError: false,
+                groupInfo: null
+            }
+        }
+       
     })),
     on(getStudyGroupInfoSuccessAction, (state,action) => ({
         ...state,
-        isLoading: false,
         manageGroupState: {
             allStudents: null,
             manageGroups: state.manageGroupState.manageGroups,
-            groupInfo: action.groupInfo,
-            availabledTeachers: null
+            availabledTeachers: null,
+            groupInfoState: {
+                isLoading: false,
+                wasError: false,
+                groupInfo: action.groupInfo
+            }
         }
     })),
     on(getStudyGroupInfoFailedAction, (state) => ({
         ...state,
-        isLoading: false
+        manageGroupState: {
+            allStudents: null,
+            manageGroups: state.manageGroupState.manageGroups,
+            availabledTeachers: null,
+            groupInfoState: {
+                isLoading: false,
+                wasError: true,
+                groupInfo: null
+            }
+        }
     }))
 )
