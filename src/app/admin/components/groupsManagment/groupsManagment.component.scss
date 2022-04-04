@@ -7,3 +7,10 @@ table {
     justify-content: flex-end;
     flex-direction: row;
 }
+
+tr[mat-row] {
+    cursor: pointer;
+    &:hover{
+        background: whitesmoke;
+    }
+}
