@@ -23,6 +23,8 @@ import { ManageGroupsEffects } from "./store/effects/manageGroups.effect";
 import { CreateGroupComponent } from "./components/createGroup/createGroup.component";
 import { GetTeachersEffect } from "./store/effects/getTeachers.effects";
 import { TeachersApiService } from "./services/teachersApi.service";
+import { StudentsApiService } from "./services/studentsApi.service";
+import { GetAllStudentsEffect } from "./store/effects/getAllStudents.effect";
 
 
 
@@ -44,7 +46,8 @@ const routes: Routes = [
             BlockParticipantEffects, 
             UnBlockParticipantEffect,
             GetTeachersEffect,
-            ManageGroupsEffects]),
+            ManageGroupsEffects,
+            GetAllStudentsEffect]),
         SpinnerModule,
         ReactiveFormsModule,
         MaterialModule
@@ -58,7 +61,7 @@ const routes: Routes = [
         CreateGroupComponent
     ],
     exports: [RouterModule, MaterialModule],
-    providers: [UsersApiService, GroupsApiService, TeachersApiService], 
+    providers: [UsersApiService, GroupsApiService, TeachersApiService, StudentsApiService], 
 })
 export class AdminModule {
 

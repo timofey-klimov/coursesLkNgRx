@@ -25,7 +25,7 @@
                 <button mat-stroked-button color="primary" type="submit" class="form-control">Искать</button>
             </form>    
         <ng-container *ngIf="(teachers | async) as teachers">
-            <table mat-table [dataSource]="teachers" class="table">
+            <table mat-table [dataSource]="teachers.data" class="table">
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Имя</th>
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -38,12 +38,16 @@
                     <th mat-header-cell *matHeaderCellDef>Логин</th>
                     <td mat-cell *matCellDef="let element"> {{element.login}} </td>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedTeachersColumns"></tr>
                 <tr mat-row 
-                    *matRowDef="let row; columns: displayedColumns;"
+                    *matRowDef="let row; columns: displayedTeachersColumns;"
                     [class.selectedTeacher]="row.id === selectedTeacherForm.get('id').value"
                     (click)="selectTeacher(row)"></tr>
             </table>
+            <mat-paginator 
+                [length]="teachers.count" 
+                [pageSizeOptions]="[5,10,20]"
+                (page)="changePage($event)"></mat-paginator>
             <div class="nextButton">
                 <button mat-stroked-button color="primary" matStepperNext [disabled]="selectedTeacherForm.invalid">Дальше</button>
             </div>
@@ -51,6 +55,34 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Выбор студентов</ng-template>
-
+        <ng-container *ngIf="(students | async) as students">
+        <table mat-table [dataSource] = 'students'>
+            <ng-container matColumnDef="select">
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Имя студента</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef>Фамилия студента</th>
+                <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+            </ng-container>
+            <ng-container matColumnDef="login">
+                <th mat-header-cell *matHeaderCellDef>Логин</th>
+                <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedStudentsColumns"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: displayedStudentsColumns;">
+            </tr>
+        </table>
+    </ng-container>
     </mat-step>
 </mat-horizontal-stepper>

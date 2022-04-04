@@ -1,7 +1,10 @@
+import { state } from "@angular/animations";
 import { createReducer, on } from "@ngrx/store";
+import { Action } from "rxjs/internal/scheduler/Action";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";
+import { getAllStudentsAction, getAllStudentsAction_Failed, getAllStudentsAction_Success } from "./action/getAllStudents.action";
 import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success } from "./action/getTeachers.actions";
 import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "./action/manageGroups.action";
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
@@ -12,7 +15,8 @@ import { IManageGroupState } from "./states/manage-group.state";
 
 const initialManageGroupState: IManageGroupState = {
     availabledTeachers: null,
-    manageGroups: null
+    manageGroups: null,
+    allStudents: null,
 }
 
 const initialState: IAdminPageState = {
@@ -134,7 +138,8 @@ export const reducer = createReducer(
         isLoading: false,
         manageGroupState: {
             manageGroups: action.groups,
-            availabledTeachers: null
+            availabledTeachers: null,
+            allStudents: null
         }
     })),
     on(getGroupsActionFailed, (state, action) => ({
@@ -152,12 +157,32 @@ export const reducer = createReducer(
         isLoading: false,
         manageGroupState: {
             manageGroups: state.manageGroupState.manageGroups,
-            availabledTeachers: action.response
+            availabledTeachers: action.response,
+            allStudents: null
         }
     })),
     on(getTeachersAction_Failed, (state, action) => ({
         ...state,
         isLoading: false,
         error: action.message
-    }))
+    })),
+    on(getAllStudentsAction, (state) => ({
+        ...state,
+        isLoading: true,
+        manageUsers: null
+    })),
+    on(getAllStudentsAction_Success,(state, action) => ({
+        ...state,
+        isLoading: false,
+        manageGroupState: {
+            manageGroups: state.manageGroupState.manageGroups,
+            availabledTeachers: state.manageGroupState.availabledTeachers,   
+            allStudents: action.response,
+       } 
+    })),
+    on(getAllStudentsAction_Failed, (state, action) => ({
+        ...state,
+        isLoading: false,
+        error: action.message
+    })),
 )

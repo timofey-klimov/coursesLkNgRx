@@ -11,3 +11,5 @@ export const managedUsersSelector = createSelector(adminPageFeatureSelector, (st
 export const managedGroupsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.manageGroups);
 
 export const availabledTeachersSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.availabledTeachers);
+
+export const allStudentsSelector = createSelector(adminPageFeatureSelector, (state) => state?.manageGroupState?.allStudents);

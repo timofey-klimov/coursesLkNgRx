@@ -1,4 +1,7 @@
+import { ITeacherFilter } from "src/app/shared/types/teacherFilter.interface";
+
 export interface IGetTeachersRequest {
-    name: string;
-    surname: string;
+    limit: number;
+    offset: number;
+    filter: ITeacherFilter;
 }

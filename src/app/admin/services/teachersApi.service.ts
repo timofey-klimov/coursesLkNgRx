@@ -5,21 +5,24 @@ import { IApiResponseWithData } from "src/app/shared/types/api-response/apiRespo
 import { ITeacher } from "src/app/shared/types/teacher.interface";
 import { environment } from "src/environments/environment";
 import { IGetTeachersRequest } from "../types/getTeachers.request";
+import { IGetTeachersResponse } from "../types/getTeachers.response";
 
 @Injectable()
 export class TeachersApiService{
     constructor (private http: HttpClient){}
     
-    getTeachers(request: IGetTeachersRequest) : Observable<IApiResponseWithData<ITeacher[]>> {
+    getTeachers(request: IGetTeachersRequest) : Observable<IApiResponseWithData<IGetTeachersResponse>> {
         let httpParams = new HttpParams();
-        if (request?.name){
-            httpParams = httpParams.append('name', request.name)
+        if (request?.filter?.name){
+            httpParams = httpParams.append('name', request.filter.name)
         }
-        if (request?.surname){
-            httpParams = httpParams.append('surname', request.surname)
+        if (request?.filter?.surname){
+            httpParams = httpParams.append('surname', request.filter.surname)
         }
+        httpParams = httpParams.append('limit', request.limit)
+        httpParams = httpParams.append('offset', request.offset)
         
-        return this.http.get<IApiResponseWithData<ITeacher[]>>(`${environment.apiUrl}/teachers/all`, {
+        return this.http.get<IApiResponseWithData<IGetTeachersResponse>>(`${environment.apiUrl}/teachers/all`, {
             params: httpParams
         });
     }

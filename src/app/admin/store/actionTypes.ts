@@ -21,5 +21,9 @@ export enum ActionTypes {
 
     GetTeachers = '[Admin] GetTeachers',
     GetTeachers_Success = '[Admin] GetTeachers_Success',
-    GetTeachers_Failed = '[Admin] GetTeachers_Failed'
+    GetTeachers_Failed = '[Admin] GetTeachers_Failed',
+
+    GetAllStudents = '[Admin] GetAllStudents',
+    GetAllStudents_Success = '[Admin] GetAllStudents_Success',
+    GetAllStudents_Failed = '[Admin] GetAllStudents_Failed'
 }

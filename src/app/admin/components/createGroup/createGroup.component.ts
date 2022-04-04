@@ -1,12 +1,15 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { ITeacher } from "src/app/shared/types/teacher.interface";
+import { IStudent } from "src/app/shared/types/student.interface";
+import { getAllStudentsAction } from "../../store/action/getAllStudents.action";
 import { getTeachersAction } from "../../store/action/getTeachers.actions";
-import { availabledTeachersSelector } from "../../store/selector";
+import { allStudentsSelector, availabledTeachersSelector } from "../../store/selector";
 import { IGetTeachersRequest } from "../../types/getTeachers.request";
+import { IGetTeachersResponse } from "../../types/getTeachers.response";
 
 @Component({
     selector: 'createGroup',
@@ -17,9 +20,12 @@ export class CreateGroupComponent implements OnInit {
     groupTitleForm: FormGroup;
     filterTeacherForm: FormGroup;
     selectedTeacherForm: FormGroup;
-    teachers: Observable<ITeacher[]>;
-    displayedColumns: string[];
-    dataIsLoading: boolean;
+    teachers: Observable<IGetTeachersResponse>;
+    students: Observable<IStudent[]>;
+    displayedTeachersColumns: string[];
+    displayedStudentsColumns: string[];
+    teachersIsLoading: boolean;
+    studentsIsLoading: boolean;
 
     constructor(private store: Store){
     }
@@ -30,7 +36,7 @@ export class CreateGroupComponent implements OnInit {
     }
     
     applyFilter() {
-        this._initialForm();
+        this._initialTeachersForm(5,0);
     }
 
     selectTeacher(value: any){
@@ -42,13 +48,20 @@ export class CreateGroupComponent implements OnInit {
     }
 
     stepChanged(event: StepperSelectionEvent): void {
-        if (!this.dataIsLoading && event.selectedIndex === 1) {
-            this._initialForm();
+        if (!this.teachersIsLoading && event.selectedIndex === 1) {
+            this._initialTeachersForm(5, 0);
+            this.teachersIsLoading = true;
         } 
+        if (!this.studentsIsLoading && event.selectedIndex === 2){
+            this.store.dispatch(getAllStudentsAction());
+            this.studentsIsLoading = true;
+        }
     }
     private _initializeVariables(): void {
         this.teachers = this.store.select(availabledTeachersSelector);
-        this.displayedColumns = ['name', 'surname', 'login'];
+        this.students = this.store.select(allStudentsSelector);
+        this.displayedTeachersColumns = ['name', 'surname', 'login'];
+        this.displayedStudentsColumns = ['select', 'name', 'surname', 'login']
         this.filterTeacherForm = new FormGroup({
             name: new FormControl(null),
             surname: new FormControl(null)
@@ -59,11 +72,20 @@ export class CreateGroupComponent implements OnInit {
         this.selectedTeacherForm = new FormGroup({
             id: new FormControl(null, Validators.required)
         })
-        this.dataIsLoading = false;
+        this.teachersIsLoading = false;
     }
 
-    private _initialForm(): void {
-        const request: IGetTeachersRequest = this.filterTeacherForm.value;
+    changePage(pageEvent: PageEvent): void {
+        const offset = pageEvent.pageIndex * pageEvent.pageSize;
+        const limit = pageEvent.pageSize;
+        this._initialTeachersForm(limit, offset);
+    }
+
+    private _initialTeachersForm(limit, offset): void {
+        const request: IGetTeachersRequest = {
+            limit: limit,
+            offset: offset,
+            filter: this.filterTeacherForm.value}
         this.store.dispatch(getTeachersAction({request}));
     }
 
