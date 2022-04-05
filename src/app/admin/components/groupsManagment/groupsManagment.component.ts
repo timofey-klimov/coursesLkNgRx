@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { getGroupsAction } from "../../store/action/manageGroups.action";
@@ -7,6 +8,7 @@ import { isLoadingSelector, managedGroupsSelector } from "../../store/selector";
 import { IGetGroupsRequest } from "../../types/getGroups.request";
 import { IGetGroupsResponse } from "../../types/getGroups.response";
 import { CreateGroupComponent } from "../createGroup/createGroup.component";
+import { StudyGroupInfoComponent } from "../studyGroupInfo/studyGroupInfo.component";
 
 @Component({
     selector: 'groupsManagment',
@@ -42,7 +44,22 @@ export class GroupsManagmentComponent implements OnInit {
         })
         
     }
+
+    openGroupInfo(groupId: number, teacherId: number) {
+        this.matDialog.open(StudyGroupInfoComponent, {
+            width: '45vw',
+            height: '80vh',
+            data: { groupId, teacherId }
+        })
+    }
+
+    changePage(pageEvent: PageEvent): void {
+        const offset = pageEvent.pageIndex * pageEvent.pageSize;
+        const limit = pageEvent.pageSize;
+        this._initForm(limit, offset);
+    }
     
+
     private _initForm(limit: number, offset: number){
         const request: IGetGroupsRequest = {
             limit,

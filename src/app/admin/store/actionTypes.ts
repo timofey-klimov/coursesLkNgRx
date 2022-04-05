@@ -29,5 +29,9 @@ export enum ActionTypes {
 
     CreateGroup = '[Admin] CreateGroup',
     CreateGroup_Success = '[Admin] CreateGroup_Success',
-    CreateGroup_Failed = '[Admin] CreateGroup_Failed'
+    CreateGroup_Failed = '[Admin] CreateGroup_Failed',
+
+    GetStudyGroupInfo = '[Admin] GetStudyGroupInfo',
+    GetStudyGroupInfo_Success = '[Admin] GetStudyGroupInfo_Success',
+    GetStudyGroupInfo_Failed = '[Admin] GetStudyGroupInfo_Failed'
 }

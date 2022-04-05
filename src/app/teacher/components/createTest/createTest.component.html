@@ -1,4 +1,4 @@
-<mat-horizontal-stepper>
+<mat-horizontal-stepper #stepper linear>
     <mat-step errorMessage="Заполните название" [stepControl]="titleForm" [hasError]="titleForm.invalid">
         <form [formGroup]="titleForm">
             <ng-template matStepLabel>Введите название теста</ng-template>
@@ -11,7 +11,7 @@
             </div>
         </form>
     </mat-step>
-    <mat-step [stepControl]="form">
+    <mat-step [stepControl]="createdQuestionsForm">
         <ng-template matStepLabel>Создавайте вопросы</ng-template>
         <div class="header">
             <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" *ngIf="!isTypeSelected">Тип вопроса</button>
@@ -20,7 +20,7 @@
                 <button mat-menu-item (click)="changeQuestionType('WithTextInput')">С текстовым ответом</button>
                 <button mat-menu-item (click)="changeQuestionType('WithFileInput')">C файловым ответом</button>
             </mat-menu>
-            <button mat-stroked-button color="primary" *ngIf="questions.length > 0 && !isTypeSelected" matStepperNext>Проверить тест</button>
+            <button mat-stroked-button color="primary" *ngIf="createdQuestionsForm.valid && !isTypeSelected" matStepperNext>Проверить тест</button>
         </div>
 
         <ng-container [ngSwitch]="type">

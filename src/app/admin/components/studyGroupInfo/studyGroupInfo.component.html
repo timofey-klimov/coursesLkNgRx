@@ -1,0 +1,41 @@
+<ng-container *ngIf="(groupInfo$ | async) as info">
+  <div class="header">
+    <h3>Информация о группе {{info.title}}</h3>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="commonInfo">
+    <div>
+      <h4>Преподаватель</h4>
+      <span>{{info.teacher.name}} {{info.teacher.surname}}</span>
+    </div>
+    <div class="date">
+      <h4>Дата создания </h4>
+      <span>{{info.createDate | date:'dd/MM/YYYY H:mm'}}</span>
+    </div>
+  </div>
+
+  <div class="students">
+    <h3>Ученики</h3>
+  </div>
+  <table mat-table [dataSource]="info.students" class="table">
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Имя</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+        <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+        <td mat-cell *matCellDef="let element">{{element.surname}}</td>
+    </ng-container>
+    <ng-container matColumnDef="login">
+        <th mat-header-cell *matHeaderCellDef>Логин</th>
+        <td mat-cell *matCellDef="let element">{{element.login}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row 
+        *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</ng-container>
+
+<spinner *ngIf="isLoading$ | async"></spinner>
+

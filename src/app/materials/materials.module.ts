@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatMenuModule} from '@angular/material/menu';
@@ -54,7 +54,9 @@ import {MAT_DATE_LOCALE} from '@angular/material/core';
         MatDatepickerModule,
         MatNativeDateModule
     ],
-    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }]
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
+    ]
 })
 export class MaterialModule {
 }

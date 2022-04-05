@@ -7,6 +7,8 @@ import { environment } from "src/environments/environment";
 import { ICreateGroupRequest } from "../types/createGroup.request";
 import { IGetGroupsRequest } from "../types/getGroups.request";
 import { IGetGroupsResponse } from "../types/getGroups.response";
+import { IGetStudyGroupInfoRequest } from "../types/getStudyGroupInfo.request";
+import { IGetStudyGroupInfoResponse } from "../types/getStudyGroupInfo.response";
 
 @Injectable()
 export class GroupsApiService {
@@ -26,5 +28,9 @@ export class GroupsApiService {
 
     createGroup(request: ICreateGroupRequest): Observable<IApiResponseWithData<IGroup>> {
         return this.httpClient.post<IApiResponseWithData<IGroup>>(`${environment.apiUrl}/studyGroups/create`, request);
+    }
+
+    getInfo(request: IGetStudyGroupInfoRequest): Observable<IApiResponseWithData<IGetStudyGroupInfoResponse>> {
+        return this.httpClient.get<IApiResponseWithData<IGetStudyGroupInfoResponse>>(`${environment.apiUrl}/studyGroups/info/${request.teacherId}/${request.groupId}`)
     }
 }
