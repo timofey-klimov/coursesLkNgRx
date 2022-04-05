@@ -1,19 +1,22 @@
 <ng-container *ngIf="(groupInfo$ | async) as info">
   <div class="header">
+    <h3>Информация о группе {{info.title}}</h3>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="commonInfo">
     <div>
-        <strong>Название </strong>
-        {{info.title}}
+      <h4>Преподаватель</h4>
+      <span>{{info.teacher.name}} {{info.teacher.surname}}</span>
     </div>
-    <div>
-        <strong>Дата создания</strong>
-        {{info.createDate | date:'d/MM/YYYY H:mm'}}
+    <div class="date">
+      <h4>Дата создания </h4>
+      <span>{{info.createDate | date:'dd/MM/YYYY H:mm'}}</span>
     </div>
   </div>
-  <div class="teacher">
-    
-  </div>
+
   <div class="students">
-    <strong>Список студентов</strong>
+    <h3>Ученики</h3>
   </div>
   <table mat-table [dataSource]="info.students" class="table">
     <ng-container matColumnDef="name">

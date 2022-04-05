@@ -1,31 +1,39 @@
 .header {
-    display: flex;
-    justify-content: space-around;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 table {
-    width: 100%;
+  width: 100%;
 }
   
-  mat-header-cell, mat-cell {
-    justify-content: center;
+th.mat-header-cell {
+  text-align: center !important;
 }
 
-  th.mat-header-cell {
-    text-align: center !important;
+td.mat-cell {
+  text-align: center !important;
 }
 
-  td.mat-cell{
-    text-align: center !important;
+.commonInfo {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+h2,h3,h4 {
+  color: #3f51b5
 }
 
 .students {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
-.teacher {
-    display: flex;
-    justify-content: space-around;
+tr[mat-row] {
+  cursor: pointer;
+  &:hover{
+      background: whitesmoke;
+  }
 }

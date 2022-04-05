@@ -12,7 +12,6 @@ export class FormStateMatcher implements ErrorStateMatcher {
     
 }
 
-
 @Component({
     selector: 'createTest',
     templateUrl: './createTest.component.html',
@@ -22,7 +21,7 @@ export class CreateTestComponent implements OnInit{
 
     titleForm: FormGroup;
     form: FormGroup;
-    questions: IQuestion[]
+    createdQuestionsForm: FormGroup;
     isTypeSelected: boolean;
     type: QuestionTypes;
     matcher: FormStateMatcher;
@@ -40,47 +39,61 @@ export class CreateTestComponent implements OnInit{
             content: new FormControl('', Validators.required),
             answerOptions: new FormArray([])
         })
+        this.createdQuestionsForm = new FormGroup({
+            questions: new FormArray([], Validators.required)
+        })
 
-        this.questions = [];
         this.matcher = new FormStateMatcher();
     }
 
+    get questions(): Array<IQuestion> {
+        let control = this.createdQuestionsForm.get('questions') as FormArray;
+
+        return control.value as Array<IQuestion>;
+    }
+
     addQuestionWithOptionsInTest(): void {
+        let questions = this.createdQuestionsForm.get('questions') as FormArray;
+        
         let question: IQuestionWithAnswerOptions = this.form.value;
         
         question = {
             ...question,
-            position: this.questions.length + 1,
+            position: questions.length + 1,
             type: QuestionTypes.WithAnswerOptions
         }
 
-        this.questions.push(question);
+        questions.push(new FormControl(question));
         this.clearForm();
     }
 
     addQuestionWithTextInput(): void {
+        let questions = this.createdQuestionsForm.get('questions') as FormArray;
+
         let question: IQuestion = this.form.value;
 
         question = {
             ...question,
-            position: this.questions.length + 1,
+            position: questions.length + 1,
             type: QuestionTypes.WithTextInput
         }
         
-        this.questions.push(question);
+        questions.push(new FormControl(question));
         this.clearForm();
     }
 
     addQuestionWithFileInput(): void {
+        let questions = this.createdQuestionsForm.get('questions') as FormArray;
+
         let question: IQuestion = this.form.value;
 
         question = {
             ...question,
-            position: this.questions.length + 1,
+            position: questions.length + 1,
             type: QuestionTypes.WithFileInput
         }
 
-        this.questions.push(question);
+        questions.push(new FormControl(question));        
         this.clearForm();
     }
 
@@ -94,7 +107,6 @@ export class CreateTestComponent implements OnInit{
         answers.push(control);
     }
 
-    
     changeQuestionType(type: string): void {
         this.type = QuestionTypes[type];
         this.isTypeSelected = true;
@@ -106,7 +118,6 @@ export class CreateTestComponent implements OnInit{
         this.form = new FormGroup({
             content: new FormControl('', Validators.required),
             answerOptions: new FormArray([])
-          })
+        })
     }
-    
 }

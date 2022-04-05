@@ -49,7 +49,7 @@ export class GroupsManagmentComponent implements OnInit {
         this.matDialog.open(StudyGroupInfoComponent, {
             width: '45vw',
             height: '80vh',
-            data: {groupId, teacherId}
+            data: { groupId, teacherId }
         })
     }
 
