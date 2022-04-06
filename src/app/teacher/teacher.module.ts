@@ -15,6 +15,8 @@ import { TeachersApiService } from "../shared/apiClients/teachersApi.service";
 import { EffectsModule } from "@ngrx/effects";
 import { GetTeacherTestsEffect } from "./store/effects/getTests.effect";
 import { SpinnerModule } from "../shared/modules/spinner/spinner.module";
+import { TestApiService } from "../shared/apiClients/testApi.service";
+import { CreateTestEffect } from "./store/effects/createTest.effect";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
@@ -29,7 +31,7 @@ const routes: Routes = [
         CommonModule, 
         RouterModule.forChild(routes),
         StoreModule.forFeature('teacherPage', reducer),
-        EffectsModule.forFeature([GetTeacherTestsEffect]),
+        EffectsModule.forFeature([GetTeacherTestsEffect, CreateTestEffect]),
         MaterialModule,
         SpinnerModule,
         ReactiveFormsModule,
@@ -37,7 +39,7 @@ const routes: Routes = [
         FormsModule],
     declarations: [TeacherComponent, TeacherLayoutComponent, ManageTestsComponent, CreateTestComponent],
     exports: [RouterModule],
-    providers: [TeachersApiService]
+    providers: [TeachersApiService, TestApiService]
 })
 export class TeacherModule {
 

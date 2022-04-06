@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { Store } from "@ngrx/store";
+import { createTestAction } from "../../store/actions/createTest.action";
+import { ICreateTestRequest } from "../../types/createTest.Request";
 import { IQuestion } from "../../types/question.interface";
 import { QuestionTypes } from "../../types/questionTypes.enum";
 import { IQuestionWithAnswerOptions } from "../../types/questionWithAnwerOptions.interface";
@@ -26,7 +29,7 @@ export class CreateTestComponent implements OnInit{
     type: QuestionTypes;
     matcher: FormStateMatcher;
 
-    constructor() {
+    constructor(private store: Store) {
     }
 
     ngOnInit(): void {
@@ -124,5 +127,8 @@ export class CreateTestComponent implements OnInit{
     createTest(): void {
         const {title} = this.titleForm.value;
         const {questions} = this.createdQuestionsForm.value;
+
+        const request: ICreateTestRequest = {title, questions};
+        this.store.dispatch(createTestAction({request}));
     }
 }
