@@ -2,10 +2,11 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
-import { ITeacher } from "src/app/shared/types/teacher.interface";
+import { IGetTeacherTestsRequest } from "src/app/teacher/types/getTests.request";
+import { IGetTeacherTestsResponse } from "src/app/teacher/types/getTests.response";
 import { environment } from "src/environments/environment";
-import { IGetTeachersRequest } from "../types/getTeachers.request";
-import { IGetTeachersResponse } from "../types/getTeachers.response";
+import { IGetTeachersRequest } from "../../admin/types/getTeachers.request";
+import { IGetTeachersResponse } from "../../admin/types/getTeachers.response";
 
 @Injectable()
 export class TeachersApiService{
@@ -25,5 +26,15 @@ export class TeachersApiService{
         return this.http.get<IApiResponseWithData<IGetTeachersResponse>>(`${environment.apiUrl}/teachers/all`, {
             params: httpParams
         });
+    }
+
+    getTests(request: IGetTeacherTestsRequest): Observable<IApiResponseWithData<IGetTeacherTestsResponse>> {
+        let params = new HttpParams();
+        params = params.append('offset', request.offset);
+        params = params.append('limit', request.limit);
+
+        return this.http.get<IApiResponseWithData<IGetTeacherTestsResponse>>(`${environment.apiUrl}/teachers/tests`, {
+            params
+        })
     }
 }

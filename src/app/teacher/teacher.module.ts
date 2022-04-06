@@ -9,6 +9,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../materials/materials.module";
 import { QuillModule } from "ngx-quill";
 import { CommonModule } from "@angular/common";
+import { reducer } from "./store/reducer";
+import { StoreModule } from "@ngrx/store";
+import { TeachersApiService } from "../shared/apiClients/teachersApi.service";
+import { EffectsModule } from "@ngrx/effects";
+import { GetTeacherTestsEffect } from "./store/effects/getTests.effect";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
@@ -21,12 +26,15 @@ const routes: Routes = [
     imports: [
         CommonModule, 
         RouterModule.forChild(routes),
+        StoreModule.forFeature('teacherPage', reducer),
+        EffectsModule.forFeature([GetTeacherTestsEffect]),
         MaterialModule,
         ReactiveFormsModule,
         QuillModule,
         FormsModule],
     declarations: [TeacherComponent, TeacherLayoutComponent, ManageTestsComponent, CreateTestComponent],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [TeachersApiService]
 })
 export class TeacherModule {
 

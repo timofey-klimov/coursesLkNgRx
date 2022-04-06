@@ -120,4 +120,9 @@ export class CreateTestComponent implements OnInit{
             answerOptions: new FormArray([])
         })
     }
+
+    createTest(): void {
+        const {title} = this.titleForm.value;
+        const {questions} = this.createdQuestionsForm.value;
+    }
 }

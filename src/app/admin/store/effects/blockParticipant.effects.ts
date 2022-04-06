@@ -6,7 +6,7 @@ import { of } from "rxjs";
 import { catchError, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { UserState } from "src/app/shared/types/userState.enum";
-import { UsersApiService } from "../../services/usersApi.service";
+import { UsersApiService } from "../../../shared/apiClients/usersApi.service";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "../action/blockParticipant.action";
 import { managedUsersSelector } from "../selector";
 

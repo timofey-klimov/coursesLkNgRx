@@ -4,8 +4,8 @@ import { Observable } from "rxjs";
 import { IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
 import { IStudent } from "src/app/shared/types/student.interface";
 import { environment } from "src/environments/environment";
-import { IGetStudentsRequest } from "../types/getStudents.request";
-import { IGetStudentsResponse } from "../types/getStudents.response";
+import { IGetStudentsRequest } from "../../admin/types/getStudents.request";
+import { IGetStudentsResponse } from "../../admin/types/getStudents.response";
 
 @Injectable()
 export class StudentsApiService{

@@ -4,11 +4,11 @@ import { Observable } from "rxjs";
 import { IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
 import { IGroup } from "src/app/shared/types/group.interface";
 import { environment } from "src/environments/environment";
-import { ICreateGroupRequest } from "../types/createGroup.request";
-import { IGetGroupsRequest } from "../types/getGroups.request";
-import { IGetGroupsResponse } from "../types/getGroups.response";
-import { IGetStudyGroupInfoRequest } from "../types/getStudyGroupInfo.request";
-import { IGetStudyGroupInfoResponse } from "../types/getStudyGroupInfo.response";
+import { ICreateGroupRequest } from "../../admin/types/createGroup.request";
+import { IGetGroupsRequest } from "../../admin/types/getGroups.request";
+import { IGetGroupsResponse } from "../../admin/types/getGroups.response";
+import { IGetStudyGroupInfoRequest } from "../../admin/types/getStudyGroupInfo.request";
+import { IGetStudyGroupInfoResponse } from "../../admin/types/getStudyGroupInfo.response";
 
 @Injectable()
 export class GroupsApiService {

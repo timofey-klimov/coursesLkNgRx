@@ -6,7 +6,7 @@ import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { StudyGroupInfoComponent } from "../../components/studyGroupInfo/studyGroupInfo.component";
-import { GroupsApiService } from "../../services/groupsApi.service";
+import { GroupsApiService } from "../../../shared/apiClients/groupsApi.service";
 import { getStudyGroupInfoAction, getStudyGroupInfoFailedAction, getStudyGroupInfoSuccessAction } from "../action/getStudyGroupInfo.action";
 
 @Injectable()

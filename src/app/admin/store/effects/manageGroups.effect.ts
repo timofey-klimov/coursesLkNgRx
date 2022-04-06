@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { NotificationService } from "src/app/shared/services/notification.service";
-import { GroupsApiService } from "../../services/groupsApi.service";
+import { GroupsApiService } from "../../../shared/apiClients/groupsApi.service";
 import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "../action/manageGroups.action";
 
 @Injectable()

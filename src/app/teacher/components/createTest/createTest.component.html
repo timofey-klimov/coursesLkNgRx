@@ -28,7 +28,7 @@
             <form [formGroup]="form" *ngSwitchCase="0">
                 <div class="form-control">
                     <div class="title">
-                        <h3>{{questions.length + 1}}</h3>
+                        <h3>Вопрос {{questions.length + 1}}</h3>
                         <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
                     </div>
 
@@ -61,7 +61,7 @@
             <form [formGroup]="form" *ngSwitchCase="1">
                 <div class="form-control">
                     <div class="title">
-                        <h3>{{questions.length + 1}}</h3>
+                        <h3>Вопрос {{questions.length + 1}}</h3>
                         <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
                     </div>
         
@@ -79,7 +79,7 @@
             <form [formGroup]="form" *ngSwitchCase="2">
                 <div class="form-control">
                     <div class="title">
-                        <h3>{{questions.length + 1}}</h3>
+                        <h3>Вопрос {{questions.length + 1}}</h3>
                         <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
                     </div>
         
@@ -103,6 +103,9 @@
     <mat-step>
         <ng-template matStepLabel>Проверьте тест</ng-template>
 
+    <div class="flex end createTest">
+        <button mat-stroked-button color="primary" (click)="createTest()">Создать тест</button>
+    </div>    
        <mat-accordion>
            <mat-expansion-panel *ngFor="let question of questions; let idx = index">
                 <mat-expansion-panel-header>
@@ -112,14 +115,14 @@
                 </mat-expansion-panel-header>
 
                 <div class="form-control">
-                    <quill-editor [(ngModel)]="question.content"></quill-editor>
+                    <quill-editor [(ngModel)]="question.content" disabled></quill-editor>
                     <container *ngIf="question?.answerOptions" class="answers">
                         <div *ngFor="let answerOption of question.answerOptions; let idx = index">
                           <mat-form-field>
                             <mat-label>Вариант ответа</mat-label>
-                            <input matInput [(ngModel)]="answerOption.content">
+                            <input matInput [(ngModel)]="answerOption.content" disabled>
                           </mat-form-field>
-                          <mat-checkbox [(ngModel)]="answerOption.isCorrect"></mat-checkbox>
+                          <mat-checkbox [(ngModel)]="answerOption.isCorrect" disabled></mat-checkbox>
                         </div>
                     </container>
                 </div>

@@ -3,10 +3,10 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IApiResponse, IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
 import { environment } from "src/environments/environment";
-import { ICreateParticipant } from "../types/createParticipant.request";
-import { IGetUsersRequest } from "../types/getUsers.request";
-import { IGetUsersResponse } from "../types/getUsers.response";
-import { IParticipant } from "../../shared/types/participant.interface";
+import { ICreateParticipant } from "../../admin/types/createParticipant.request";
+import { IGetUsersRequest } from "../../admin/types/getUsers.request";
+import { IGetUsersResponse } from "../../admin/types/getUsers.response";
+import { IParticipant } from "../types/participant.interface";
 
 @Injectable()
 export class UsersApiService {

@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { switchMap, map, catchError } from "rxjs/operators";
 import { NotificationService } from "src/app/shared/services/notification.service";
-import { TeachersApiService } from "../../services/teachersApi.service";
+import { TeachersApiService } from "../../../shared/apiClients/teachersApi.service";
 import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success } from "../action/getTeachers.actions";
 
 @Injectable()
