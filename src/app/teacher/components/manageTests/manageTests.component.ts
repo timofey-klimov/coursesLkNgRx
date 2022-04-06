@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { getTestsAction } from "../../store/actions/getTests.actions";
 import { createdTestsSelector, isLoadingSelector } from "../../store/selector";
+import { IGetTeacherTestsRequest } from "../../types/getTests.request";
 import { IGetTeacherTestsResponse } from "../../types/getTests.response";
 
 @Component({
@@ -25,10 +27,21 @@ export class ManageTestsComponent implements OnInit{
         this.isLoading$ = this.store.select(isLoadingSelector);
         this.createdTests$ = this.store.select(createdTestsSelector);
         this.displayedColumns = ['title','createDate']
-        this.store.dispatch(getTestsAction({request: {limit:10, offset:0}}))
+        this._initForm(5, 0);
     }
 
     createTest(): void {
         this.router.navigate(['/teacher', 'create-test'])
+    }
+
+    changePage(pageEvent: PageEvent): void {
+        const offset = pageEvent.pageIndex * pageEvent.pageSize;
+        const limit = pageEvent.pageSize;
+        this._initForm(limit, offset);
+    }
+
+    private _initForm(limit: number, offset: number) {
+        const request: IGetTeacherTestsRequest = {limit, offset};
+        this.store.dispatch(getTestsAction({request}));
     }
 }
