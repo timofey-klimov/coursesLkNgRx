@@ -14,11 +14,13 @@ import { StoreModule } from "@ngrx/store";
 import { TeachersApiService } from "../shared/apiClients/teachersApi.service";
 import { EffectsModule } from "@ngrx/effects";
 import { GetTeacherTestsEffect } from "./store/effects/getTests.effect";
+import { SpinnerModule } from "../shared/modules/spinner/spinner.module";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
         { path: '', component: TeacherComponent },
-        { path: 'manage-tests', component: ManageTestsComponent}
+        { path: 'manage-tests', component: ManageTestsComponent },
+        { path: 'create-test', component: CreateTestComponent}
     ]}
 ]
 
@@ -29,6 +31,7 @@ const routes: Routes = [
         StoreModule.forFeature('teacherPage', reducer),
         EffectsModule.forFeature([GetTeacherTestsEffect]),
         MaterialModule,
+        SpinnerModule,
         ReactiveFormsModule,
         QuillModule,
         FormsModule],

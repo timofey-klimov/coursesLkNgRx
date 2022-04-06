@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+}
+
+tr[mat-row] {
+    cursor: pointer;
+    &:hover{
+        background: whitesmoke;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+}
