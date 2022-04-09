@@ -2,19 +2,29 @@ import { createReducer, on } from "@ngrx/store";
 import { createTestAction, createTestFailedAction, createTestSuccessAction } from "./actions/createTest.action";
 import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "./actions/getGroups.action";
 import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "./actions/getTests.actions";
-import { ITeacherPageState } from "./teacher-page.state";
+import { IGroupInfoState } from "./states/groupInfo.state";
+import { ITeacherPageState } from "./states/teacher-page.state";
+
+const initialGroupInfoState: IGroupInfoState = {
+    wasError: false,
+    isLoading: false,
+    groupInfo: null
+}
+
 
 const initialState: ITeacherPageState = {
     isLoading: false,
     createdTests: null,
-    groups: null
+    groups: null,
+    groupInfo: initialGroupInfoState
 }
 
 export const reducer = createReducer(
     initialState,
     on(getTestsAction, (state) => ({
         ...state,
-        isLoading: true
+        isLoading: true,
+        groupInfo: initialGroupInfoState
     })),
     on(getTestsSuccessAction, (state, action) => ({
         ...state,
@@ -28,7 +38,8 @@ export const reducer = createReducer(
     })),
     on(createTestAction, (state) => ({
         ...state,
-        isLoading: true
+        isLoading: true,
+        groupInfo: initialGroupInfoState
     })),
     on(createTestSuccessAction, (state, action) => {
 
@@ -50,7 +61,8 @@ export const reducer = createReducer(
     on(getGroupsAction, (state) => ({
         ...state,
         isLoading: true,
-        createdTests: null
+        createdTests: null,
+        groupInfo: initialGroupInfoState
     })),
     on(getGroupsSuccessAction, (state, action) => ({
         ...state,

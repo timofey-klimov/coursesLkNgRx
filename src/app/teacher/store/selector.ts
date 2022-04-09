@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IAppState } from "src/app/shared/types/app.state";
-import { ITeacherPageState } from "./teacher-page.state";
+import { ITeacherPageState } from "./states/teacher-page.state";
 
 export const featureSelector = createFeatureSelector<IAppState, ITeacherPageState>('teacherPage');
 

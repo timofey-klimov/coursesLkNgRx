@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -6,6 +7,7 @@ import { getGroupsAction } from "../../store/actions/getGroups.action";
 import { groupsSelector, isLoadingSelector } from "../../store/selector";
 import { IGetGroupsRequest } from "../../types/getGroups.request";
 import { IGetGroupsResponse } from "../../types/getGroups.response";
+import { GroupInfoComponent } from "../groupInfo/groupInfo.component";
 
 @Component({
     selector: 'manageGroups',
@@ -18,7 +20,7 @@ export class ManageGoupsComponent implements OnInit {
     isLoading$: Observable<boolean>;
     displayedColumns: string[];
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private matDialog: MatDialog) {
 
     }
 
@@ -35,9 +37,19 @@ export class ManageGoupsComponent implements OnInit {
         this._initForm(offset, limit);
     }
 
+    openGroupInfo(id: number): void {
+        this.matDialog.open(GroupInfoComponent, {
+            width: '40vw',
+            height: '70vh',
+            data: id
+        })
+    }
+
     private _initForm(offset: number, limit: number) {
         const request: IGetGroupsRequest = {offset, limit};
         this.store.dispatch(getGroupsAction({request}));
     }
+
+
 
 }

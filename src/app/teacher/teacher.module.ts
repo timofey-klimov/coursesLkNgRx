@@ -20,6 +20,7 @@ import { CreateTestEffect } from "./store/effects/createTest.effect";
 import { WarningExitGuard } from "../shared/guards/warningExit.guard";
 import { GetGroupsEffect } from "./store/effects/getGroups.effect";
 import { ManageGoupsComponent } from "./components/manageGroups/manageGroups.component";
+import { GroupInfoComponent } from "./components/groupInfo/groupInfo.component";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
@@ -50,7 +51,8 @@ const routes: Routes = [
         TeacherLayoutComponent, 
         ManageTestsComponent, 
         CreateTestComponent, 
-        ManageGoupsComponent],
+        ManageGoupsComponent,
+        GroupInfoComponent],
 
     exports: [RouterModule],
     providers: [TeachersApiService, TestApiService]
