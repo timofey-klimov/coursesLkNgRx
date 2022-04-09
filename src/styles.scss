@@ -40,4 +40,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     &.start {
         justify-content: flex-start;
     }
+
+    &.center {
+        justify-content: center;
+    }
 }
+
+element {
+    --main-color: #3f51b5
+}
+

@@ -2,11 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { Store } from "@ngrx/store";
+import { ICanDeactivateComponent } from "src/app/shared/guards/canDeactivate.component";
 import { createTestAction } from "../../store/actions/createTest.action";
 import { ICreateTestRequest } from "../../types/createTest.Request";
 import { IQuestion } from "../../types/question.interface";
 import { QuestionTypes } from "../../types/questionTypes.enum";
 import { IQuestionWithAnswerOptions } from "../../types/questionWithAnwerOptions.interface";
+import {NotificationService} from"../../../shared/services/notification.service"
 
 export class FormStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
@@ -20,7 +22,7 @@ export class FormStateMatcher implements ErrorStateMatcher {
     templateUrl: './createTest.component.html',
     styleUrls: ['./createTest.component.scss']
 })
-export class CreateTestComponent implements OnInit{
+export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
 
     titleForm: FormGroup;
     form: FormGroup;
@@ -29,7 +31,11 @@ export class CreateTestComponent implements OnInit{
     type: QuestionTypes;
     matcher: FormStateMatcher;
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private notify: NotificationService) {
+    }
+
+    canDeactivate(): Promise<boolean> {
+        return this.notify.canDeactivate('Данные не сохранятся');
     }
 
     ngOnInit(): void {

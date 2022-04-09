@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
+import { IGetGroupsRequest } from "src/app/teacher/types/getGroups.request";
+import { IGetGroupsResponse } from "src/app/teacher/types/getGroups.response";
 import { IGetTeacherTestsRequest } from "src/app/teacher/types/getTests.request";
 import { IGetTeacherTestsResponse } from "src/app/teacher/types/getTests.response";
 import { environment } from "src/environments/environment";
@@ -34,6 +36,16 @@ export class TeachersApiService{
         params = params.append('limit', request.limit);
 
         return this.http.get<IApiResponseWithData<IGetTeacherTestsResponse>>(`${environment.apiUrl}/teachers/tests`, {
+            params
+        })
+    }
+
+    getGroups(request: IGetGroupsRequest): Observable<IApiResponseWithData<IGetGroupsResponse>> {
+        let params = new HttpParams();
+        params = params.append('offset', request.offset);
+        params = params.append('limit', request.limit);
+        
+        return this.http.get<IApiResponseWithData<IGetGroupsResponse>>(`${environment.apiUrl}/teachers/groups`, {
             params
         })
     }

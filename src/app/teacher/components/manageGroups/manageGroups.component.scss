@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+}
+
+tr[mat-row] {
+    cursor: pointer;
+    &:hover{
+        background: whitesmoke;
+    }
+}
+.greeting {
+    display: flex;
+    justify-content: center;
+    color: var(--main-color);
+
+}
+ 

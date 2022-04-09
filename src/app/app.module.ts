@@ -40,7 +40,7 @@ import { QuillModule } from 'ngx-quill';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

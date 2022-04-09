@@ -5,5 +5,9 @@ export enum ActionTypes {
 
     GetTests = '[Teacher] GetTests',
     GetTestsSuccess = '[Teacher] GetTests_Success',
-    GetTestsFailed = '[Teacher] GetTests_Failed'
+    GetTestsFailed = '[Teacher] GetTests_Failed',
+
+    GetTeacherGroups = '[Teacher] GetTeacherGroups',
+    GetTeacherGroupsSuccess = '[Teacher] GetTeacherGroupsSuccess',
+    GetTeacherGroupsFailed = '[Teacher] GetTeacherGroupsFailed'
 }

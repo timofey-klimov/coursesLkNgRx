@@ -17,12 +17,16 @@ import { GetTeacherTestsEffect } from "./store/effects/getTests.effect";
 import { SpinnerModule } from "../shared/modules/spinner/spinner.module";
 import { TestApiService } from "../shared/apiClients/testApi.service";
 import { CreateTestEffect } from "./store/effects/createTest.effect";
+import { WarningExitGuard } from "../shared/guards/warningExit.guard";
+import { GetGroupsEffect } from "./store/effects/getGroups.effect";
+import { ManageGoupsComponent } from "./components/manageGroups/manageGroups.component";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
         { path: '', component: TeacherComponent },
         { path: 'manage-tests', component: ManageTestsComponent },
-        { path: 'create-test', component: CreateTestComponent}
+        { path: 'create-test', component: CreateTestComponent, canDeactivate: [WarningExitGuard]},
+        { path: 'manage-groups', component: ManageGoupsComponent }
     ]}
 ]
 
@@ -31,13 +35,23 @@ const routes: Routes = [
         CommonModule, 
         RouterModule.forChild(routes),
         StoreModule.forFeature('teacherPage', reducer),
-        EffectsModule.forFeature([GetTeacherTestsEffect, CreateTestEffect]),
+        EffectsModule.forFeature([
+            GetTeacherTestsEffect, 
+            CreateTestEffect, 
+            GetGroupsEffect]),
         MaterialModule,
         SpinnerModule,
         ReactiveFormsModule,
         QuillModule,
         FormsModule],
-    declarations: [TeacherComponent, TeacherLayoutComponent, ManageTestsComponent, CreateTestComponent],
+
+    declarations: [
+        TeacherComponent, 
+        TeacherLayoutComponent, 
+        ManageTestsComponent, 
+        CreateTestComponent, 
+        ManageGoupsComponent],
+
     exports: [RouterModule],
     providers: [TeachersApiService, TestApiService]
 })

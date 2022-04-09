@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 @Injectable({
     providedIn:'root'
@@ -54,5 +54,18 @@ export class NotificationService {
                 confirmResult();
             }
         })
+    }
+
+    canDeactivate(text: string): Promise<boolean> {
+        return Swal.fire({
+                title: 'Внимание',
+                text,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Отмена',
+                showConfirmButton: true,
+                showCancelButton: true})
+                .then(x => {
+                    return x.isConfirmed;
+                })
     }
 }

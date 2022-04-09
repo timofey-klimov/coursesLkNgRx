@@ -18,6 +18,10 @@ export class TeacherLayoutComponent {
         this.router.navigate(['/teacher', 'manage-tests'])
     }
 
+    manageGroups(): void {
+        this.router.navigate(['/teacher', 'manage-groups'])
+    }
+
     logout(): void {
         localStorage.removeItem('token');
         this.store.dispatch(getUserAction());

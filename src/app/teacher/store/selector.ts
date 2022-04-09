@@ -7,3 +7,5 @@ export const featureSelector = createFeatureSelector<IAppState, ITeacherPageStat
 export const isLoadingSelector = createSelector(featureSelector, (state) => state?.isLoading);
 
 export const createdTestsSelector = createSelector(featureSelector, (state) => state?.createdTests);
+
+export const groupsSelector = createSelector(featureSelector, (state) => state?.groups);
