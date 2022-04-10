@@ -1,4 +1,4 @@
-export interface GetGroupInfoRequest {
+export interface IGetGroupInfoRequest {
     groupId: number
 }
 

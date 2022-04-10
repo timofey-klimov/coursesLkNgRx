@@ -1,0 +1,67 @@
+<div class="header main-color">
+    <h2>Информация о группе</h2>
+</div>
+<mat-divider></mat-divider>
+
+<ng-container *ngIf="(groupInfo$ | async) as groupInfo">
+    <mat-tab-group mat-stretch-tabs class="tab-group">
+        <mat-tab label="Общая информация">
+            <div class="common-info-content">
+                <div>
+                    <h4 class="main-color">Название</h4>
+                    <span>{{groupInfo.studyGroup.title}}</span>
+                </div>
+                <div>
+                    <h4 class="main-color">Дата создания</h4>
+                    <span>{{groupInfo.studyGroup.createDate | date: 'dd/MM/YYYY H:mm'}}</span>
+                </div>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Информация об учениках">
+            <div class="table-container">
+                <table mat-table [dataSource]="groupInfo.students">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Имя</th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="surname">
+                        <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+                        <td mat-cell *matCellDef="let element">{{element.surname}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="login">
+                        <th mat-header-cell *matHeaderCellDef>Почта</th>
+                        <td mat-cell *matCellDef="let element">{{element.login}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="studentsColumns"></tr>
+                    <tr mat-row 
+                        *matRowDef="let row; columns: studentsColumns;"></tr>
+                </table>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Назначенные тесты">
+            <div class="table-container">
+                <table mat-table [dataSource]="groupInfo.assignTests">
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef>Название теста</th>
+                        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="createDate">
+                        <th mat-header-cell *matHeaderCellDef>Дата создания</th>
+                        <td mat-cell *matCellDef="let element">{{element.createDate | date: 'dd/MM/YYYY H:mm'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="deadline">
+                        <th mat-header-cell *matHeaderCellDef>Срок сдачи</th>
+                        <td mat-cell *matCellDef="let element">{{element.deadline | date: 'dd/MM/YYYY'}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="testsColumns"></tr>
+                    <tr mat-row 
+                        *matRowDef="let row; columns: testsColumns;"></tr>
+                </table>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</ng-container>
+
+<spinner *ngIf="isLoading$ | async"></spinner>

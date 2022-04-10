@@ -9,3 +9,9 @@ export const isLoadingSelector = createSelector(featureSelector, (state) => stat
 export const createdTestsSelector = createSelector(featureSelector, (state) => state?.createdTests);
 
 export const groupsSelector = createSelector(featureSelector, (state) => state?.groups);
+
+export const isLoadingGroupInfoSelector = createSelector(featureSelector, (state) => state?.groupInfo?.isLoading);
+
+export const groupInfoSelector = createSelector(featureSelector, (state) => state?.groupInfo?.groupInfo);
+
+export const groupInfoWasErrorSelector = createSelector(featureSelector, (state) => state?.groupInfo?.wasError);

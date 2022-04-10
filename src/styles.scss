@@ -46,10 +46,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-element {
-    --main-color: #3f51b5
+.main-color {
+    color: #3f51b5;
 }
-
 table {
     width: 100%;
 }

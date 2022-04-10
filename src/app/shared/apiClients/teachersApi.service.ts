@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
+import { IGetGroupInfoRequest } from "src/app/teacher/types/getGroupInfo.request";
+import { IGetGroupInfoResponse } from "src/app/teacher/types/getGroupInfo.response";
 import { IGetGroupsRequest } from "src/app/teacher/types/getGroups.request";
 import { IGetGroupsResponse } from "src/app/teacher/types/getGroups.response";
 import { IGetTeacherTestsRequest } from "src/app/teacher/types/getTests.request";
@@ -48,5 +50,9 @@ export class TeachersApiService{
         return this.http.get<IApiResponseWithData<IGetGroupsResponse>>(`${environment.apiUrl}/teachers/groups`, {
             params
         })
+    }
+
+    getGroupInfo(request: IGetGroupInfoRequest): Observable<IApiResponseWithData<IGetGroupInfoResponse>> {
+        return this.http.get<IApiResponseWithData<IGetGroupInfoResponse>>(`${environment.apiUrl}/teachers/groups/info/${request.groupId}`)
     }
 }

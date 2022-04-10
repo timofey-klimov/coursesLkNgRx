@@ -3,7 +3,7 @@ import { IGroup } from "src/app/shared/types/group.interface";
 import { ISimpleStudyGroup } from "src/app/shared/types/simpleStudyGroup.interface";
 import { IStudent } from "src/app/shared/types/student.interface";
 
-export interface GetGroupInfoResponse {
+export interface IGetGroupInfoResponse {
     students: Array<IStudent>,
     assignTests: Array<IAssignTest>,
     studyGroup: ISimpleStudyGroup

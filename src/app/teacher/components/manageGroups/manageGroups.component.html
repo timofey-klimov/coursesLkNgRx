@@ -1,3 +1,7 @@
+<div class="header main-color">
+    <h2>Мои группы</h2>
+</div>
+<mat-divider></mat-divider>
 <ng-container *ngIf="(groups$ | async) as groups">
     <div class="table-container">
         <table mat-table [dataSource]="groups.data">

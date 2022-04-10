@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { createTestAction, createTestFailedAction, createTestSuccessAction } from "./actions/createTest.action";
+import { getGroupInfoAction, getGroupInfoFailedAction, getGroupInfoSuccessAction } from "./actions/getGroupInfo.action";
 import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "./actions/getGroups.action";
 import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "./actions/getTests.actions";
 import { IGroupInfoState } from "./states/groupInfo.state";
@@ -72,5 +73,41 @@ export const reducer = createReducer(
     on(getGroupsFailedAction, (state) => ({
         ...state,
         isLoading: false
-    }))
+    })),
+    on(getGroupInfoAction, (state) => {
+
+        const groupInfoState = {
+            ...state.groupInfo,
+            isLoading: true
+        }
+
+        return {
+            ...state,
+            groupInfo: groupInfoState
+        }
+    }),
+    on(getGroupInfoSuccessAction, (state, action) => {
+        const groupInfoState = {
+            ...state.groupInfo,
+            isLoading: false,
+            groupInfo: action.response
+        }
+
+        return {
+            ...state,
+            groupInfo: groupInfoState
+        }
+    }),
+    on(getGroupInfoFailedAction, (state) => {
+        const groupInfoState = {
+            ...state.groupInfo,
+            isLoading: false,
+            wasError: true
+        }
+
+        return {
+            ...state,
+            groupInfo: groupInfoState
+        }
+    })
 )

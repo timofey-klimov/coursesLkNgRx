@@ -21,6 +21,7 @@ import { WarningExitGuard } from "../shared/guards/warningExit.guard";
 import { GetGroupsEffect } from "./store/effects/getGroups.effect";
 import { ManageGoupsComponent } from "./components/manageGroups/manageGroups.component";
 import { GroupInfoComponent } from "./components/groupInfo/groupInfo.component";
+import { GetGroupInfoEffect } from "./store/effects/getGroupInfo.effect";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
@@ -39,7 +40,8 @@ const routes: Routes = [
         EffectsModule.forFeature([
             GetTeacherTestsEffect, 
             CreateTestEffect, 
-            GetGroupsEffect]),
+            GetGroupsEffect,
+            GetGroupInfoEffect]),
         MaterialModule,
         SpinnerModule,
         ReactiveFormsModule,
