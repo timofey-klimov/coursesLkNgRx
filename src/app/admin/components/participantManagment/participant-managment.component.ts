@@ -42,30 +42,28 @@ export class ParticipantManagmentComponent implements OnInit {
         this.displayedColumns = ['name', 'surname', 'login', 'actions']
         this.managedUsers$ = this.store.select(managedUsersSelector);
 
-        this.initialForm(5, 0);
+        this.initialForm(0, 5);
     }
 
     changePage(pageEvent: PageEvent): void {
-        const offset = pageEvent.pageIndex * pageEvent.pageSize;
-        const limit = pageEvent.pageSize;
-        this.initialForm(limit, offset);
+        this.initialForm(pageEvent.pageIndex, pageEvent.pageSize);
     }
 
     applyFilter() {
-       this.initialForm(5, 0);
+       this.initialForm(0,5);
     }
 
     clearForm(): void {
         this.form.reset();
         this.paginator._changePageSize(5);
-        this.initialForm(5, 0);
+        this.initialForm(0,5);
         
     }
 
     createUser(): void {
         this.matDialog.open(CreateParticipantComponent,{
-            width: '20vw',
-            height: '45vh'
+            width: '30vw',
+            height: '60vh'
         })
     }
 
@@ -82,11 +80,16 @@ export class ParticipantManagmentComponent implements OnInit {
     }
 
 
-    initialForm(limit: number, offset:number): void {
+    initialForm(currentPage: number, pageSize: number): void {
+        const offset = currentPage * pageSize;
+        const limit = pageSize;
+
         const request: IGetUsersRequest = {
             limit: limit,
             offset: offset,
-            filter: this.form.value 
+            filter: this.form.value,
+            currentPage,
+            itemsPerPage: pageSize
         }
         this.store.dispatch(getParticipantsAction({request}))
     }

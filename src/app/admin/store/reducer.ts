@@ -14,6 +14,7 @@ import { unblockParticipantAction, unblockParticipantFailedAction, unblockPartic
 import { IAdminPageState } from "./states/admin-page.state";
 import { IGetGroupInfoState } from "./states/getGroupInfo.state";
 import { IManageGroupState } from "./states/manage-group.state";
+import { IManageParticipantsState } from "./states/manageParticipants.state";
 
 const initialGetGroupInfoState: IGetGroupInfoState = {
     isLoading: false,
@@ -28,26 +29,44 @@ const initialManageGroupState: IManageGroupState = {
     groupInfoState: initialGetGroupInfoState
 }
 
+const initialManageParticipantState: IManageParticipantsState = {
+    manageUsers: null,
+    currentPage: 0,
+    itemsPerPage: 0
+}
+
 const initialState: IAdminPageState = {
     isLoading: false,
-    manageUsers: null,
     error: null,
+    manageParticipantsState: initialManageParticipantState,
     manageGroupState: initialManageGroupState
 }
 
-
 export const reducer = createReducer(
     initialState,
-    on(getParticipantsAction, (state) => ({
+    on(getParticipantsAction, (state, action) => ({
         ...state,
         isLoading: true,
-        manageGroupState: initialManageGroupState
+        manageGroupState: initialManageGroupState,
+        manageParticipantsState: {
+            manageUsers: state.manageParticipantsState.manageUsers,
+            itemsPerPage: action.request.itemsPerPage,
+            currentPage: action.request.currentPage
+        }
     })),
-    on(getParticipantsSuccessAction, (state, action) => ({
-        ...state,
-        manageUsers: action.users,
-        isLoading: false
-    })),
+    on(getParticipantsSuccessAction, (state, action) => {
+
+        const managedParticipants = {
+            ...state.manageParticipantsState,
+            manageUsers: action.users
+        }
+
+        return {
+            ...state,
+            isLoading: false,
+            manageParticipantsState: managedParticipants
+        }
+    }),
     on(getParticipantsFailAction, (state, action) => ({
         ...state,
         isLoading: false,
@@ -60,15 +79,37 @@ export const reducer = createReducer(
     })),
     on(createParticipantSuccessAction, (state, action) => {
 
-        const managedUsers = {
-            ...state.manageUsers,
-            data: [...state.manageUsers.data, action.user]
-        }
+        let itemsCount = state.manageParticipantsState.manageUsers.count;
+        let itemsPerPage = state.manageParticipantsState.itemsPerPage;
+        let currentPage = state.manageParticipantsState.currentPage;
 
-        return {
-            ...state,
-            isLoading: false,
-            manageUsers: managedUsers
+        if (currentPage * itemsPerPage > (itemsCount - itemsPerPage)) {
+            const managedUsers = [...state.manageParticipantsState.manageUsers.data, action.user]
+            return {
+                ...state,
+                isLoading: false,
+                manageParticipantsState: {
+                    manageUsers: {
+                        data: managedUsers,
+                        count: state.manageParticipantsState.manageUsers.count + 1
+                    },
+                    currentPage: state.manageParticipantsState.currentPage,
+                    itemsPerPage: state.manageParticipantsState.itemsPerPage
+                }
+            }
+        } else {
+            return {
+                ...state,
+                isLoading: false,
+                manageParticipantsState: {
+                    manageUsers: {
+                        data: state.manageParticipantsState.manageUsers.data,
+                        count: state.manageParticipantsState.manageUsers.count + 1
+                    },
+                    currentPage: state.manageParticipantsState.currentPage,
+                    itemsPerPage: state.manageParticipantsState.itemsPerPage
+                }
+            }
         }
     }),
     on(createParticipantFailedAction, (state) => ({
@@ -82,7 +123,7 @@ export const reducer = createReducer(
     })),
     on(blockParticipantSuccessAction, (state, action) => {
 
-       const user = state.manageUsers.data.find(x => x.id == action.id);
+       const user = state.manageParticipantsState.manageUsers.data.find(x => x.id == action.id);
 
        const updatedUser = {
            ...user,
@@ -90,8 +131,8 @@ export const reducer = createReducer(
        }
 
        const managedUsers = {
-           ...state.manageUsers,
-           data: state.manageUsers.data.map(user => {
+           ...state.manageParticipantsState.manageUsers,
+           data: state.manageParticipantsState.manageUsers.data.map(user => {
                return user.id == action.id ? updatedUser : user;
            })
        }
@@ -112,7 +153,7 @@ export const reducer = createReducer(
         manageGroupState: initialManageGroupState
     })),
     on(unblockParticipantSuccessAction, (state, action) => {
-        const user = state.manageUsers.data.find(x => x.id == action.id);
+        const user = state.manageParticipantsState.manageUsers.data.find(x => x.id == action.id);
 
         const updatedUser = {
             ...user,
@@ -120,8 +161,8 @@ export const reducer = createReducer(
         }
  
         const managedUsers = {
-            ...state.manageUsers,
-            data: state.manageUsers.data.map(user => {
+            ...state.manageParticipantsState.manageUsers,
+            data: state.manageParticipantsState.manageUsers.data.map(user => {
                 return user.id == action.id ? updatedUser : user;
             })
         }
@@ -140,7 +181,7 @@ export const reducer = createReducer(
         ...state,
         isLoading: true,
         error: null,
-        manageUsers: null
+        manageParticipantsState: initialManageParticipantState
     })),
     on(getGroupsActionSuccess, (state, action) => ({
         ...state,
@@ -160,7 +201,7 @@ export const reducer = createReducer(
     on(getTeachersAction, (state) =>({
         ...state,
         isLoading: true,
-        manageUsers: null 
+        manageParticipantsState: initialManageParticipantState 
     })),
     on(getTeachersAction_Success, (state, action) => ({
         ...state,
@@ -180,7 +221,7 @@ export const reducer = createReducer(
     on(getAllStudentsAction, (state) => ({
         ...state,
         isLoading: true,
-        manageUsers: null
+        manageParticipantsState: initialManageParticipantState
     })),
     on(getAllStudentsAction_Success,(state, action) => ({
         ...state,
@@ -200,7 +241,7 @@ export const reducer = createReducer(
     on(createGroupAction, (state) => ({
         ...state,
         isLoading: true,
-        manageUsers: null
+        manageParticipantsState: initialManageParticipantState
     })),
     on(createGroupSuccessAction, (state,action) => {
         const groups = {

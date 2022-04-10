@@ -23,31 +23,33 @@
         </div>
         <button mat-stroked-button color="primary" (click)="createUser()"><i class="fa fa-plus"></i> Создать</button>
     </div>
-    <table mat-table [dataSource]="users.data" class="table">
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Имя</th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-        <ng-container matColumnDef="surname">
-            <th mat-header-cell *matHeaderCellDef>Фамилия</th>
-            <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
-        </ng-container>
-        <ng-container matColumnDef="login">
-            <th mat-header-cell *matHeaderCellDef>Логин</th>
-            <td mat-cell *matCellDef="let element"> {{element.login}} </td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Действия</th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-stroked-button color="warn" (click)="blockUser(element.id)" *ngIf="element.state != 'Blocked';else unblocked" class="actionButton">Заблокировать</button>
-                <ng-template #unblocked>
-                    <button mat-stroked-button color="primary" (click)="unblock(element.id)" class="actionButton">Разблокировать</button>
-                </ng-template>
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    <div class="table-container">
+        <table mat-table [dataSource]="users.data" class="table">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Имя</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+                <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+            </ng-container>
+            <ng-container matColumnDef="login">
+                <th mat-header-cell *matHeaderCellDef>Логин</th>
+                <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Действия</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button color="warn" (click)="blockUser(element.id)" *ngIf="element.state != 'Blocked';else unblocked" class="actionButton">Заблокировать</button>
+                    <ng-template #unblocked>
+                        <button mat-stroked-button color="primary" (click)="unblock(element.id)" class="actionButton">Разблокировать</button>
+                    </ng-template>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
     <mat-paginator 
         [length]="users.count" 
         [pageSizeOptions]="[5,10,20]"

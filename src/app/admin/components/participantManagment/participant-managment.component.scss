@@ -1,6 +1,19 @@
 table {
   width: 100%;
 }
+.table-container{
+  position: relative;
+  min-height: 200px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+tr[mat-row] {
+  cursor: pointer;
+  &:hover{
+      background: whitesmoke;
+  }
+}
 
 .header {
   display: flex;

@@ -50,3 +50,26 @@ element {
     --main-color: #3f51b5
 }
 
+table {
+    width: 100%;
+}
+.table-container {
+    position: relative;
+    max-height: 50vh;
+    overflow: auto;
+}
+
+.table-container-min {
+    position: relative;
+    max-height: 35vh;
+    overflow: auto;
+}
+
+tr[mat-row] {
+cursor: pointer;
+    &:hover{
+        background: whitesmoke;
+    }
+}
+  
+

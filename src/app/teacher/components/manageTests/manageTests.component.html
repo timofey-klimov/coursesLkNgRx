@@ -2,18 +2,20 @@
     <button mat-stroked-button color="primary" (click)="createTest()"><i class="fa fa-plus"></i> Создать</button>
 </div>
 <ng-container *ngIf="(createdTests$ | async) as createdTests">
-    <table mat-table [dataSource]="createdTests.data">
-        <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef>Название</th>
-            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-        </ng-container>
-        <ng-container matColumnDef="createDate">
-            <th mat-header-cell *matHeaderCellDef>Дата создания</th>
-            <td mat-cell *matCellDef="let element"> {{element.createDate | date: 'dd/MM/YYYY H:mm'}}</td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    <div class="table-container">
+        <table mat-table [dataSource]="createdTests.data">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Название</th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="createDate">
+                <th mat-header-cell *matHeaderCellDef>Дата создания</th>
+                <td mat-cell *matCellDef="let element"> {{element.createDate | date: 'dd/MM/YYYY H:mm'}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
     <mat-paginator 
         [length]="createdTests.count" 
         [pageSizeOptions]="[5,10]"
