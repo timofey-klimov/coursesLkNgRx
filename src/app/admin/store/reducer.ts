@@ -1,6 +1,4 @@
-import { state } from "@angular/animations";
 import { createReducer, on } from "@ngrx/store";
-import { Action } from "rxjs/internal/scheduler/Action";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createGroupAction, createGroupFailedAction, createGroupSuccessAction } from "./action/createGroup.action";
@@ -11,9 +9,9 @@ import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success 
 import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "./action/manageGroups.action";
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
-import { IAdminPageState } from "./states/admin-page.state";
+import { IAdminPageState } from "./states/adminPage.state";
 import { IGetGroupInfoState } from "./states/getGroupInfo.state";
-import { IManageGroupState } from "./states/manage-group.state";
+import { IManageGroupState } from "./states/manageGroups.state";
 import { IManageParticipantsState } from "./states/manageParticipants.state";
 
 const initialGetGroupInfoState: IGetGroupInfoState = {
@@ -26,7 +24,9 @@ const initialManageGroupState: IManageGroupState = {
     availabledTeachers: null,
     manageGroups: null,
     allStudents: null,
-    groupInfoState: initialGetGroupInfoState
+    groupInfoState: initialGetGroupInfoState,
+    currentPage: 0,
+    itemsPerPage: 0
 }
 
 const initialManageParticipantState: IManageParticipantsState = {
@@ -177,22 +177,32 @@ export const reducer = createReducer(
         ...state,
         isLoading: false
     })),
-    on(getGroupsAction, (state) => ({
-        ...state,
-        isLoading: true,
-        error: null,
-        manageParticipantsState: initialManageParticipantState
-    })),
-    on(getGroupsActionSuccess, (state, action) => ({
-        ...state,
-        isLoading: false,
-        manageGroupState: {
-            manageGroups: action.groups,
-            availabledTeachers: null,
-            allStudents: null,
-            groupInfoState: initialGetGroupInfoState
+    on(getGroupsAction, (state, action) => {
+        
+        const groupsState = {
+            ...state.manageGroupState,
+            currentPage: action.request.pageNumber,
+            itemsPerPage: action.request.itemsPerPage
         }
-    })),
+        return {
+            ...state,
+            isLoading: true,
+            manageGroupState: groupsState
+        }
+    }),
+    on(getGroupsActionSuccess, (state, action) => {
+
+        const managedGroups = {
+            ...state.manageGroupState,
+            manageGroups: action.groups
+        }
+
+        return {
+            ...state,
+            isLoading: false,
+            manageGroupState: managedGroups
+        }
+    }),
     on(getGroupsActionFailed, (state, action) => ({
         ...state,
         isLoading: false,
@@ -203,16 +213,19 @@ export const reducer = createReducer(
         isLoading: true,
         manageParticipantsState: initialManageParticipantState 
     })),
-    on(getTeachersAction_Success, (state, action) => ({
-        ...state,
-        isLoading: false,
-        manageGroupState: {
-            manageGroups: state.manageGroupState.manageGroups,
-            availabledTeachers: action.response,
-            allStudents: null,
-            groupInfoState: initialGetGroupInfoState
+    on(getTeachersAction_Success, (state, action) => {
+
+        const managedGroupsState = {
+            ...state.manageGroupState,
+            availabledTeachers: action.response
         }
-    })),
+
+        return {
+            ...state,
+            isLoading: false,
+            manageGroupState: managedGroupsState
+        }
+    }),
     on(getTeachersAction_Failed, (state, action) => ({
         ...state,
         isLoading: false,
@@ -223,16 +236,19 @@ export const reducer = createReducer(
         isLoading: true,
         manageParticipantsState: initialManageParticipantState
     })),
-    on(getAllStudentsAction_Success,(state, action) => ({
-        ...state,
-        isLoading: false,
-        manageGroupState: {
-            manageGroups: state.manageGroupState.manageGroups,
-            availabledTeachers: state.manageGroupState.availabledTeachers,   
-            allStudents: action.response,
-            groupInfoState: initialGetGroupInfoState
-       } 
-    })),
+    on(getAllStudentsAction_Success,(state, action) => {
+
+        const managedGroupsState = {
+            ...state.manageGroupState,
+            allStudents: action.response
+        }
+
+        return {
+            ...state,
+            isLoading: false,
+            manageGroupState: managedGroupsState
+        }
+    }),
     on(getAllStudentsAction_Failed, (state, action) => ({
         ...state,
         isLoading: false,
@@ -244,65 +260,93 @@ export const reducer = createReducer(
         manageParticipantsState: initialManageParticipantState
     })),
     on(createGroupSuccessAction, (state,action) => {
-        const groups = {
-            ...state.manageGroupState.manageGroups,
-            data: [...state.manageGroupState.manageGroups.data, action.group]
+        let itemsCount = state.manageGroupState.manageGroups.count;
+        let itemsPerPage = state.manageGroupState.itemsPerPage;
+        let currentPage = state.manageGroupState.currentPage;
+
+        if (currentPage * itemsPerPage > (itemsCount - itemsPerPage)) {
+            const managedGroups = [...state.manageGroupState.manageGroups.data, action.group]
+
+            const managedGroupState = {
+                ...state.manageGroupState,
+                manageGroups: {
+                    data: managedGroups,
+                    count: state.manageGroupState.manageGroups.count + 1
+                }
+            }
+
+            return {
+                ...state,
+                isLoading: false,
+                manageGroupState: managedGroupState
+            }
+        } else {
+
+            const managedGroupState = {
+                ...state.manageGroupState,
+                manageGroups: {
+                    data: state.manageGroupState.manageGroups.data,
+                    count: state.manageGroupState.manageGroups.count + 1
+                }
+            }
+            return {
+                ...state,
+                isLoading: false,
+                manageGroupState: managedGroupState
+                
+            }
         }
 
-        return {
-            ...state,
-            manageGroupState: {
-                allStudents: null,
-                manageGroups: groups,
-                availabledTeachers: null,
-                groupInfoState:initialGetGroupInfoState
-            },
-            isLoading: false
-        }
+
     }),
     on(createGroupFailedAction, (state) => ({
         ...state,
         isLoading: false
     })),
-    on(getStudyGroupInfoAction, (state) => ({
-        ...state,
-        manageUsers: null,
-        manageGroupState: {
-            availabledTeachers: null,
-            allStudents: null,
-            manageGroups: state.manageGroupState.manageGroups,
+    on(getStudyGroupInfoAction, (state) => {
+
+        const getStudyGroupState = {
+            ...state.manageGroupState,
             groupInfoState: {
                 isLoading: true,
                 wasError: false,
                 groupInfo: null
             }
         }
-       
-    })),
-    on(getStudyGroupInfoSuccessAction, (state,action) => ({
-        ...state,
-        manageGroupState: {
-            allStudents: null,
-            manageGroups: state.manageGroupState.manageGroups,
-            availabledTeachers: null,
+
+        return {
+            ...state,
+            manageGroupState: getStudyGroupState
+        }
+    }),
+    on(getStudyGroupInfoSuccessAction, (state,action) => {
+        const getStudyGroupState = {
+            ...state.manageGroupState,
             groupInfoState: {
                 isLoading: false,
                 wasError: false,
                 groupInfo: action.groupInfo
             }
         }
-    })),
-    on(getStudyGroupInfoFailedAction, (state) => ({
-        ...state,
-        manageGroupState: {
-            allStudents: null,
-            manageGroups: state.manageGroupState.manageGroups,
-            availabledTeachers: null,
+        return {
+            ...state,
+            manageGroupState: getStudyGroupState
+        }
+    }),
+    on(getStudyGroupInfoFailedAction, (state) => {
+
+        const getStudyGroupState = {
+            ...state.manageGroupState,
             groupInfoState: {
                 isLoading: false,
                 wasError: true,
                 groupInfo: null
             }
         }
-    }))
+
+        return {
+            ...state,
+            manageGroupState: getStudyGroupState
+        }
+    })
 )

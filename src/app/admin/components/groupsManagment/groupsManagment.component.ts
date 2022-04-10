@@ -29,7 +29,7 @@ export class GroupsManagmentComponent implements OnInit {
         this.groups$ = this.store.select(managedGroupsSelector);
         this.isLoading$ = this.store.select(isLoadingSelector);
         this.displayedColumns = ['title', 'teacher', 'createDate']
-        this._initForm(5, 0);
+        this._initForm(0, 5);
     }
     
     
@@ -54,16 +54,19 @@ export class GroupsManagmentComponent implements OnInit {
     }
 
     changePage(pageEvent: PageEvent): void {
-        const offset = pageEvent.pageIndex * pageEvent.pageSize;
-        const limit = pageEvent.pageSize;
-        this._initForm(limit, offset);
+        this._initForm(pageEvent.pageIndex, pageEvent.pageSize);
     }
     
 
-    private _initForm(limit: number, offset: number){
+    private _initForm(pageIndex: number, itemsPerPage: number) {
+        const offset = pageIndex * itemsPerPage;
+        const limit = itemsPerPage;
+
         const request: IGetGroupsRequest = {
             limit,
-            offset
+            offset,
+            pageNumber: pageIndex,
+            itemsPerPage
         }
         
         this.store.dispatch(getGroupsAction({request}));

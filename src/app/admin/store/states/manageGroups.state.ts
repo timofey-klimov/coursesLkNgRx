@@ -8,5 +8,7 @@ export interface IManageGroupState {
     manageGroups: IGetGroupsResponse
     availabledTeachers: IGetTeachersResponse,
     allStudents: IGetStudentsResponse,
-    groupInfoState: IGetGroupInfoState
+    groupInfoState: IGetGroupInfoState,
+    currentPage: number,
+    itemsPerPage: number
 }

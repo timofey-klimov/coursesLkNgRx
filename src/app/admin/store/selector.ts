@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IAppState } from "src/app/shared/types/app.state";
-import { IAdminPageState } from "./states/admin-page.state";
+import { IAdminPageState } from "./states/adminPage.state";
 
 export const adminPageFeatureSelector = createFeatureSelector<IAppState, IAdminPageState>('adminPage');
 

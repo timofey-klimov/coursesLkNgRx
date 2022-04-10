@@ -1,4 +1,4 @@
-import {  IManageGroupState } from "./manage-group.state";
+import {  IManageGroupState } from "./manageGroups.state";
 import { IManageParticipantsState } from "./manageParticipants.state";
 
 export interface IAdminPageState {
