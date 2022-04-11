@@ -1,6 +1,6 @@
 <ng-container *ngIf="(groupInfo$ | async) as info">
   <div class="header">
-    <h3>Информация о группе {{info.title}}</h3>
+    <h3>Управление группой {{info.title}}</h3>
   </div>
   <mat-divider></mat-divider>
 
@@ -32,6 +32,12 @@
           <th mat-header-cell *matHeaderCellDef>Логин</th>
           <td mat-cell *matCellDef="let element">{{element.login}}</td>
       </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Действия</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button color="warn">Удалить</button>
+        </td>
+    </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row 
           *matRowDef="let row; columns: displayedColumns;"></tr>

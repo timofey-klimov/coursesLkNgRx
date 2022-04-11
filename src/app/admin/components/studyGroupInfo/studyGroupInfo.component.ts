@@ -32,7 +32,7 @@ export class StudyGroupInfoComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit(): void {
-        this.displayedColumns = ['name','surname','login'];
+        this.displayedColumns = ['name','surname','login','actions'];
         this.isLoading$ = this.store.select(isLoadingStudyGroupInfoSelector);
         this.groupInfo$ = this.store.select(studyGroupInfoSelector)
         this.subscription = this.store.select(wasErrorStudyGroupInfoSelector).subscribe((error: boolean) => {
