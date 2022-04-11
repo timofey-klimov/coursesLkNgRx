@@ -3,7 +3,7 @@
 </div>
 <mat-divider></mat-divider>
 <ng-container *ngIf="(groups$ | async) as groups">
-    <div class="table-container">
+    <div class="table-container flex center">
         <table mat-table [dataSource]="groups.data">
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef>Название</th>
