@@ -8,18 +8,14 @@
     justify-content: center;
     padding: .5rem;
 }
-table {
-    width: 100%;
-  }
-    
-th.mat-header-cell {
-    text-align: center !important;
-  }
-  
-td.mat-cell {
-    text-align: center !important;
-  }
 
-.table-container {
-    margin-top: 1.3rem;
+.mat-column-title {
+  width: 40%;
+}
+
+.mat-column-createDate {
+  width: 40%;
+}
+.mat-column-studentsCount {
+  width: 20%;
 }
