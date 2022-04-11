@@ -8,6 +8,17 @@
     justify-content: center;
     padding: .5rem;
 }
+table {
+    width: 100%;
+  }
+    
+th.mat-header-cell {
+    text-align: center !important;
+  }
+  
+td.mat-cell {
+    text-align: center !important;
+  }
 
 .table-container {
     margin-top: 1.3rem;

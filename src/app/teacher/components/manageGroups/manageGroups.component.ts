@@ -39,7 +39,7 @@ export class ManageGoupsComponent implements OnInit {
 
     openGroupInfo(id: number): void {
         this.matDialog.open(GroupInfoComponent, {
-            width: '40vw',
+            width: '60vw',
             height: '70vh',
             data: id
         })

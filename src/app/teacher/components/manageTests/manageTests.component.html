@@ -1,6 +1,12 @@
-<div class="header">
-    <button mat-stroked-button color="primary" (click)="createTest()"><i class="fa fa-plus"></i> Создать</button>
+<div>
+    <div class="header main-color">
+        <h2>Мои тесты</h2>
+    </div>
+    <div class="createButton">
+        <button mat-stroked-button color="primary" (click)="createTest()"><i class="fa fa-plus"></i> Создать</button>
+    </div>
 </div>
+<br>
 <ng-container *ngIf="(createdTests$ | async) as createdTests">
     <div class="table-container">
         <table mat-table [dataSource]="createdTests.data">
