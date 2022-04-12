@@ -22,13 +22,15 @@ import { GetGroupsEffect } from "./store/effects/getGroups.effect";
 import { ManageGoupsComponent } from "./components/manageGroups/manageGroups.component";
 import { GroupInfoComponent } from "./components/groupInfo/groupInfo.component";
 import { GetGroupInfoEffect } from "./store/effects/getGroupInfo.effect";
+import { SendEmailComponent } from "./components/sendEmail/sendEmail.component";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
         { path: '', component: TeacherComponent },
         { path: 'manage-tests', component: ManageTestsComponent },
         { path: 'create-test', component: CreateTestComponent, canDeactivate: [WarningExitGuard]},
-        { path: 'manage-groups', component: ManageGoupsComponent }
+        { path: 'manage-groups', component: ManageGoupsComponent },
+        { path: 'send-email', component: SendEmailComponent}
     ]}
 ]
 
@@ -54,7 +56,8 @@ const routes: Routes = [
         ManageTestsComponent, 
         CreateTestComponent, 
         ManageGoupsComponent,
-        GroupInfoComponent],
+        GroupInfoComponent,
+        SendEmailComponent],
 
     exports: [RouterModule],
     providers: [TeachersApiService, TestApiService]

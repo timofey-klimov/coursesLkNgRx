@@ -1,0 +1,57 @@
+<div class="title main-color">
+    <h2>Рассылка письма</h2>
+</div>
+<mat-horizontal-stepper #stepper linear>
+    <mat-step [stepControl]="studentsForm">
+        <ng-template matStepLabel class="stepper">Выберите ученика</ng-template>
+        <div class="header">
+            <mat-expansion-panel class="panel">
+                <mat-expansion-panel-header>
+                    Фильтры
+                </mat-expansion-panel-header>
+                <div class="filter">
+                    <mat-form-field>
+                        <mat-label>Имя</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Фамилия</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Группа</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+            <button mat-stroked-button color="primary" matStepperNext>Дальше</button>
+        </div>
+        <div class="table-container">
+            <table mat-table>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Имя</th>
+                    <td mat-cell *matCellDef="let element"> 123 </td>
+                </ng-container>
+                <ng-container matColumnDef="surname">
+                    <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+                    <td mat-cell *matCellDef="let element">123</td>
+                </ng-container>
+                <ng-container matColumnDef="login">
+                    <th mat-header-cell *matHeaderCellDef>Почта</th>
+                    <td mat-cell *matCellDef="let element">123</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="studentsColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: studentsColumns;"></tr>
+            </table>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Текст письма</ng-template>
+        <mat-form-field class="text">
+            <mat-label>Тема письма</mat-label>
+                <input matInput>
+        </mat-form-field>
+        <quill-editor formControlName="content"></quill-editor>
+        <button mat-stroked-button color="primary" class="send">Отправить пиьсмо</button>
+    </mat-step>
+</mat-horizontal-stepper>

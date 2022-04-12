@@ -21,6 +21,9 @@ export class TeacherLayoutComponent {
     manageGroups(): void {
         this.router.navigate(['/teacher', 'manage-groups'])
     }
+    sendEmail(): void{
+        this.router.navigate(['/teacher', 'send-email'])
+    }
 
     logout(): void {
         localStorage.removeItem('token');

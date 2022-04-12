@@ -1,0 +1,30 @@
+.title {
+    display: flex;
+    justify-content: center;
+    padding: .5rem;
+    margin-bottom: .7rem;
+}
+
+.panel {
+    width: 20vw;
+    margin: .5rem;
+    .filter {
+        display: flex;
+        flex-direction: column;
+    }
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    button { 
+        align-self: center;
+    }
+}
+.text {
+    width: 100%;
+    text-align: left  ;
+}
+.send {
+    margin-bottom: .15rem;
+    justify-content: right;
+}
