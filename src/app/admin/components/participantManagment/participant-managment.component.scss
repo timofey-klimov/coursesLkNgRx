@@ -23,14 +23,23 @@ tr[mat-row] {
     align-self: center;
   }
   .filter {
-    display: flex;
-    justify-content: space-between;
-
-    button {
-      margin: .5rem;
-    }
+    margin-bottom: .5rem;
+    width: 20vw;
+    
     mat-form-field{
-      margin: .5rem;
+      width: 15vw;
+    }
+
+    &.content {
+      display: flex;
+      flex-direction: column;
+
+      .actions {
+        margin-top: .5rem;
+        button {
+          margin-right: 1rem;
+        }
+      }
     }
   }
 }

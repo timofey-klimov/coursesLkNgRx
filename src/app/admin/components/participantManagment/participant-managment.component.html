@@ -1,26 +1,32 @@
 <ng-container *ngIf="(managedUsers$ | async) as users">
     <div class="header">
-        <div class="filter">
-            <form [formGroup]="form" (ngSubmit)="applyFilter()">
-                <mat-form-field appearance="standard">
-                    <mat-label>Имя</mat-label>
-                    <input matInput formControlName="name">
-                </mat-form-field>
-                <mat-form-field appearance="standard">
-                    <mat-label>Фамилия</mat-label>
-                    <input matInput formControlName="surname">
-                </mat-form-field>
-                <mat-form-field appearance="standard">
-                    <mat-label>Логин</mat-label>
-                    <input matInput formControlName="login">
-                </mat-form-field>
-
-                <mat-checkbox formControlName="isOnlyActive">Только активные</mat-checkbox>
-
-                <button mat-stroked-button color="primary" (click)="applyFilter()" type="submit">Искать</button>
-            </form>
-            <button mat-stroked-button color="primary" (click)="clearForm()">Очистить</button>
-        </div>
+        <mat-accordion class="filter">
+           <mat-expansion-panel>
+               <mat-expansion-panel-header>
+                   Фильтр
+               </mat-expansion-panel-header>
+                   <form [formGroup]="form" (ngSubmit)="applyFilter()" class="filter content">
+                       <mat-form-field appearance="standard">
+                           <mat-label>Имя</mat-label>
+                           <input matInput formControlName="name">
+                       </mat-form-field>
+                       <mat-form-field appearance="standard">
+                           <mat-label>Фамилия</mat-label>
+                           <input matInput formControlName="surname">
+                       </mat-form-field>
+                       <mat-form-field appearance="standard">
+                           <mat-label>Логин</mat-label>
+                           <input matInput formControlName="login">
+                       </mat-form-field>
+   
+                       <mat-checkbox formControlName="isOnlyActive">Только активные</mat-checkbox>
+                       <div class="actions">
+                            <button mat-stroked-button color="primary" (click)="applyFilter()" type="submit">Искать</button>
+                            <button mat-stroked-button color="primary" (click)="clearForm()">Очистить</button>
+                       </div>
+                   </form>  
+            </mat-expansion-panel>
+        </mat-accordion>
         <button mat-stroked-button color="primary" (click)="createUser()"><i class="fa fa-plus"></i> Создать</button>
     </div>
     <div class="table-container">
