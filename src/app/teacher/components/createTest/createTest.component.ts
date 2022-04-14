@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { Store } from "@ngrx/store";
@@ -30,6 +30,9 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     isTypeSelected: boolean;
     type: QuestionTypes;
     matcher: FormStateMatcher;
+    editedQuestion: IQuestion;
+    @ViewChild('readOnlyTemplate') readonlyTemplate: TemplateRef<any>;
+    @ViewChild('editTemplate') editTempalte: TemplateRef<any>;
 
     constructor(private store: Store, private notify: NotificationService) {
     }
@@ -136,5 +139,21 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
 
         const request: ICreateTestRequest = {title, questions};
         this.store.dispatch(createTestAction({request}));
+    }
+
+    loadTemplate(question:IQuestion): TemplateRef<any> {
+       if (this.editedQuestion?.position === question.position) {
+           return this.editTempalte;
+       } else {
+           return this.readonlyTemplate;
+       }
+    }
+
+    edit(question: IQuestion): void {
+        this.editedQuestion = question;
+    }
+
+    save(): void {
+        this.editedQuestion = null;
     }
 }

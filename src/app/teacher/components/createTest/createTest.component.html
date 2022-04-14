@@ -113,21 +113,47 @@
                         Вопрос {{idx + 1}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-
-                <div class="form-control">
-                    <quill-editor [(ngModel)]="question.content" disabled></quill-editor>
-                    <container *ngIf="question?.answerOptions" class="answers">
-                        <div *ngFor="let answerOption of question.answerOptions; let idx = index">
-                          <mat-form-field>
-                            <mat-label>Вариант ответа</mat-label>
-                            <input matInput [(ngModel)]="answerOption.content" disabled>
-                          </mat-form-field>
-                          <mat-checkbox [(ngModel)]="answerOption.isCorrect" disabled></mat-checkbox>
-                        </div>
-                    </container>
-                </div>
-
+                
+                <ng-container 
+                    [ngTemplateOutlet]="loadTemplate(question)" 
+                    [ngTemplateOutletContext]="{$implicit: question}">
+                </ng-container>
            </mat-expansion-panel>
        </mat-accordion>
     </mat-step>
 </mat-horizontal-stepper>
+
+<ng-template #readOnlyTemplate let-question>
+    <div class="editButton">
+        <button mat-stroked-button color="primary" (click)="edit(question)">Редактировать</button>
+    </div>
+    <div class="form-control">
+        <quill-editor [(ngModel)]="question.content" disabled></quill-editor>
+        <ng-container *ngIf="question?.answerOptions" class="answers">
+            <div *ngFor="let answerOption of question.answerOptions; let idx = index">
+              <mat-form-field>
+                <input matInput [(ngModel)]="answerOption.content" disabled>
+              </mat-form-field>
+              <mat-checkbox [(ngModel)]="answerOption.isCorrect" disabled></mat-checkbox>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #editTemplate let-question>
+    <div class="editButton">
+        <button mat-stroked-button color="primary" (click)="save()">Сохранить</button>
+    </div>
+    <div class="form-control">
+        <quill-editor [(ngModel)]="question.content"></quill-editor>
+        <ng-container *ngIf="question?.answerOptions" class="answers">
+            <div *ngFor="let answerOption of question.answerOptions; let idx = index">
+              <mat-form-field>
+                <mat-label>Вариант ответа</mat-label>
+                <input matInput [(ngModel)]="answerOption.content">
+              </mat-form-field>
+              <mat-checkbox [(ngModel)]="answerOption.isCorrect"></mat-checkbox>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>
