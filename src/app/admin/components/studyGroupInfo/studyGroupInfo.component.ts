@@ -27,6 +27,7 @@ export class StudyGroupInfoComponent implements OnInit,OnDestroy {
     
     @ViewChildren('checkBox') checkBoxes: MatCheckbox[];
     @ViewChild('table') matTable: MatTable<IStudent>;
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: {groupId: number, teacherId: number}, 
         private store: Store,
@@ -51,7 +52,6 @@ export class StudyGroupInfoComponent implements OnInit,OnDestroy {
                 this.matDialogRef.close();
             }
         })
-
 
         const request: IGetStudyGroupInfoRequest = {
             groupId: this.data.groupId,

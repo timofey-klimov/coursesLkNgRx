@@ -37,3 +37,10 @@
     justify-content: end;
     margin-bottom: 1rem;
 }
+
+.options {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    max-width: 12vw;
+}

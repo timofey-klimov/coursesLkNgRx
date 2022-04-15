@@ -22,6 +22,7 @@ import { GetGroupsEffect } from "./store/effects/getGroups.effect";
 import { ManageGoupsComponent } from "./components/manageGroups/manageGroups.component";
 import { GroupInfoComponent } from "./components/groupInfo/groupInfo.component";
 import { GetGroupInfoEffect } from "./store/effects/getGroupInfo.effect";
+import { IconDirective } from "../shared/directives/icon.directive";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
@@ -54,7 +55,8 @@ const routes: Routes = [
         ManageTestsComponent, 
         CreateTestComponent, 
         ManageGoupsComponent,
-        GroupInfoComponent],
+        GroupInfoComponent,
+        IconDirective],
 
     exports: [RouterModule],
     providers: [TeachersApiService, TestApiService]

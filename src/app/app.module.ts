@@ -14,6 +14,7 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { UserModule } from './user/user.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { QuillModule } from 'ngx-quill';
+import { IconDirective } from './shared/directives/icon.directive';
 
 @NgModule({
   declarations: [

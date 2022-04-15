@@ -9,6 +9,7 @@ import { IQuestion } from "../../types/question.interface";
 import { QuestionTypes } from "../../types/questionTypes.enum";
 import { IQuestionWithAnswerOptions } from "../../types/questionWithAnwerOptions.interface";
 import {NotificationService} from"../../../shared/services/notification.service"
+import { IIconInput } from "src/app/shared/types/directives/iconInput.interface";
 
 export class FormStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
@@ -56,12 +57,29 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
         })
 
         this.matcher = new FormStateMatcher();
+        
+    }
+
+    handleDelete(index: number): void {
+        let question = this.editedQuestion as IQuestionWithAnswerOptions;
+        let answerOptions = question.answerOptions.filter((element, elIndex) => {
+            if (index != elIndex) {
+                return element;
+            }
+        })
+        question.answerOptions = answerOptions;
     }
 
     get questions(): Array<IQuestion> {
         let control = this.createdQuestionsForm.get('questions') as FormArray;
 
         return control.value as Array<IQuestion>;
+    }
+
+    set questions(updatedQuestions: Array<IQuestion>) {
+        let control = this.createdQuestionsForm.get('questions') as FormArray;
+
+        control.setValue(updatedQuestions);
     }
 
     addQuestionWithOptionsInTest(): void {
@@ -154,6 +172,13 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     }
 
     save(): void {
+        this.questions = this.questions.filter((element, index) => {
+            if (element.position === this.editedQuestion.position) {
+                element = this.editedQuestion
+            }
+
+            return element;
+        })
         this.editedQuestion = null;
     }
 }
