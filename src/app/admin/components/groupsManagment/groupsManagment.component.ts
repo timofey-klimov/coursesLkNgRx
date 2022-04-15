@@ -20,6 +20,7 @@ export class GroupsManagmentComponent implements OnInit {
     groups$: Observable<IGetGroupsResponse | null>;
     displayedColumns: string[];
     isLoading$: Observable<boolean>;
+    templateState: boolean;
 
     constructor(private store: Store, private matDialog: MatDialog) {
 

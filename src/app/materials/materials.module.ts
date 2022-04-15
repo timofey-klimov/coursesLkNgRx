@@ -17,6 +17,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon'
 
 @NgModule({
     imports:[
@@ -36,7 +37,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatTabsModule
+        MatTabsModule,
+        MatIconModule
     ],
     exports:[
         MatButtonModule,
@@ -55,7 +57,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatTabsModule
+        MatTabsModule,
+        MatIconModule
     ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
