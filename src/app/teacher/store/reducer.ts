@@ -3,6 +3,7 @@ import { createTestAction, createTestFailedAction, createTestSuccessAction } fro
 import { getGroupInfoAction, getGroupInfoFailedAction, getGroupInfoSuccessAction } from "./actions/getGroupInfo.action";
 import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "./actions/getGroups.action";
 import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "./actions/getTests.actions";
+import { ICreateTestState } from "./states/createTest.state";
 import { IGroupInfoState } from "./states/groupInfo.state";
 import { ITeacherPageState } from "./states/teacher-page.state";
 
@@ -12,12 +13,16 @@ const initialGroupInfoState: IGroupInfoState = {
     groupInfo: null
 }
 
+const initialCreateTestState: ICreateTestState = {
+    successCreated: false
+}
 
 const initialState: ITeacherPageState = {
     isLoading: false,
     createdTests: null,
     groups: null,
-    groupInfo: initialGroupInfoState
+    groupInfo: initialGroupInfoState,
+    createTest: initialCreateTestState
 }
 
 export const reducer = createReducer(
@@ -40,7 +45,8 @@ export const reducer = createReducer(
     on(createTestAction, (state) => ({
         ...state,
         isLoading: true,
-        groupInfo: initialGroupInfoState
+        groupInfo: initialGroupInfoState,
+        createTest: initialCreateTestState
     })),
     on(createTestSuccessAction, (state, action) => {
 
@@ -52,6 +58,9 @@ export const reducer = createReducer(
             createdTests: {
                 data: createdTests,
                 count: createdTests.length
+            },
+            createTest: {
+                successCreated: true
             }
         }
     }),

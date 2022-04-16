@@ -15,3 +15,5 @@ export const isLoadingGroupInfoSelector = createSelector(featureSelector, (state
 export const groupInfoSelector = createSelector(featureSelector, (state) => state?.groupInfo?.groupInfo);
 
 export const groupInfoWasErrorSelector = createSelector(featureSelector, (state) => state?.groupInfo?.wasError);
+
+export const successCreateTestSelector = createSelector(featureSelector, (state) => state?.createTest?.successCreated);

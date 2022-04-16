@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { Store } from "@ngrx/store";
@@ -9,8 +9,9 @@ import { IQuestion } from "../../types/question.interface";
 import { QuestionTypes } from "../../types/questionTypes.enum";
 import { IQuestionWithAnswerOptions } from "../../types/questionWithAnwerOptions.interface";
 import {NotificationService} from"../../../shared/services/notification.service"
-import { element } from "protractor";
 import { QuestionService } from "../../services/question.service";
+import { Observable, of, Subscription } from "rxjs";
+import { successCreateTestSelector } from "../../store/selector";
 
 export class FormStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
@@ -25,8 +26,10 @@ export class FormStateMatcher implements ErrorStateMatcher {
     styleUrls: ['./createTest.component.scss'],
     providers: [QuestionService]
 })
-export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
+export class CreateTestComponent implements OnInit, ICanDeactivateComponent, OnDestroy {
 
+    subscription: Subscription;
+    successCreated: boolean;
     titleForm: FormGroup;
     form: FormGroup;
     editQuestionForm: FormGroup;
@@ -38,11 +41,21 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     @ViewChild('editTemplate') editTempalte: TemplateRef<any>;
 
     constructor(private store: Store, private notify: NotificationService, public questionService: QuestionService) {
-        
+
     }
 
-    canDeactivate(): Promise<boolean> {
-        return this.notify.canDeactivate('Данные не сохранятся');
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+    async canDeactivate(): Promise<boolean> {
+        if (!this.successCreated) {
+            return this.notify.canDeactivate('Данные не сохранятся');
+        } else {
+            return true;
+        }
     }
 
     ngOnInit(): void {
@@ -56,6 +69,8 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
             answerOptions: new FormArray([])
         })
         this.matcher = new FormStateMatcher();
+        this.subscription = this.store.select(successCreateTestSelector)
+            .subscribe(x => this.successCreated = x);
         
     }
 
@@ -134,7 +149,6 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     
     handleDelete(index: number): void {
         let anwerOptions = this.editQuestionForm.get('answerOptions') as FormArray;
-
        anwerOptions.removeAt(index);
     }
 
@@ -142,7 +156,6 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
         const {answerOptions} = this.editQuestionForm.value;
         const {content} = this.editQuestionForm.value;
         this.questionService.updateQuestion(content, answerOptions, this.editedQuestion.position);
-
         this.editedQuestion = null;
     }
 
