@@ -28,6 +28,7 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     titleForm: FormGroup;
     form: FormGroup;
     createdQuestionsForm: FormGroup;
+    editQuestionForm: FormGroup;
     isTypeSelected: boolean;
     type: QuestionTypes;
     matcher: FormStateMatcher;
@@ -168,6 +169,10 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     }
 
     edit(question: IQuestion): void {
+        this.editQuestionForm = new FormGroup({
+            content: new FormControl(question.content, Validators.required),
+            answers: new FormArray([])
+        })
         this.editedQuestion = question;
     }
 
@@ -180,5 +185,9 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
             return element;
         })
         this.editedQuestion = null;
+    }
+
+    editCreateAnswerOption(): void {
+
     }
 }

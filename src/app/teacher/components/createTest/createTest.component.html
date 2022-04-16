@@ -106,7 +106,6 @@
     <div class="flex end createTest">
         <button mat-stroked-button color="primary" (click)="createTest()">Создать тест</button>
     </div>
-    {{questions | json}}    
        <mat-accordion>
            <mat-expansion-panel *ngFor="let question of questions; let idx = index">
                 <mat-expansion-panel-header>
@@ -149,7 +148,12 @@
         <quill-editor [(ngModel)]="editedQuestion.content"></quill-editor>
         <ng-container *ngIf="editedQuestion?.answerOptions" class="answers">
             <div *ngFor="let answerOption of editedQuestion.answerOptions; let idx = index">
-                <div [selectIcon]="{iconStyle:'delete', handleClick: this.handleDelete.bind(this), elementIndex: idx}" class="options">
+                <div [selectIcon]="{iconStyle:'delete', 
+                                    handleClick: this.handleDelete.bind(this), 
+                                    elementIndex: idx,
+                                    baseColor: '#3f51b5',
+                                    hoverColor: 'red'}" 
+                    class="options">
                     <mat-form-field>
                         <mat-label>Вариант ответа</mat-label>
                         <input matInput [(ngModel)]="answerOption.content">
@@ -157,6 +161,9 @@
                     <mat-checkbox [(ngModel)]="answerOption.isCorrect"></mat-checkbox>
                 </div>
             </div>
+            <button mat-stroked-button color="primary" (click)="editCreateAnswerOption()">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
         </ng-container>
     </div>
 </ng-template>

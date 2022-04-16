@@ -1,5 +1,7 @@
 export interface IIconInput {
     iconStyle: string,
     handleClick: Function,
-    elementIndex: number
+    elementIndex: number,
+    baseColor: string,
+    hoverColor: string
 }

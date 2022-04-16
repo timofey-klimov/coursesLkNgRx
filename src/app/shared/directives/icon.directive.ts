@@ -21,14 +21,14 @@ export class IconDirective {
        const component = this.containerRef.createComponent(MatIcon);
        component.instance._elementRef.nativeElement.innerHTML= this.selectIcon.iconStyle;
        this.htmlElement = component.location.nativeElement;
-       this.htmlElement.style.color = '#3f51b5';
+       this.htmlElement.style.color = this.selectIcon.baseColor;
        this.renderer.setStyle(this.htmlElement, 'cursor', 'pointer');
        this.renderer.setStyle(this.htmlElement, 'margin-left','.2rem');
        this.renderer.listen(this.htmlElement, 'mouseenter', (e) => {
-           this.htmlElement.style.color ='red'
+           this.htmlElement.style.color = this.selectIcon.hoverColor
         })
         this.renderer.listen(this.htmlElement, 'mouseleave', (e) => {
-            this.htmlElement.style.color = '#3f51b5'
+            this.htmlElement.style.color = this.selectIcon.baseColor
         })
         this.renderer.listen(this.htmlElement, 'click', (e) => {
             this.selectIcon.handleClick(this.selectIcon.elementIndex);
