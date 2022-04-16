@@ -2,9 +2,23 @@
     <div class="nav">
         <h2>Учебка</h2>
         <ul>
-            <li (click)="manageTests()">Мои тесты</li>
-            <li (click)="manageGroups()">Мои группы</li>
-            <li (click)="logout()">Выйти</li>
+            <li>
+                <a [routerLink]="['manage-tests']"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}">
+                    Мои тесты
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['manage-groups']"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}">
+                    Мои группы
+                </a>
+            </li>
+            <li>
+                <a (click)="logout()">Выйти</a>
+            </li>
         </ul>
     </div>
     <div>
