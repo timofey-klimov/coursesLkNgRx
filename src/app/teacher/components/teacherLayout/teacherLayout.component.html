@@ -1,31 +1,41 @@
-<div class="container">
+<div class="page-container">
     <div class="nav">
-        <h2>Учебка</h2>
+        <button mat-button class="menu-button" (click)="sidenav.toggle()">
+            <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+        </button>
         <ul>
-            <li>
-                <a [routerLink]="['manage-tests']"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact:true}">
-                    Мои тесты
-                </a>
+            <li *ngIf="(currentUser$ | async) as user">
+                {{user.login}}
             </li>
             <li>
-                <a [routerLink]="['manage-groups']"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact:true}">
-                    Мои группы
-                </a>
-            </li>
-            <li>
-                <a (click)="logout()">Выйти</a>
+                Выйти
             </li>
         </ul>
     </div>
-    <div>
-        <mat-card class="admin-panel">
-            <mat-card-content class="content">
-                <router-outlet></router-outlet>
-            </mat-card-content>
-        </mat-card>
+    <div class="sidenav-container">
+        <mat-sidenav-container class="mat-sidenav-container">
+            <mat-sidenav
+                #sidenav
+                autoFocus="false"
+                mode="over"
+                [(opened)]="isMenuOpen"
+                class="sidenav">
+                    <ul class="sidenav-content">
+                        <li>
+                            <a [routerLink]="['manage-tests']">
+                                Мои тесты
+                            </a>
+                        </li>
+                    </ul>
+            </mat-sidenav>
+
+            <mat-sidenav-content>
+                <mat-card class="teacher-panel">
+                    <mat-card-content class="content">
+                        <router-outlet></router-outlet>
+                    </mat-card-content>
+                </mat-card>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
     </div>
 </div>

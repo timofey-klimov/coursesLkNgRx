@@ -10,6 +10,7 @@
 
 body{
     font-family: "Roboto";
+    height: 100%;
 }
 ul {
     list-style: none;
@@ -20,7 +21,8 @@ ul {
 }
 
 .container {
-    min-width: 1200;
+    height: 100%;
+    width: 100%;
 }
 
 html, body { height: 100%; }
