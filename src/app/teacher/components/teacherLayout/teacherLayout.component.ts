@@ -10,7 +10,7 @@ import { getUserAction } from "src/app/auth/store/actions/getUser.actions";
 })
 export class TeacherLayoutComponent {
 
-    constructor(private router: Router, private store: Store) {
+    constructor(private store: Store) {
 
     }
 
