@@ -12,7 +12,6 @@ export class IconDirective {
     htmlElement: any;
 
     constructor(private element: ElementRef, private renderer: Renderer2, private containerRef: ViewContainerRef) {
-        console.log(element);
     }
 
 

@@ -11,7 +11,7 @@
             </div>
         </form>
     </mat-step>
-    <mat-step [stepControl]="createdQuestionsForm">
+    <mat-step [stepControl]="questionService.questionsForm">
         <ng-template matStepLabel>Создавайте вопросы</ng-template>
         <div class="header">
             <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" *ngIf="!isTypeSelected">Тип вопроса</button>
@@ -20,7 +20,7 @@
                 <button mat-menu-item (click)="changeQuestionType('WithTextInput')">С текстовым ответом</button>
                 <button mat-menu-item (click)="changeQuestionType('WithFileInput')">C файловым ответом</button>
             </mat-menu>
-            <button mat-stroked-button color="primary" *ngIf="createdQuestionsForm.valid && !isTypeSelected" matStepperNext>Проверить тест</button>
+            <button mat-stroked-button color="primary" *ngIf="!questionService.isEmpty() && !isTypeSelected" matStepperNext>Проверить тест</button>
         </div>
 
         <ng-container [ngSwitch]="type">
@@ -28,7 +28,7 @@
             <form [formGroup]="form" *ngSwitchCase="0">
                 <div class="form-control">
                     <div class="title">
-                        <h3>Вопрос {{questions.length + 1}}</h3>
+                        <h3>Вопрос {{questionService.questions.length + 1}}</h3>
                         <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
                     </div>
 
@@ -61,7 +61,7 @@
             <form [formGroup]="form" *ngSwitchCase="1">
                 <div class="form-control">
                     <div class="title">
-                        <h3>Вопрос {{questions.length + 1}}</h3>
+                        <h3>Вопрос {{questionService.questions.length + 1}}</h3>
                         <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
                     </div>
         
@@ -79,7 +79,7 @@
             <form [formGroup]="form" *ngSwitchCase="2">
                 <div class="form-control">
                     <div class="title">
-                        <h3>Вопрос {{questions.length + 1}}</h3>
+                        <h3>Вопрос {{questionService.questions.length + 1}}</h3>
                         <button mat-stroked-button color="primary" (click)="clearForm()">Назад</button>
                     </div>
         
@@ -95,7 +95,7 @@
 
             <h3 *ngSwitchDefault class="default-title">
                 <span>Выберите тип вопрос</span>
-                <span *ngIf="questions.length > 0"> или проверьте тест</span>
+                <span *ngIf="questionService.questions.length > 0"> или проверьте тест</span>
             </h3>
         </ng-container>
     </mat-step>
@@ -104,10 +104,10 @@
         <ng-template matStepLabel>Проверьте тест</ng-template>
 
     <div class="flex end createTest">
-        <button mat-stroked-button color="primary" (click)="createTest()">Создать тест</button>
+        <button mat-stroked-button color="primary" (click)="createTest()" [disabled]="questionService.isEmpty()">Создать тест</button>
     </div>
        <mat-accordion>
-           <mat-expansion-panel *ngFor="let question of questions; let idx = index">
+           <mat-expansion-panel *ngFor="let question of questionService.questions; let idx = index">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Вопрос {{idx + 1}}
@@ -118,6 +118,7 @@
                     [ngTemplateOutlet]="loadTemplate(question)" 
                     [ngTemplateOutletContext]="{$implicit: question}">
                 </ng-container>
+
            </mat-expansion-panel>
        </mat-accordion>
     </mat-step>
@@ -126,6 +127,7 @@
 <ng-template #readOnlyTemplate let-question>
     <div class="editButton">
         <button mat-stroked-button color="primary" (click)="edit(question)">Редактировать</button>
+        <button mat-stroked-button color="warn" (click)="removeQuestion(question)" class="deleteButton">Удалить</button>
     </div>
     <div class="form-control">
         <quill-editor [(ngModel)]="question.content" disabled></quill-editor>
@@ -142,28 +144,36 @@
 
 <ng-template #editTemplate>
     <div class="editButton">
-        <button mat-stroked-button color="primary" (click)="save()">Сохранить</button>
+        <button mat-stroked-button color="primary" (click)="save()" [disabled]="editQuestionForm.invalid">Сохранить</button>
     </div>
-    <div class="form-control">
-        <quill-editor [(ngModel)]="editedQuestion.content"></quill-editor>
-        <ng-container *ngIf="editedQuestion?.answerOptions" class="answers">
-            <div *ngFor="let answerOption of editedQuestion.answerOptions; let idx = index">
-                <div [selectIcon]="{iconStyle:'delete', 
-                                    handleClick: this.handleDelete.bind(this), 
-                                    elementIndex: idx,
-                                    baseColor: '#3f51b5',
-                                    hoverColor: 'red'}" 
-                    class="options">
-                    <mat-form-field>
-                        <mat-label>Вариант ответа</mat-label>
-                        <input matInput [(ngModel)]="answerOption.content">
-                    </mat-form-field>
-                    <mat-checkbox [(ngModel)]="answerOption.isCorrect"></mat-checkbox>
+
+    <form class="form-control" [formGroup]="editQuestionForm">
+        <quill-editor formControlName="content"></quill-editor>
+        <ng-container *ngIf="editedQuestion?.answerOptions?.length > 0" class="answers">
+            <div formGroupName="answerOptions">
+                <div *ngFor="let control of editQuestionForm.get('answerOptions')['controls']; let idx = index">
+                    <div [selectIcon]="{iconStyle:'delete', 
+                                        handleClick: this.handleDelete.bind(this), 
+                                        elementIndex: idx,
+                                        baseColor: '#3f51b5',
+                                        hoverColor: 'red'}" 
+                        class="options">
+
+                        <ng-container [formGroupName]="idx">
+                            <mat-form-field>
+                                <mat-label>Вариант ответа</mat-label>
+                                <input matInput formControlName="content" [errorStateMatcher]="matcher">
+                            </mat-form-field>
+                            <mat-checkbox formControlName="isCorrect"></mat-checkbox>
+                        </ng-container>
+                        
+                    </div>
                 </div>
             </div>
             <button mat-stroked-button color="primary" (click)="editCreateAnswerOption()">
                 <mat-icon>add_circle_outline</mat-icon>
             </button>
         </ng-container>
-    </div>
+
+    </form>
 </ng-template>

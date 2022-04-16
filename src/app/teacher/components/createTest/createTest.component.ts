@@ -9,7 +9,8 @@ import { IQuestion } from "../../types/question.interface";
 import { QuestionTypes } from "../../types/questionTypes.enum";
 import { IQuestionWithAnswerOptions } from "../../types/questionWithAnwerOptions.interface";
 import {NotificationService} from"../../../shared/services/notification.service"
-import { IIconInput } from "src/app/shared/types/directives/iconInput.interface";
+import { element } from "protractor";
+import { QuestionService } from "../../services/question.service";
 
 export class FormStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
@@ -21,13 +22,13 @@ export class FormStateMatcher implements ErrorStateMatcher {
 @Component({
     selector: 'createTest',
     templateUrl: './createTest.component.html',
-    styleUrls: ['./createTest.component.scss']
+    styleUrls: ['./createTest.component.scss'],
+    providers: [QuestionService]
 })
 export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
 
     titleForm: FormGroup;
     form: FormGroup;
-    createdQuestionsForm: FormGroup;
     editQuestionForm: FormGroup;
     isTypeSelected: boolean;
     type: QuestionTypes;
@@ -36,7 +37,8 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
     @ViewChild('readOnlyTemplate') readonlyTemplate: TemplateRef<any>;
     @ViewChild('editTemplate') editTempalte: TemplateRef<any>;
 
-    constructor(private store: Store, private notify: NotificationService) {
+    constructor(private store: Store, private notify: NotificationService, public questionService: QuestionService) {
+        
     }
 
     canDeactivate(): Promise<boolean> {
@@ -53,81 +55,28 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
             content: new FormControl('', Validators.required),
             answerOptions: new FormArray([])
         })
-        this.createdQuestionsForm = new FormGroup({
-            questions: new FormArray([], Validators.required)
-        })
-
         this.matcher = new FormStateMatcher();
         
     }
 
-    handleDelete(index: number): void {
-        let question = this.editedQuestion as IQuestionWithAnswerOptions;
-        let answerOptions = question.answerOptions.filter((element, elIndex) => {
-            if (index != elIndex) {
-                return element;
-            }
-        })
-        question.answerOptions = answerOptions;
-    }
-
-    get questions(): Array<IQuestion> {
-        let control = this.createdQuestionsForm.get('questions') as FormArray;
-
-        return control.value as Array<IQuestion>;
-    }
-
-    set questions(updatedQuestions: Array<IQuestion>) {
-        let control = this.createdQuestionsForm.get('questions') as FormArray;
-
-        control.setValue(updatedQuestions);
-    }
-
     addQuestionWithOptionsInTest(): void {
-        let questions = this.createdQuestionsForm.get('questions') as FormArray;
-        
         let question: IQuestionWithAnswerOptions = this.form.value;
-        
-        question = {
-            ...question,
-            position: questions.length + 1,
-            type: QuestionTypes.WithAnswerOptions
-        }
-
-        questions.push(new FormControl(question));
+        this.questionService.addQuestion(question, QuestionTypes.WithAnswerOptions);
         this.clearForm();
     }
-
+    
     addQuestionWithTextInput(): void {
-        let questions = this.createdQuestionsForm.get('questions') as FormArray;
-
         let question: IQuestion = this.form.value;
-
-        question = {
-            ...question,
-            position: questions.length + 1,
-            type: QuestionTypes.WithTextInput
-        }
-        
-        questions.push(new FormControl(question));
+        this.questionService.addQuestion(question, QuestionTypes.WithTextInput);
         this.clearForm();
     }
-
+    
     addQuestionWithFileInput(): void {
-        let questions = this.createdQuestionsForm.get('questions') as FormArray;
-
         let question: IQuestion = this.form.value;
-
-        question = {
-            ...question,
-            position: questions.length + 1,
-            type: QuestionTypes.WithFileInput
-        }
-
-        questions.push(new FormControl(question));        
+        this.questionService.addQuestion(question, QuestionTypes.WithFileInput);      
         this.clearForm();
     }
-
+    
     createAnswerOption(): void {
         const answers = <FormArray>this.form.get('answerOptions')
         const control = new FormGroup({
@@ -137,7 +86,7 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
         
         answers.push(control);
     }
-
+    
     changeQuestionType(type: string): void {
         this.type = QuestionTypes[type];
         this.isTypeSelected = true;
@@ -151,43 +100,62 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent {
             answerOptions: new FormArray([])
         })
     }
-
+    
     createTest(): void {
         const {title} = this.titleForm.value;
-        const {questions} = this.createdQuestionsForm.value;
-
+        const questions = this.questionService.questions;
+        
         const request: ICreateTestRequest = {title, questions};
         this.store.dispatch(createTestAction({request}));
     }
-
+    
     loadTemplate(question:IQuestion): TemplateRef<any> {
-       if (this.editedQuestion?.position === question.position) {
-           return this.editTempalte;
-       } else {
-           return this.readonlyTemplate;
-       }
+        if (this.editedQuestion?.position === question.position) {
+            return this.editTempalte;
+        } else {
+            return this.readonlyTemplate;
+        }
     }
-
+    
     edit(question: IQuestion): void {
         this.editQuestionForm = new FormGroup({
             content: new FormControl(question.content, Validators.required),
-            answers: new FormArray([])
+            answerOptions: new FormArray((question as IQuestionWithAnswerOptions)?.answerOptions?.map(x => {
+                let formGroup = new FormGroup({
+                    content: new FormControl(x.content, Validators.required),
+                    isCorrect: new FormControl(x.isCorrect, Validators.required)
+                })
+                return formGroup;
+            }))
         })
+        
         this.editedQuestion = question;
+    }
+    
+    handleDelete(index: number): void {
+        let anwerOptions = this.editQuestionForm.get('answerOptions') as FormArray;
+
+       anwerOptions.removeAt(index);
     }
 
     save(): void {
-        this.questions = this.questions.filter((element, index) => {
-            if (element.position === this.editedQuestion.position) {
-                element = this.editedQuestion
-            }
+        const {answerOptions} = this.editQuestionForm.value;
+        const {content} = this.editQuestionForm.value;
+        this.questionService.updateQuestion(content, answerOptions, this.editedQuestion.position);
 
-            return element;
-        })
         this.editedQuestion = null;
     }
 
-    editCreateAnswerOption(): void {
+    removeQuestion(question: IQuestion): void {
+        this.questionService.removeQuestion(question);
+    }
 
+    editCreateAnswerOption(): void {
+        const answers = <FormArray>this.editQuestionForm.get('answerOptions')
+        const control = new FormGroup({
+            content: new FormControl('', Validators.required),
+            isCorrect: new FormControl(false)
+        })
+        answers.push(control);
     }
 }
