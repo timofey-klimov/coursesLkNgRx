@@ -61,29 +61,29 @@
     .mat-sidenav-container {
         height: 100%;
 
-            .sidenav {
-                min-width: 240px;
-                li {
-                    display: block;
-                    padding: .7rem 1rem;
-                    width: 100%;
-                    text-align: left;
-                    font-size: 1.2rem;
-                    a {
-                        color: black;
-                    }
-
-                    &:hover {
-                        background-color: #eeeeee;
-                    }
-
-                    &.active {
-                        background-color: #eeeeee;
-                    }
+        .sidenav {
+            min-width: 240px;
+            li {
+                display: block;
+                padding: .7rem 1rem;
+                width: 100%;
+                text-align: left;
+                font-size: 1.2rem;
+                a {
+                    color: black;
                 }
-                .sidenav-content {
-                    margin-top: 10vh;
+
+                &:hover {
+                    background-color: #eeeeee;
                 }
+
+                &.active {
+                    background-color: #eeeeee;
+                }
+            }
+            .sidenav-content {
+                margin-top: 10vh;
+            }
         }
     }
 }
