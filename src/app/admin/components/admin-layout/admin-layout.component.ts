@@ -15,6 +15,7 @@ export class AdminLayoutComponent implements OnInit {
 
     user$: Observable<ICurrentUser>;
     isLoading$: Observable<boolean>;
+    public isMenuOpen: boolean;
     constructor(private store: Store){
         
     }

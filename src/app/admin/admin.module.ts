@@ -33,7 +33,7 @@ import { GetStudyGroupInfoEffect } from "./store/effects/getStudyGroupInfo.effec
 
 const routes: Routes = [
     { path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard], children: [
-        { path: '', component: AdminComponent},
+        { path: '', redirectTo: 'manage-participants', pathMatch: 'full'},
         { path: 'manage-participants', component: ParticipantManagmentComponent },
         { path: 'manage-groups', component: GroupsManagmentComponent }
     ]}

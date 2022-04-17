@@ -18,6 +18,7 @@ tr[mat-row] {
 .header {
   display: flex;
   justify-content: space-between;
+  margin-top: 2rem;
 
   button {
     align-self: center;
@@ -46,4 +47,14 @@ tr[mat-row] {
 
 .actionButton {
   width: 9rem;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  color: #3f51b5;
+}
+
+.divider {
+  margin-top: 1rem
 }
