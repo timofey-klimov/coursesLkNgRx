@@ -26,7 +26,7 @@ import { IconDirective } from "../shared/directives/icon.directive";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
-        { path: '', component: TeacherComponent },
+        { path: '', redirectTo: 'manage-tests', pathMatch: 'full'},
         { path: 'manage-tests', component: ManageTestsComponent },
         { path: 'create-test', component: CreateTestComponent, canDeactivate: [WarningExitGuard]},
         { path: 'manage-groups', component: ManageGoupsComponent }

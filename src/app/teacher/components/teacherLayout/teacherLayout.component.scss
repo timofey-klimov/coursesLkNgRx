@@ -65,16 +65,20 @@
                 min-width: 240px;
                 li {
                     display: block;
-                    padding: 6px 24px;
+                    padding: .7rem 1rem;
                     width: 100%;
                     text-align: left;
-                    margin: .5rem;
                     font-size: 1.2rem;
                     a {
                         color: black;
                     }
+
                     &:hover {
-                        background-color: gray;
+                        background-color: #eeeeee;
+                    }
+
+                    &.active {
+                        background-color: #eeeeee;
                     }
                 }
                 .sidenav-content {

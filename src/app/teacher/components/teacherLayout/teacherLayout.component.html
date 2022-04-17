@@ -21,13 +21,17 @@
                 [(opened)]="isMenuOpen"
                 class="sidenav">
                     <ul class="sidenav-content">
-                        <li>
-                            <a [routerLink]="['manage-tests']">
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['manage-tests']"
+                                (click)="sidenav.toggle()"
+                                >
+                                <mat-icon color="primary">description</mat-icon>
                                 Мои тесты
                             </a>
                         </li>
-                        <li>
-                            <a [routerLink]="['manage-groups']">
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['manage-groups']" (click)="sidenav.toggle()">
+                                <mat-icon color="primary">account_circle</mat-icon>
                                 Мои группы
                             </a>
                         </li>
