@@ -137,10 +137,15 @@ export const reducer = createReducer(
            })
        }
 
+       const manageParticipantState = {
+           ...state.manageParticipantsState,
+           manageUsers: managedUsers
+       }
+
         return {
             ...state,
             isLoading: false,
-            manageUsers: managedUsers
+            manageParticipantsState: manageParticipantState
         };
     }),
     on(blockParticipantFailedAction, (state) => ({
@@ -168,9 +173,13 @@ export const reducer = createReducer(
         }
  
          return {
-             ...state,
-             isLoading: false,
-             manageUsers: managedUsers
+            ...state,
+            isLoading: false,
+            manageParticipantsState: {
+                manageUsers: managedUsers,
+                itemsPerPage: state.manageParticipantsState.itemsPerPage,
+                currentPage: state.manageParticipantsState.currentPage
+            }
          };
     }),
     on(unblockParticipantFailedAction, (state) => ({
