@@ -7,7 +7,7 @@
             <li *ngIf="(currentUser$ | async) as user">
                 {{user.login}}
             </li>
-            <li>
+            <li (click)="logout()">
                 Выйти
             </li>
         </ul>
@@ -24,6 +24,11 @@
                         <li>
                             <a [routerLink]="['manage-tests']">
                                 Мои тесты
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['manage-groups']">
+                                Мои группы
                             </a>
                         </li>
                     </ul>
