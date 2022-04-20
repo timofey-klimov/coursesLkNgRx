@@ -6,6 +6,8 @@ import { IGetGroupInfoRequest } from "src/app/teacher/types/getGroupInfo.request
 import { IGetGroupInfoResponse } from "src/app/teacher/types/getGroupInfo.response";
 import { IGetGroupsRequest } from "src/app/teacher/types/getGroups.request";
 import { IGetGroupsResponse } from "src/app/teacher/types/getGroups.response";
+import { IGetManagedStudentsRequest } from "src/app/teacher/types/getManagedStudents.request";
+import { IGetManagedStudentsResponse } from "src/app/teacher/types/getManagedStudents.response";
 import { IGetTeacherTestsRequest } from "src/app/teacher/types/getTests.request";
 import { IGetTeacherTestsResponse } from "src/app/teacher/types/getTests.response";
 import { environment } from "src/environments/environment";
@@ -54,5 +56,16 @@ export class TeachersApiService{
 
     getGroupInfo(request: IGetGroupInfoRequest): Observable<IApiResponseWithData<IGetGroupInfoResponse>> {
         return this.http.get<IApiResponseWithData<IGetGroupInfoResponse>>(`${environment.apiUrl}/teachers/groups/info/${request.groupId}`)
+    }
+
+    getManagedStudents(request: IGetManagedStudentsRequest): Observable<IApiResponseWithData<IGetManagedStudentsResponse>> {
+
+        let params = new HttpParams();
+        params = params.append('limit', request.limit);
+        params = params.append('offset', request.offset);
+
+        return this.http.get<IApiResponseWithData<IGetManagedStudentsResponse>>(`${environment.apiUrl}/teachers/students/all`, {
+            params
+        })
     }
 }

@@ -2,27 +2,21 @@ import { createReducer, on } from "@ngrx/store";
 import { createTestAction, createTestFailedAction, createTestSuccessAction } from "./actions/createTest.action";
 import { getGroupInfoAction, getGroupInfoFailedAction, getGroupInfoSuccessAction } from "./actions/getGroupInfo.action";
 import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "./actions/getGroups.action";
+import { getManagedStudentsAction, getManagedStudentsFailedAction, getManagedStudentsSuccessAction } from "./actions/getManagedStudents.action";
 import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "./actions/getTests.actions";
-import { ICreateTestState } from "./states/createTest.state";
-import { IGroupInfoState } from "./states/groupInfo.state";
+import { initialCreateTestState } from "./states/createTest.state";
+import { initialGroupInfoState } from "./states/groupInfo.state";
+import { managedStudentsInitialState } from "./states/managedStudents.state";
 import { ITeacherPageState } from "./states/teacher-page.state";
 
-const initialGroupInfoState: IGroupInfoState = {
-    wasError: false,
-    isLoading: false,
-    groupInfo: null
-}
-
-const initialCreateTestState: ICreateTestState = {
-    successCreated: false
-}
 
 const initialState: ITeacherPageState = {
     isLoading: false,
     createdTests: null,
     groups: null,
     groupInfo: initialGroupInfoState,
-    createTest: initialCreateTestState
+    createTest: initialCreateTestState,
+    managedStudents: managedStudentsInitialState
 }
 
 export const reducer = createReducer(
@@ -30,7 +24,7 @@ export const reducer = createReducer(
     on(getTestsAction, (state) => ({
         ...state,
         isLoading: true,
-        groupInfo: initialGroupInfoState
+        groupInfo: initialGroupInfoState,
     })),
     on(getTestsSuccessAction, (state, action) => ({
         ...state,
@@ -46,7 +40,7 @@ export const reducer = createReducer(
         ...state,
         isLoading: true,
         groupInfo: initialGroupInfoState,
-        createTest: initialCreateTestState
+        createTest: initialCreateTestState,
     })),
     on(createTestSuccessAction, (state, action) => {
 
@@ -118,5 +112,27 @@ export const reducer = createReducer(
             ...state,
             groupInfo: groupInfoState
         }
-    })
+    }),
+    on(getManagedStudentsAction, (state) => ({
+        ...state,
+        isLoading: true
+    })),
+    on(getManagedStudentsSuccessAction, (state, action) => {
+        
+        const managedStudentsState = {
+            ...state.managedStudents,
+            students: action.response
+        }
+        return {
+            ...state,
+            isLoading: false,
+            managedStudents: managedStudentsState
+        }
+    }
+    ),
+
+    on(getManagedStudentsFailedAction, (state) => ({
+        ...state,
+        isLoading: false
+    }))
 )

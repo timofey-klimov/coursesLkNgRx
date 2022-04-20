@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
+import { combineLatest} from "rxjs/index"
 import { getGroupsAction } from "../../store/actions/getGroups.action";
 import { groupsSelector, isLoadingSelector } from "../../store/selector";
 import { IGetGroupsRequest } from "../../types/getGroups.request";
@@ -49,7 +50,4 @@ export class ManageGoupsComponent implements OnInit {
         const request: IGetGroupsRequest = {offset, limit};
         this.store.dispatch(getGroupsAction({request}));
     }
-
-
-
 }

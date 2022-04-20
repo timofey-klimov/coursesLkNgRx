@@ -5,3 +5,9 @@ export interface IGroupInfoState {
     wasError: boolean;
     groupInfo: IGetGroupInfoResponse
 }
+
+export const initialGroupInfoState: IGroupInfoState = {
+    wasError: false,
+    isLoading: false,
+    groupInfo: null
+}

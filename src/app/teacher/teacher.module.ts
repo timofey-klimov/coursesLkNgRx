@@ -23,13 +23,17 @@ import { ManageGoupsComponent } from "./components/manageGroups/manageGroups.com
 import { GroupInfoComponent } from "./components/groupInfo/groupInfo.component";
 import { GetGroupInfoEffect } from "./store/effects/getGroupInfo.effect";
 import { IconDirective } from "../shared/directives/icon.directive";
+import { ManageStudentsComponent } from "./components/manageStudents/manageStudents.component";
+import { GetStudentsEffect } from "./store/effects/getStudents.effect";
+import { SharedModule } from "../shared/shared.module";
 
 const routes: Routes = [
     { path: 'teacher', component: TeacherLayoutComponent, canActivate: [AuthGuard], children: [
         { path: '', redirectTo: 'manage-tests', pathMatch: 'full'},
         { path: 'manage-tests', component: ManageTestsComponent },
         { path: 'create-test', component: CreateTestComponent, canDeactivate: [WarningExitGuard]},
-        { path: 'manage-groups', component: ManageGoupsComponent }
+        { path: 'manage-groups', component: ManageGoupsComponent },
+        { path: 'manage-students', component: ManageStudentsComponent }
     ]}
 ]
 
@@ -42,12 +46,14 @@ const routes: Routes = [
             GetTeacherTestsEffect, 
             CreateTestEffect, 
             GetGroupsEffect,
-            GetGroupInfoEffect]),
+            GetGroupInfoEffect,
+            GetStudentsEffect]),
         MaterialModule,
         SpinnerModule,
         ReactiveFormsModule,
         QuillModule,
-        FormsModule],
+        FormsModule,
+        SharedModule],
 
     declarations: [
         TeacherComponent, 
@@ -56,7 +62,8 @@ const routes: Routes = [
         CreateTestComponent, 
         ManageGoupsComponent,
         GroupInfoComponent,
-        IconDirective],
+        IconDirective,
+        ManageStudentsComponent],
 
     exports: [RouterModule],
     providers: [TeachersApiService, TestApiService]

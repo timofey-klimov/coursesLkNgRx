@@ -17,3 +17,5 @@ export const groupInfoSelector = createSelector(featureSelector, (state) => stat
 export const groupInfoWasErrorSelector = createSelector(featureSelector, (state) => state?.groupInfo?.wasError);
 
 export const successCreateTestSelector = createSelector(featureSelector, (state) => state?.createTest?.successCreated);
+
+export const managedStudentsSelector = createSelector(featureSelector, (state) => state?.managedStudents?.students)

@@ -1,0 +1,15 @@
+.table-title {
+    color: #3f51b5;
+    display: flex;
+    flex-direction: column;
+    h2 {
+        align-self: center;
+    }
+    mat-divider {
+        position: relative!important;
+    }
+}
+
+.divider {
+    margin-top: 1.5rem;
+}

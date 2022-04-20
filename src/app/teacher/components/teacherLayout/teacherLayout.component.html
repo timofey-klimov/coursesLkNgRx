@@ -35,6 +35,12 @@
                                 Мои группы
                             </a>
                         </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['manage-students']" (click)="sidenav.toggle()">
+                                <mat-icon color="primary">account_circle</mat-icon>
+                                Мои ученики
+                            </a>
+                        </li>
                     </ul>
             </mat-sidenav>
 
