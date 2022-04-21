@@ -8,14 +8,14 @@ import { getGroupsAction } from "../../store/actions/getGroups.action";
 import { groupsSelector, isLoadingSelector } from "../../store/selector";
 import { IGetGroupsRequest } from "../../types/getGroups.request";
 import { IGetGroupsResponse } from "../../types/getGroups.response";
-import { GroupInfoComponent } from "../groupInfo/groupInfo.component";
+import { GroupInfoComponent } from "./groupInfo/groupInfo.component";
 
 @Component({
     selector: 'manageGroups',
-    templateUrl: './manageGroups.component.html',
-    styleUrls: ['./manageGroups.component.scss']
+    templateUrl: './groupsDashboard.component.html',
+    styleUrls: ['./groupsDashboard.component.scss']
 })
-export class ManageGoupsComponent implements OnInit {
+export class GroupsDashboardComponent implements OnInit {
 
     groups$: Observable<IGetGroupsResponse>;
     isLoading$: Observable<boolean>;

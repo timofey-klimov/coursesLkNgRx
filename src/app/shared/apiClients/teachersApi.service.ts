@@ -8,6 +8,8 @@ import { IGetGroupsRequest } from "src/app/teacher/types/getGroups.request";
 import { IGetGroupsResponse } from "src/app/teacher/types/getGroups.response";
 import { IGetManagedStudentsRequest } from "src/app/teacher/types/getManagedStudents.request";
 import { IGetManagedStudentsResponse } from "src/app/teacher/types/getManagedStudents.response";
+import { IGetStudentInfoRequest } from "src/app/teacher/types/getStudentInfo.request";
+import { IGetStudentInfoResponse } from "src/app/teacher/types/getStudentInfo.response";
 import { IGetTeacherTestsRequest } from "src/app/teacher/types/getTests.request";
 import { IGetTeacherTestsResponse } from "src/app/teacher/types/getTests.response";
 import { environment } from "src/environments/environment";
@@ -67,5 +69,9 @@ export class TeachersApiService{
         return this.http.get<IApiResponseWithData<IGetManagedStudentsResponse>>(`${environment.apiUrl}/teachers/students/all`, {
             params
         })
+    }
+
+    getStudentInfo(request: IGetStudentInfoRequest): Observable<IApiResponseWithData<IGetStudentInfoResponse>> {
+        return this.http.get<IApiResponseWithData<IGetStudentInfoResponse>>(`${environment.apiUrl}/teachers/students/${request.studentId}/info`);
     }
 }

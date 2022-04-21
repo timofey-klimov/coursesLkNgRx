@@ -3,8 +3,10 @@ import { createTestAction, createTestFailedAction, createTestSuccessAction } fro
 import { getGroupInfoAction, getGroupInfoFailedAction, getGroupInfoSuccessAction } from "./actions/getGroupInfo.action";
 import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "./actions/getGroups.action";
 import { getManagedStudentsAction, getManagedStudentsFailedAction, getManagedStudentsSuccessAction } from "./actions/getManagedStudents.action";
+import { getStudentInfoAction, getStudentInfoFailedAction, getStudentInfoSuccessAction } from "./actions/getStudentInfo.action";
 import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "./actions/getTests.actions";
 import { initialCreateTestState } from "./states/createTest.state";
+import { initialGetStudentInfoState } from "./states/getStudentInfo.state";
 import { initialGroupInfoState } from "./states/groupInfo.state";
 import { managedStudentsInitialState } from "./states/managedStudents.state";
 import { ITeacherPageState } from "./states/teacher-page.state";
@@ -16,7 +18,8 @@ const initialState: ITeacherPageState = {
     groups: null,
     groupInfo: initialGroupInfoState,
     createTest: initialCreateTestState,
-    managedStudents: managedStudentsInitialState
+    managedStudents: managedStudentsInitialState,
+    studentInfo: initialGetStudentInfoState
 }
 
 export const reducer = createReducer(
@@ -134,5 +137,40 @@ export const reducer = createReducer(
     on(getManagedStudentsFailedAction, (state) => ({
         ...state,
         isLoading: false
-    }))
+    })),
+    on(getStudentInfoAction, (state) => {
+        const studentInfoState = {
+            ...state.studentInfo,
+            isLoading: true
+        }
+
+        return {
+            ...state,
+            studentInfo: studentInfoState
+        }
+    }),
+    on(getStudentInfoSuccessAction, (state, action) => {
+        const studentInfoState = {
+            ...state.studentInfo,
+            isLoading: false,
+            student: action.response
+        }
+
+        return {
+            ...state,
+            studentInfo: studentInfoState
+        }
+    }),
+    on(getStudentInfoFailedAction, (state) => {
+        const studentInfoState = {
+            ...state.studentInfo,
+            isLoading: false,
+            wasError: true
+        }
+
+        return {
+            ...state,
+            studentInfo: studentInfoState
+        }
+    })
 )

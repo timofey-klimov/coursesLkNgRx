@@ -1,25 +1,27 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { IGetStudentsRequest } from "src/app/admin/types/getStudents.request";
+import { IStudent } from "src/app/shared/types/student.interface";
 import { getManagedStudentsAction } from "../../store/actions/getManagedStudents.action";
 import { isLoadingSelector, managedStudentsSelector } from "../../store/selector";
 import { IGetManagedStudentsRequest } from "../../types/getManagedStudents.request";
 import { IGetManagedStudentsResponse } from "../../types/getManagedStudents.response";
+import { StudentInfoComponent } from "./studentInfo/studentInfo.component";
 
 @Component({
     selector: 'manageStudents',
-    templateUrl: './manageStudents.component.html',
-    styleUrls: ['./manageStudents.component.scss']
+    templateUrl: './students-dashboard.component.html',
+    styleUrls: ['./students-dashboard.component.scss']
 })
-export class ManageStudentsComponent implements OnInit {
+export class StudentsDashboardComponent implements OnInit {
 
     students$: Observable<IGetManagedStudentsResponse>;
     displayColumns:string[];
     isLoading$: Observable<boolean>;
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private dialog: MatDialog) {
 
     }
 
@@ -35,6 +37,14 @@ export class ManageStudentsComponent implements OnInit {
         const offset = pageEvent.pageIndex * pageEvent.pageSize;
         const limit = pageEvent.pageSize;
         this._initForm(offset, limit);
+    }
+
+    openStudentInfo(student: IStudent): void {
+        this.dialog.open(StudentInfoComponent, {
+            width: '60vw',
+            height: '70vh',
+            data: student
+        })
     }
 
     private _initForm(offset: number, limit: number) {

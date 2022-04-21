@@ -10,10 +10,10 @@ import { IGetTeacherTestsResponse } from "../../types/getTests.response";
 
 @Component({
     selector: 'manageTests',
-    templateUrl: './manageTests.component.html',
-    styleUrls: ['./manageTests.component.scss']
+    templateUrl: './tests-dashboard.component.html',
+    styleUrls: ['./tests-dashboard.component.scss']
 })
-export class ManageTestsComponent implements OnInit{
+export class TestsDashboardComponent implements OnInit{
 
     isLoading$: Observable<boolean>;
     createdTests$: Observable<IGetTeacherTestsResponse>;

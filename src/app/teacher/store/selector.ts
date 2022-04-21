@@ -18,4 +18,10 @@ export const groupInfoWasErrorSelector = createSelector(featureSelector, (state)
 
 export const successCreateTestSelector = createSelector(featureSelector, (state) => state?.createTest?.successCreated);
 
-export const managedStudentsSelector = createSelector(featureSelector, (state) => state?.managedStudents?.students)
+export const managedStudentsSelector = createSelector(featureSelector, (state) => state?.managedStudents?.students);
+
+export const studentInfoSelector = createSelector(featureSelector, (state) => state?.studentInfo?.student);
+
+export const studentInfoLoadingSelector = createSelector(featureSelector, (state) => state?.studentInfo?.isLoading);
+
+export const wasErrorInStudentInfoSelector = createSelector(featureSelector, (state) => state?.studentInfo?.wasError);

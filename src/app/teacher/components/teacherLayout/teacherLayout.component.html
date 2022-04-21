@@ -22,7 +22,7 @@
                 class="sidenav">
                     <ul class="sidenav-content">
                         <li routerLinkActive="active">
-                            <a [routerLink]="['manage-tests']"
+                            <a [routerLink]="['tests-dashboard']"
                                 (click)="sidenav.toggle()"
                                 >
                                 <mat-icon color="primary">description</mat-icon>
@@ -30,13 +30,13 @@
                             </a>
                         </li>
                         <li routerLinkActive="active">
-                            <a [routerLink]="['manage-groups']" (click)="sidenav.toggle()">
+                            <a [routerLink]="['groups-dashboard']" (click)="sidenav.toggle()">
                                 <mat-icon color="primary">account_circle</mat-icon>
                                 Мои группы
                             </a>
                         </li>
                         <li routerLinkActive="active">
-                            <a [routerLink]="['manage-students']" (click)="sidenav.toggle()">
+                            <a [routerLink]="['students-dashboard']" (click)="sidenav.toggle()">
                                 <mat-icon color="primary">account_circle</mat-icon>
                                 Мои ученики
                             </a>

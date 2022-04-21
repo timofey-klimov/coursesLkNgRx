@@ -2,9 +2,9 @@ import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { getGroupInfoAction } from "../../store/actions/getGroupInfo.action";
-import { groupInfoSelector, groupInfoWasErrorSelector, isLoadingGroupInfoSelector } from "../../store/selector";
-import { IGetGroupInfoResponse } from "../../types/getGroupInfo.response";
+import { getGroupInfoAction } from "../../../store/actions/getGroupInfo.action";
+import { groupInfoSelector, groupInfoWasErrorSelector, isLoadingGroupInfoSelector } from "../../../store/selector";
+import { IGetGroupInfoResponse } from "../../../types/getGroupInfo.response";
 
 @Component({
     selector: 'groupInfo',
