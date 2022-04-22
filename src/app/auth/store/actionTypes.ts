@@ -9,5 +9,9 @@ export enum ActionTypes {
 
     GetUser = '[Auth] GetUser',
     GetUser_Success = '[Auth] GetUser_Success',
-    GetUser_Failed = '[Auth] GetUser_Failed'
+    GetUser_Failed = '[Auth] GetUser_Failed',
+
+    GetUserAvatar = '[Auth] GetUserAvatar',
+    GetUserAvatarSuccess = '[Auth] GetUserAvatarSuccess',
+    GetUserAvatarFailed = '[Auth] GetUserAvatarFailed'
 }

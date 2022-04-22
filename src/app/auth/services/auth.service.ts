@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IApiResponse, IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
@@ -24,5 +24,18 @@ export class AuthService {
 
     getUser(): Observable<IApiResponseWithData<ICurrentUser>> {
         return this.http.get<IApiResponseWithData<ICurrentUser>>(`${environment.apiUrl}/participants/info`);
+    }
+
+    getUserAvatar(): Observable<Blob> {
+
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          });
+
+        return this.http.get<Blob>(`${environment.apiUrl}/participants/avatar`, {
+            headers: headers,
+            responseType: 'blob' as 'json'
+        });
     }
 }

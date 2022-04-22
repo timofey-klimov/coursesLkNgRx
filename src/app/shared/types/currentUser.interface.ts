@@ -6,4 +6,5 @@ export interface ICurrentUser {
     login: string;
     role: string;
     state: UserState;
+    avatar: Blob;
 }

@@ -14,6 +14,7 @@ import { LoginEffects } from "./store/effects/login.effects";
 import { SpinnerModule } from "../shared/modules/spinner/spinner.module";
 import { ActivateUserEffects } from "./store/effects/activate.effects";
 import { GetUserEffects } from "./store/effects/getUser.effects";
+import { GetAvatarEffect } from "./store/effects/getAvatar.effect";
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent}
@@ -31,7 +32,8 @@ const routes: Routes = [
         EffectsModule.forFeature([
             LoginEffects,
             ActivateUserEffects,
-            GetUserEffects
+            GetUserEffects,
+            GetAvatarEffect
         ]),
         SpinnerModule
     ],

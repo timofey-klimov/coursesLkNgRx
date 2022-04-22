@@ -6,6 +6,7 @@ import { Observable, Subscription } from "rxjs";
 import { ICurrentUser } from "src/app/shared/types/currentUser.interface";
 import { UserState } from "src/app/shared/types/userState.enum";
 import { activateAction } from "../../store/actions/activate.actions";
+import { getUserAvatarAction } from "../../store/actions/getUserAvatar.action";
 import { loginAction } from "../../store/actions/login.actions";
 import { errorSelector, isLoadingSelector, userSelector } from "../../store/selector";
 import { ILoginRequest } from "../../types/loginRequest.interface";
@@ -66,6 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else {
             const loginRequest: ILoginRequest = this.form.value;
             this.store.dispatch(loginAction({request: loginRequest}))
+            this.store.dispatch(getUserAvatarAction());
         }
     }
 

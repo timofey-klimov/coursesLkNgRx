@@ -8,4 +8,6 @@ export const isLoadingSelector = createSelector(authFeatureSelector, (state) => 
 
 export const errorSelector = createSelector(authFeatureSelector, (state) => state.error);
 
-export const userSelector = createSelector(authFeatureSelector, (state) => state.user);
+export const userSelector = createSelector(authFeatureSelector, (state) => state?.user);
+
+export const userAvatarSelector = createSelector(authFeatureSelector, (state) => state?.user?.avatar)

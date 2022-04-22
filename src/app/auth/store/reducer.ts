@@ -3,6 +3,7 @@ import { loginAction, loginFailAction, loginSuccessAction } from "./actions/logi
 import { IAuthState } from "../types/auth.state";
 import { activateAction, activateFailAction, activateSuccessAction } from "./actions/activate.actions";
 import { getUserAction, getUserFailedAction, getUserSuccessAction } from "./actions/getUser.actions";
+import { getUserAvatarSuccess } from "./actions/getUserAvatar.action";
 
 export const initialState: IAuthState = {
     isLoggedIn: null,
@@ -59,5 +60,17 @@ export const authReducer = createReducer(
         ...state,
         isLoading: false,
         isLoggedIn: false
-    }))
+    })),
+    on(getUserAvatarSuccess, (state, action) => {
+
+        const user = {
+            ...state.user,
+            avatar: action.response
+        }
+
+        return {
+            ...state,
+            user: user
+        }
+    })
 )

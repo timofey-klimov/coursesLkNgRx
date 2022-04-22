@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getUserAction } from './auth/store/actions/getUser.actions';
+import { getUserAvatarAction } from './auth/store/actions/getUserAvatar.action';
 import { isLoadingSelector, userSelector } from './auth/store/selector';
-import { ICurrentUser } from './shared/types/currentUser.interface';
-import { UserState } from './shared/types/userState.enum';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getUserAction());
+    this.store.dispatch(getUserAvatarAction());
     this.isLoading$ = this.store.select(isLoadingSelector);
   }
 }

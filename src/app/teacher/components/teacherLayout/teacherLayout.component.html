@@ -4,6 +4,11 @@
             <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
         </button>
         <ul>
+            <li>
+                <div class="cirle">
+                    <img [src]="imageUrl" class="avatar"/>
+                </div>
+            </li>
             <li *ngIf="(currentUser$ | async) as user">
                 {{user.login}}
             </li>

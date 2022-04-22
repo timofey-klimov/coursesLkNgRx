@@ -20,6 +20,11 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(req)
             .pipe(
                 map(event => {
+
+                    if (event instanceof HttpResponse && event.body?.type === "application/octet-stream") {
+                        return event;
+                    }
+
                     if (event instanceof HttpResponse && event.body.code === 0){
                         console.log(event);
                     }
