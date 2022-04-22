@@ -5,8 +5,8 @@
         </button>
         <ul>
             <li>
-                <div class="cirle">
-                    <img [src]="imageUrl" class="avatar"/>
+                <div class="cirle" *ngIf="(imageUrl$ | async) as avatar">
+                    <img [src]="avatar" class="avatar"/>
                 </div>
             </li>
             <li *ngIf="(currentUser$ | async) as user">

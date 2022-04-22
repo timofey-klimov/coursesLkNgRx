@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { of } from "rxjs";
@@ -11,7 +12,7 @@ import { userSelector } from "../selector";
 @Injectable()
 export class GetAvatarEffect {
 
-    constructor(private actions$: Actions, private api: AuthService, private store: Store) {
+    constructor(private actions$: Actions, private api: AuthService, private store: Store, private sanitizer: DomSanitizer) {
 
     }
 
@@ -24,8 +25,10 @@ export class GetAvatarEffect {
             } else {
                 return this.api.getUserAvatar()
                     .pipe(
-                        map(x =>  {
-                            return getUserAvatarSuccess({response: x}) 
+                        map(x => {
+                            let objectUrl = URL.createObjectURL(x);
+                            let imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+                            return getUserAvatarSuccess({response: imageUrl}) 
                         }),
                         catchError((err: HttpErrorResponse) =>  {
                             return of(getUserAvatarFailed())

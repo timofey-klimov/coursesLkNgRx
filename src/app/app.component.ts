@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getUserAction());
-    this.store.dispatch(getUserAvatarAction());
     this.isLoading$ = this.store.select(isLoadingSelector);
   }
 }

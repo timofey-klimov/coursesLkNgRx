@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else {
             const loginRequest: ILoginRequest = this.form.value;
             this.store.dispatch(loginAction({request: loginRequest}))
-            this.store.dispatch(getUserAvatarAction());
         }
     }
 

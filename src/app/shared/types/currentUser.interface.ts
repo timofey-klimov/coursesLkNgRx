@@ -1,3 +1,4 @@
+import { SafeUrl } from "@angular/platform-browser";
 import { UserState } from "./userState.enum";
 
 export interface ICurrentUser {
@@ -6,5 +7,5 @@ export interface ICurrentUser {
     login: string;
     role: string;
     state: UserState;
-    avatar: Blob;
+    avatar: SafeUrl;
 }

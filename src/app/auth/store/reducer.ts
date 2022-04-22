@@ -19,12 +19,25 @@ export const authReducer = createReducer(
         isLoading: true,
         error: null
     })),
-    on(loginSuccessAction, (state, action) => ({
-        ...state,
-        isLoading: false,
-        user: action.user,
-        isLoggedIn: true
-    })),
+    on(loginSuccessAction, (state, action) => {
+
+        const user = {
+            ...state.user,
+            login: action.user.login,
+            name: action.user.name,
+            surname: action.user.surname,
+            role: action.user.role,
+            state: action.user.state,
+            avatar: state?.user?.avatar
+        }
+
+        return {
+            ...state,
+            isLoading: false,
+            user: user,
+            isLoggedIn: true
+        }
+    }),
     on(loginFailAction, (state, action) => ({
         ...state,
         isLoading: false,
@@ -50,12 +63,25 @@ export const authReducer = createReducer(
         user: null,
         isLoading: true
     })),
-    on(getUserSuccessAction, (state, action) => ({
-        ...state,
-        isLoading: false,
-        isLoggedIn: true,
-        user: action.user
-    })),
+    on(getUserSuccessAction, (state, action) => {
+
+        const user = {
+            ...state.user,
+            login: action.user.login,
+            name: action.user.name,
+            surname: action.user.surname,
+            role: action.user.role,
+            state: action.user.state,
+            avatar: state?.user?.avatar
+        }
+
+        return {
+            ...state,
+            isLoading: false,
+            user: user,
+            isLoggedIn: true
+        }
+    }),
     on(getUserFailedAction, (state) => ({
         ...state,
         isLoading: false,

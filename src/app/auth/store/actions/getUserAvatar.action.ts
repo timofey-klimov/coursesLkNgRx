@@ -1,3 +1,4 @@
+import { SafeUrl } from "@angular/platform-browser";
 import { createAction, props } from "@ngrx/store";
 import { ActionTypes } from "../actionTypes";
 
@@ -7,7 +8,7 @@ export const getUserAvatarAction = createAction(
 
 export const getUserAvatarSuccess = createAction(
     ActionTypes.GetUserAvatarSuccess,
-    props<{response: Blob}>()
+    props<{response: SafeUrl}>()
 )
 
 export const getUserAvatarFailed = createAction(
