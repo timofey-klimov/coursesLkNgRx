@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { IRemoveStudentsRequest } from "src/app/admin/types/removeStudents.request";
+import { IRemoveStudentsResponse } from "src/app/admin/types/removeStudents.response";
 import { IApiResponseWithData } from "src/app/shared/types/api-response/apiResponse.interface";
 import { IGroup } from "src/app/shared/types/group.interface";
 import { environment } from "src/environments/environment";
@@ -32,5 +34,9 @@ export class GroupsApiService {
 
     getInfo(request: IGetStudyGroupInfoRequest): Observable<IApiResponseWithData<IGetStudyGroupInfoResponse>> {
         return this.httpClient.get<IApiResponseWithData<IGetStudyGroupInfoResponse>>(`${environment.apiUrl}/studyGroups/info/${request.teacherId}/${request.groupId}`)
+    }
+
+    removeStudents(request: IRemoveStudentsRequest): Observable<IApiResponseWithData<IRemoveStudentsResponse>> {
+        return this.httpClient.put<IApiResponseWithData<IRemoveStudentsResponse>>(`${environment.apiUrl}/studyGroups/removeStudents`, request)
     }
 }

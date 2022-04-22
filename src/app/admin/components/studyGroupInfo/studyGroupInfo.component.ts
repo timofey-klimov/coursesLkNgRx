@@ -6,9 +6,11 @@ import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { IStudent } from "src/app/shared/types/student.interface";
 import { getStudyGroupInfoAction } from "../../store/action/getStudyGroupInfo.action";
+import { removeStudentsAction } from "../../store/action/removeStudents.action";
 import { isLoadingStudyGroupInfoSelector, studyGroupInfoSelector, wasErrorStudyGroupInfoSelector } from "../../store/selector";
 import { IGetStudyGroupInfoRequest } from "../../types/getStudyGroupInfo.request";
 import { IGetStudyGroupInfoResponse } from "../../types/getStudyGroupInfo.response";
+import { IRemoveStudentsRequest } from "../../types/removeStudents.request";
 
 @Component({
     selector: 'studyGroupInfo',
@@ -89,4 +91,13 @@ export class StudyGroupInfoComponent implements OnInit,OnDestroy {
         }
         
     }
+    save(): void {
+        const request: IRemoveStudentsRequest = {
+            studyGroupId: this.data.groupId,
+            studentsId: this.students.map(x => x.id)
+        }
+        this.store.dispatch(removeStudentsAction({request}));
+        this.changeTemplate();
+    }
+    
 }
