@@ -1,33 +1,24 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
-import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
+import { Location } from "@angular/common";
+import { Component, TemplateRef, ViewChild } from "@angular/core";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { ICanDeactivateComponent } from "src/app/shared/guards/canDeactivate.component";
-import { createTestAction } from "../../../store/actions/createTest.action";
-import { ICreateTestRequest } from "../../../types/createTest.Request";
-import { IQuestion } from "../../../types/question.interface";
-import { QuestionTypes } from "../../../types/questionTypes.enum";
-import { IQuestionWithAnswerOptions } from "../../../types/questionWithAnwerOptions.interface";
-import {NotificationService} from"../../../../shared/services/notification.service"
-import { QuestionService } from "../../../services/question.service";
-import { Observable, of, Subscription } from "rxjs";
-import { successCreateTestSelector } from "../../../store/selector";
-
-export class FormStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
-        return control.touched && control.invalid;
-    }
-    
-}
+import { Subscription } from "rxjs";
+import { FormStateMatcher } from "src/app/shared/services/matcher.service";
+import { NotificationService } from "src/app/shared/services/notification.service";
+import { QuestionService } from "src/app/teacher/services/question.service";
+import { ICreateTestRequest } from "src/app/teacher/teacher-tests/types/createTest.request";
+import { IQuestion } from "src/app/teacher/types/question.interface";
+import { QuestionTypes } from "src/app/teacher/types/questionTypes.enum";
+import { IQuestionWithAnswerOptions } from "src/app/teacher/types/questionWithAnwerOptions.interface";
+import { createTestAction } from "../../store/actions/createTest.action";
+import { successCreateTestSelector } from "../../store/selector";
 
 @Component({
-    selector: 'createTest',
-    templateUrl: './createTest.component.html',
-    styleUrls: ['./createTest.component.scss'],
-    providers: [QuestionService]
+    selector: 'create-test',
+    templateUrl: './create-test.component.html',
+    styleUrls: ['./create-test.component.scss']
 })
-export class CreateTestComponent implements OnInit, ICanDeactivateComponent, OnDestroy {
-
+export class CreateTestComponent {
     subscription: Subscription;
     successCreated: boolean;
     titleForm: FormGroup;
@@ -40,7 +31,11 @@ export class CreateTestComponent implements OnInit, ICanDeactivateComponent, OnD
     @ViewChild('readOnlyTemplate') readonlyTemplate: TemplateRef<any>;
     @ViewChild('editTemplate') editTempalte: TemplateRef<any>;
 
-    constructor(private store: Store, private notify: NotificationService, public questionService: QuestionService) {
+    constructor(
+        private store: Store, 
+        private notify: NotificationService, 
+        public questionService: QuestionService,
+        public location: Location) {
 
     }
 

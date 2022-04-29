@@ -1,6 +1,6 @@
+import { ITeacherTestsState } from "../../teacher-tests/store/teacher-tests.state";
 import { IGetGroupsResponse } from "../../types/getGroups.response";
-import { IGetManagedStudentsResponse } from "../../types/getManagedStudents.response";
-import { IGetTeacherTestsResponse } from "../../types/getTests.response";
+import { IGetTeacherTestsResponse } from "../../teacher-tests/types/getTests.response";
 import { ICreateTestState } from "./createTest.state";
 import { IGetStudentInfoState } from "./getStudentInfo.state";
 import { IGroupInfoState } from "./groupInfo.state";
@@ -13,5 +13,5 @@ export interface ITeacherPageState {
     groupInfo: IGroupInfoState,
     createTest: ICreateTestState,
     managedStudents: IManagedStudentsState,
-    studentInfo: IGetStudentInfoState
+    studentInfo: IGetStudentInfoState,
 }

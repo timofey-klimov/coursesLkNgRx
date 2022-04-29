@@ -1,25 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
+import { Component } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { getTestsAction } from "../../store/actions/getTests.actions";
+import { IGetTeacherTestsRequest } from "src/app/teacher/teacher-tests/types/getTests.request";
+import { IGetTeacherTestsResponse } from "src/app/teacher/teacher-tests/types/getTests.response";
+import { getTestsAction } from "../../store/actions/getTeacherTests.action";
 import { createdTestsSelector, isLoadingSelector } from "../../store/selector";
-import { IGetTeacherTestsRequest } from "../../types/getTests.request";
-import { IGetTeacherTestsResponse } from "../../types/getTests.response";
 
 @Component({
-    selector: 'manageTests',
-    templateUrl: './tests-dashboard.component.html',
-    styleUrls: ['./tests-dashboard.component.scss']
+    selector: 'teacherTests',
+    templateUrl: './teacherTests.component.html',
+    styleUrls: ['./teacherTests.component.scss']
 })
-export class TestsDashboardComponent implements OnInit{
-
+export class TeacherTestsComponent {
     isLoading$: Observable<boolean>;
     createdTests$: Observable<IGetTeacherTestsResponse>;
     displayedColumns: string[];
 
-    constructor(private store: Store, private router: Router) {
+    constructor(private store: Store) {
 
     }
 
@@ -28,10 +28,6 @@ export class TestsDashboardComponent implements OnInit{
         this.createdTests$ = this.store.select(createdTestsSelector);
         this.displayedColumns = ['title','createDate']
         this._initForm(5, 0);
-    }
-
-    createTest(): void {
-        this.router.navigate(['/teacher', 'create-test'])
     }
 
     changePage(pageEvent: PageEvent): void {

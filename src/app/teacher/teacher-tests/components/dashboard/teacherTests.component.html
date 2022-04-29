@@ -1,7 +1,7 @@
 <div>
     <table-title title="Мои тесты"></table-title>
     <div class="createButton">
-        <button mat-stroked-button color="primary" (click)="createTest()"><i class="fa fa-plus"></i> Создать</button>
+        <button mat-stroked-button color="primary" [routerLink]="['create-test']"><i class="fa fa-plus"></i> Создать</button>
     </div>
 </div>
 <ng-container *ngIf="(createdTests$ | async) as createdTests">

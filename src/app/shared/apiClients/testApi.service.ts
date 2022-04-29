@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ICreateTestRequest } from "src/app/teacher/types/createTest.Request";
+import { ICreateTestRequest } from "src/app/teacher/teacher-tests/types/createTest.request";
 import { environment } from "src/environments/environment";
 import { IApiResponseWithData } from "../types/api-response/apiResponse.interface";
 import { ITest } from "../types/test.interface";

@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
@@ -10,12 +11,11 @@ import { createTestAction, createTestFailedAction, createTestSuccessAction } fro
 
 @Injectable()
 export class CreateTestEffect {
-
     constructor(
         private actions: Actions, 
         private api: TestApiService, 
         private notify: NotificationService, 
-        private router: Router) {
+        private location: Location) {
 
     }
 
@@ -40,7 +40,7 @@ export class CreateTestEffect {
         ofType(createTestSuccessAction),
         tap(x => {
             this.notify.showSuccess('Успешно', 'Тест создан');
-            this.router.navigate(['/teacher', 'manage-tests'])
+            this.location.back();
         })
     ), {dispatch: false})
 
