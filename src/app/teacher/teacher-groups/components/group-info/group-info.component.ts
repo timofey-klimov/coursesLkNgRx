@@ -1,18 +1,18 @@
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { getGroupInfoAction } from "../../../store/actions/getGroupInfo.action";
-import { groupInfoSelector, groupInfoWasErrorSelector, isLoadingGroupInfoSelector } from "../../../store/selector";
-import { IGetGroupInfoResponse } from "../../../types/getGroupInfo.response";
+import { IGetGroupInfoResponse } from "src/app/teacher/teacher-groups/types/getGroupInfo.response";
+import { getGroupInfoAction } from "../../store/actions/getGroupInfo.action";
+import { groupInfoSelector, groupInfoWasErrorSelector, isLoadingGroupInfoSelector } from "../../store/selector";
 
 @Component({
-    selector: 'groupInfo',
-    templateUrl: './groupInfo.component.html',
-    styleUrls: ['./groupInfo.component.scss']
+    selector: 'group-info',
+    templateUrl: './group-info.component.html',
+    styleUrls: ['./group-info.component.scss']
 })
-export class GroupInfoComponent implements OnInit, OnDestroy {
-   
+export class GroupInfoComponent {
+
     subscription: Subscription;
     isLoading$: Observable<boolean>;
     groupInfo$: Observable<IGetGroupInfoResponse>;
@@ -45,6 +45,4 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
         this.groupInfo$ = this.store.select(groupInfoSelector);
         this.store.dispatch(getGroupInfoAction({request: {groupId: this.data}}))
     }
-
-    
 }

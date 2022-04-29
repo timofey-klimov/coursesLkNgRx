@@ -1,11 +1,11 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
-import { TeachersApiService } from "src/app/shared/apiClients/teachersApi.service";
-import { NotificationService } from "src/app/shared/services/notification.service";
-import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "../actions/getGroups.action";
+import { HttpErrorResponse } from "@angular/common/http"
+import { Injectable } from "@angular/core"
+import { Actions, createEffect, ofType } from "@ngrx/effects"
+import { of } from "rxjs"
+import { catchError, map, switchMap, tap } from "rxjs/operators"
+import { TeachersApiService } from "src/app/shared/apiClients/teachersApi.service"
+import { NotificationService } from "src/app/shared/services/notification.service"
+import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "../actions/getGroups.action"
 
 @Injectable()
 export class GetGroupsEffect {
