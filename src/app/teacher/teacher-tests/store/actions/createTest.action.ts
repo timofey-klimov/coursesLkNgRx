@@ -1,7 +1,7 @@
-import { createAction, props } from "@ngrx/store";
-import { ITest } from "src/app/shared/types/test.interface";
-import { ICreateTestRequest } from "../../types/createTest.Request";
-import { ActionTypes } from "../actionsTypes";
+import { createAction, props } from "@ngrx/store"
+import { ITest } from "src/app/shared/types/test.interface"
+import { ICreateTestRequest } from "src/app/teacher/teacher-tests/types/createTest.request"
+import { ActionTypes } from "../actionTypes"
 
 export const createTestAction = createAction(
     ActionTypes.CreateTest,

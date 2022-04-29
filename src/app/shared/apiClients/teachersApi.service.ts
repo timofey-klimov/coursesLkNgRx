@@ -10,8 +10,8 @@ import { IGetManagedStudentsRequest } from "src/app/teacher/types/getManagedStud
 import { IGetManagedStudentsResponse } from "src/app/teacher/types/getManagedStudents.response";
 import { IGetStudentInfoRequest } from "src/app/teacher/types/getStudentInfo.request";
 import { IGetStudentInfoResponse } from "src/app/teacher/types/getStudentInfo.response";
-import { IGetTeacherTestsRequest } from "src/app/teacher/types/getTests.request";
-import { IGetTeacherTestsResponse } from "src/app/teacher/types/getTests.response";
+import { IGetTeacherTestsRequest } from "src/app/teacher/teacher-tests/types/getTests.request";
+import { IGetTeacherTestsResponse } from "src/app/teacher/teacher-tests/types/getTests.response";
 import { environment } from "src/environments/environment";
 import { IGetTeachersRequest } from "../../admin/types/getTeachers.request";
 import { IGetTeachersResponse } from "../../admin/types/getTeachers.response";

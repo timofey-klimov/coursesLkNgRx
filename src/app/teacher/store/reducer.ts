@@ -1,10 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
-import { createTestAction, createTestFailedAction, createTestSuccessAction } from "./actions/createTest.action";
 import { getGroupInfoAction, getGroupInfoFailedAction, getGroupInfoSuccessAction } from "./actions/getGroupInfo.action";
 import { getGroupsAction, getGroupsFailedAction, getGroupsSuccessAction } from "./actions/getGroups.action";
 import { getManagedStudentsAction, getManagedStudentsFailedAction, getManagedStudentsSuccessAction } from "./actions/getManagedStudents.action";
 import { getStudentInfoAction, getStudentInfoFailedAction, getStudentInfoSuccessAction } from "./actions/getStudentInfo.action";
-import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "./actions/getTests.actions";
 import { initialCreateTestState } from "./states/createTest.state";
 import { initialGetStudentInfoState } from "./states/getStudentInfo.state";
 import { initialGroupInfoState } from "./states/groupInfo.state";
@@ -19,52 +17,11 @@ const initialState: ITeacherPageState = {
     groupInfo: initialGroupInfoState,
     createTest: initialCreateTestState,
     managedStudents: managedStudentsInitialState,
-    studentInfo: initialGetStudentInfoState
+    studentInfo: initialGetStudentInfoState,
 }
 
 export const reducer = createReducer(
     initialState,
-    on(getTestsAction, (state) => ({
-        ...state,
-        isLoading: true,
-        groupInfo: initialGroupInfoState,
-    })),
-    on(getTestsSuccessAction, (state, action) => ({
-        ...state,
-        isLoading: false,
-        createdTests: action.response,
-        groups: null
-    })),
-    on(getTestsFailedAction, (state) => ({
-        ...state,
-        isLoading: false
-    })),
-    on(createTestAction, (state) => ({
-        ...state,
-        isLoading: true,
-        groupInfo: initialGroupInfoState,
-        createTest: initialCreateTestState,
-    })),
-    on(createTestSuccessAction, (state, action) => {
-
-        const createdTests = [...state.createdTests.data, action.response]
-
-        return {
-            ...state,
-            isLoading: false,
-            createdTests: {
-                data: createdTests,
-                count: createdTests.length
-            },
-            createTest: {
-                successCreated: true
-            }
-        }
-    }),
-    on(createTestFailedAction, (state) => ({
-        ...state,
-        isLoading: false
-    })),
     on(getGroupsAction, (state) => ({
         ...state,
         isLoading: true,

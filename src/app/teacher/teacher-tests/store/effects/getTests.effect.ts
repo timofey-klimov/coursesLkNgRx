@@ -1,10 +1,10 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
-import { TeachersApiService } from "src/app/shared/apiClients/teachersApi.service";
-import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "../actions/getTests.actions";
+import { HttpErrorResponse } from "@angular/common/http"
+import { Injectable } from "@angular/core"
+import { Actions, createEffect, ofType } from "@ngrx/effects"
+import { of } from "rxjs"
+import { catchError, map, switchMap } from "rxjs/operators"
+import { TeachersApiService } from "src/app/shared/apiClients/teachersApi.service"
+import { getTestsAction, getTestsFailedAction, getTestsSuccessAction } from "../actions/getTeacherTests.action"
 
 @Injectable()
 export class GetTeacherTestsEffect {

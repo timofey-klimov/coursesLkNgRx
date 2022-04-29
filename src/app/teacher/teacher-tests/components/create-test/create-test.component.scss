@@ -47,3 +47,12 @@
 .deleteButton {
     margin-left: .3rem;
 }
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin: 1rem;
+    }
+}

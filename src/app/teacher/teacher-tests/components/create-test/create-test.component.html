@@ -1,3 +1,7 @@
+<div class="nav">
+    <button mat-stroked-button color="primary" (click)="location.back()">Назад</button>
+</div>
+
 <mat-horizontal-stepper #stepper linear>
     <mat-step errorMessage="Заполните название" [stepControl]="titleForm" [hasError]="titleForm.invalid">
         <form [formGroup]="titleForm">
