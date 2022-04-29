@@ -1,22 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { combineLatest} from "rxjs/index"
+import { IGetGroupsRequest } from "src/app/teacher/teacher-groups/types/getGroups.request";
+import { IGetGroupsResponse } from "src/app/teacher/teacher-groups/types/getGroups.response";
 import { getGroupsAction } from "../../store/actions/getGroups.action";
 import { groupsSelector, isLoadingSelector } from "../../store/selector";
-import { IGetGroupsRequest } from "../../types/getGroups.request";
-import { IGetGroupsResponse } from "../../types/getGroups.response";
-import { GroupInfoComponent } from "./groupInfo/groupInfo.component";
+import { GroupInfoComponent } from "../group-info/group-info.component";
 
 @Component({
-    selector: 'manageGroups',
-    templateUrl: './groupsDashboard.component.html',
-    styleUrls: ['./groupsDashboard.component.scss']
+    selector: 'teacher-groups',
+    templateUrl: './teacher-groups.component.html',
+    styleUrls: ['./teacher-groups.component.scss']
 })
-export class GroupsDashboardComponent implements OnInit {
-
+export class TeacherGroupsComponent {
     groups$: Observable<IGetGroupsResponse>;
     isLoading$: Observable<boolean>;
     displayedColumns: string[];

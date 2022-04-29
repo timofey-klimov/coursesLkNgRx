@@ -1,7 +1,7 @@
-import { createAction, props } from "@ngrx/store";
-import { IGetGroupInfoRequest } from "../../teacher-groups/types/getGroupInfo.request";
-import { IGetGroupInfoResponse } from "../../teacher-groups/types/getGroupInfo.response";
-import { ActionTypes } from "../actionsTypes";
+import { createAction, props } from "@ngrx/store"
+import { IGetGroupInfoRequest } from "src/app/teacher/teacher-groups/types/getGroupInfo.request"
+import { IGetGroupInfoResponse } from "src/app/teacher/teacher-groups/types/getGroupInfo.response"
+import { ActionTypes } from "../actionTypes"
 
 export const getGroupInfoAction = createAction(
     ActionTypes.GetGroupInfo,

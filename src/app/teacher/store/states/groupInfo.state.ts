@@ -1,4 +1,4 @@
-import { IGetGroupInfoResponse } from "../../types/getGroupInfo.response";
+import { IGetGroupInfoResponse } from "../../teacher-groups/types/getGroupInfo.response";
 
 export interface IGroupInfoState {
     isLoading: boolean;

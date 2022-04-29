@@ -22,21 +22,6 @@ const initialState: ITeacherPageState = {
 
 export const reducer = createReducer(
     initialState,
-    on(getGroupsAction, (state) => ({
-        ...state,
-        isLoading: true,
-        createdTests: null,
-        groupInfo: initialGroupInfoState
-    })),
-    on(getGroupsSuccessAction, (state, action) => ({
-        ...state,
-        isLoading: false,
-        groups: action.response
-    })),
-    on(getGroupsFailedAction, (state) => ({
-        ...state,
-        isLoading: false
-    })),
     on(getGroupInfoAction, (state) => {
 
         const groupInfoState = {
