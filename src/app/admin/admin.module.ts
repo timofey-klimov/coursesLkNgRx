@@ -28,6 +28,7 @@ import { GetAllStudentsEffect } from "./store/effects/getAllStudents.effect";
 import { CreateGroupEffect } from "./store/effects/createGroup.effects";
 import { StudyGroupInfoComponent } from "./components/studyGroupInfo/studyGroupInfo.component";
 import { GetStudyGroupInfoEffect } from "./store/effects/getStudyGroupInfo.effect";
+import { RemoveStudentsEffect } from "./store/effects/removeStudents.effect";
 
 
 
@@ -52,7 +53,8 @@ const routes: Routes = [
             ManageGroupsEffects,
             GetAllStudentsEffect,
             CreateGroupEffect,
-            GetStudyGroupInfoEffect]),
+            GetStudyGroupInfoEffect,
+            RemoveStudentsEffect]),
         SpinnerModule,
         ReactiveFormsModule,
         MaterialModule

@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserState } from "src/app/shared/types/userState.enum";
+import { groupInfoSelector } from "src/app/teacher/store/selector";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createGroupAction, createGroupFailedAction, createGroupSuccessAction } from "./action/createGroup.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";
@@ -8,6 +9,7 @@ import { getStudyGroupInfoAction, getStudyGroupInfoFailedAction, getStudyGroupIn
 import { getTeachersAction, getTeachersAction_Failed, getTeachersAction_Success } from "./action/getTeachers.actions";
 import { getGroupsAction, getGroupsActionFailed, getGroupsActionSuccess } from "./action/manageGroups.action";
 import { getParticipantsAction, getParticipantsFailAction, getParticipantsSuccessAction } from "./action/manageUsers.actions";
+import { removeStudentsAction, removeStudentsAction_Failed, removeStudentsAction_Success } from "./action/removeStudents.action";
 import { unblockParticipantAction, unblockParticipantFailedAction, unblockParticipantSuccessAction } from "./action/unblockParticipant.action";
 import { IAdminPageState } from "./states/adminPage.state";
 import { IGetGroupInfoState } from "./states/getGroupInfo.state";
@@ -356,6 +358,64 @@ export const reducer = createReducer(
         return {
             ...state,
             manageGroupState: getStudyGroupState
+        }
+    }),
+    on(removeStudentsAction, (state) => {
+        const getStudyGroupState = {
+            ...state.manageGroupState.groupInfoState,
+            isLoading: true,
+        }
+        
+        const managedGroupsState = {
+            ...state.manageGroupState,
+            groupInfoState: getStudyGroupState
+        }
+
+        return {
+            ...state,
+            manageGroupState: managedGroupsState
+        }
+    }),
+    on(removeStudentsAction_Success, (state, action) => {
+        
+        const students = state.manageGroupState.groupInfoState.groupInfo.students
+            .filter(x => !action.response.studentsId.includes(x.id))
+
+            const groupInfo = {
+                ...state.manageGroupState.groupInfoState.groupInfo,
+                students: students
+            }
+            
+            const getStudyGroupState = {
+                ...state.manageGroupState.groupInfoState,
+                isLoading: false,
+                groupInfo: groupInfo
+            }
+            
+            const managedGroupsState = {
+                ...state.manageGroupState,
+                groupInfoState: getStudyGroupState
+            }
+    
+            return {
+                ...state,
+                manageGroupState: managedGroupsState
+            }
+    }),
+    on(removeStudentsAction_Failed, (state) => {
+        const getStudyGroupState = {
+            ...state.manageGroupState.groupInfoState,
+            isLoading: false,
+        }
+        
+        const managedGroupsState = {
+            ...state.manageGroupState,
+            groupInfoState: getStudyGroupState
+        }
+
+        return {
+            ...state,
+            manageGroupState: managedGroupsState
         }
     })
 )

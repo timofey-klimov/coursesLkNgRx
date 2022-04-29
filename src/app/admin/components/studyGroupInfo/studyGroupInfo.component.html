@@ -20,7 +20,7 @@
           <mat-icon class="main-color">add_circle_outline</mat-icon>
           <span>Добавить ученика</span>
         </button>
-        <button mat-menu-item (click)="changeTemplate()">
+        <button mat-menu-item (click)="changeTemplate()" [disabled]="info.students.length == 0">
           <mat-icon class="main-color">delete_sweep</mat-icon>
           <span>Удалить ученика</span>
         </button>
@@ -85,7 +85,7 @@
             *matRowDef="let row; columns: displayedColumnsForEditing;"></tr>
       </table>
       <div class="manageButton">
-        <button mat-stroked-button color="primary">Сохранить</button>
+        <button mat-stroked-button color="primary" (click)="save()">Сохранить</button>
         <button mat-stroked-button color="primary" (click)="changeTemplate()">Назад</button>
       </div>
     </div>

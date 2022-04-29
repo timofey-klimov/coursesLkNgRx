@@ -33,5 +33,10 @@ export enum ActionTypes {
 
     GetStudyGroupInfo = '[Admin] GetStudyGroupInfo',
     GetStudyGroupInfo_Success = '[Admin] GetStudyGroupInfo_Success',
-    GetStudyGroupInfo_Failed = '[Admin] GetStudyGroupInfo_Failed'
+    GetStudyGroupInfo_Failed = '[Admin] GetStudyGroupInfo_Failed',
+
+    RemoveStudents = '[Admin] RemoveStudents',
+    RemoveStudents_Success = '[Admin] RemoveStudents_Success',
+    RemoveStudents_Failed = '[Admin] RemoveStudents_Failed'
+
 }
