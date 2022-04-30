@@ -1,4 +1,4 @@
-import { IQuestion } from "../../types/question.interface";
+import { IQuestion } from "../../../shared/types/questions/question.interface";
 
 export interface ICreateTestRequest {
     title: string,

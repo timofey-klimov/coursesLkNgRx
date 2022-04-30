@@ -3,15 +3,14 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { of } from "rxjs";
-import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from "rxjs/operators";
+import { catchError, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import { TeachersApiService } from "src/app/shared/apiClients/teachersApi.service";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { getStudentInfoAction, getStudentInfoFailedAction, getStudentInfoSuccessAction } from "../actions/getStudentInfo.action";
 import { studentInfoSelector } from "../selector";
 
 @Injectable()
-export class GetStudentInfoEffect {
-
+export class GetStudenInfoEffect {
     constructor(
         private actions$: Actions, 
         private api: TeachersApiService, 
