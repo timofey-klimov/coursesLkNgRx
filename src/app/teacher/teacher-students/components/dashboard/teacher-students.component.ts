@@ -1,22 +1,21 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { IStudent } from "src/app/shared/types/student.interface";
-import { getManagedStudentsAction } from "../../store/actions/getManagedStudents.action";
-import { isLoadingSelector, managedStudentsSelector } from "../../store/selector";
-import { IGetManagedStudentsRequest } from "../../types/getManagedStudents.request";
-import { IGetManagedStudentsResponse } from "../../types/getManagedStudents.response";
-import { StudentInfoComponent } from "./studentInfo/studentInfo.component";
+import { IGetManagedStudentsRequest } from "src/app/teacher/teacher-students/types/getManagedStudents.request";
+import { IGetManagedStudentsResponse } from "src/app/teacher/teacher-students/types/getManagedStudents.response";
+import { getStudentsAction } from "../../store/actions/getStudents.action";
+import { isLoadingSelector, studentsSelector } from "../../store/selector";
+import { StudentInfoComponent } from "../studentInfo/studentInfo.component";
 
 @Component({
-    selector: 'manageStudents',
-    templateUrl: './students-dashboard.component.html',
-    styleUrls: ['./students-dashboard.component.scss']
+    selector: 'teacher-students',
+    templateUrl: './teacher-students.component.html',
+    styleUrls: ['./teacher-students.component.scss']
 })
-export class StudentsDashboardComponent implements OnInit {
-
+export class TeacherStudentsComponent {
     students$: Observable<IGetManagedStudentsResponse>;
     displayColumns:string[];
     isLoading$: Observable<boolean>;
@@ -27,7 +26,7 @@ export class StudentsDashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.isLoading$ = this.store.select(isLoadingSelector);
-        this.students$ = this.store.select(managedStudentsSelector);
+        this.students$ = this.store.select(studentsSelector);
         this.displayColumns = ['name', 'surname', 'login'];
         this._initForm(0, 10);
     }
@@ -49,6 +48,6 @@ export class StudentsDashboardComponent implements OnInit {
 
     private _initForm(offset: number, limit: number) {
         const request: IGetManagedStudentsRequest = {offset, limit};
-        this.store.dispatch(getManagedStudentsAction({request}));
+        this.store.dispatch(getStudentsAction({request}));
     }
 }

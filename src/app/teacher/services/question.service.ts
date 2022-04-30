@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
-import { IQuestion } from "../types/question.interface";
-import { QuestionTypes } from "../types/questionTypes.enum";
-import { IQuestionWithAnswerOptions } from "../types/questionWithAnwerOptions.interface";
+import { IQuestion } from "../../shared/types/questions/question.interface";
+import { QuestionTypes } from "../../shared/types/questions/questionTypes.enum";
+import { IQuestionWithAnswerOptions } from "../../shared/types/questions/questionWithAnwerOptions.interface";
 
 @Injectable()
 export class QuestionService {

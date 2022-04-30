@@ -7,9 +7,9 @@ import { FormStateMatcher } from "src/app/shared/services/matcher.service";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { QuestionService } from "src/app/teacher/services/question.service";
 import { ICreateTestRequest } from "src/app/teacher/teacher-tests/types/createTest.request";
-import { IQuestion } from "src/app/teacher/types/question.interface";
-import { QuestionTypes } from "src/app/teacher/types/questionTypes.enum";
-import { IQuestionWithAnswerOptions } from "src/app/teacher/types/questionWithAnwerOptions.interface";
+import { IQuestion } from "src/app/shared/types/questions/question.interface";
+import { QuestionTypes } from "src/app/shared/types/questions/questionTypes.enum";
+import { IQuestionWithAnswerOptions } from "src/app/shared/types/questions/questionWithAnwerOptions.interface";
 import { createTestAction } from "../../store/actions/createTest.action";
 import { successCreateTestSelector } from "../../store/selector";
 

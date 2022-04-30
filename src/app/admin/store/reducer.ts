@@ -1,6 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserState } from "src/app/shared/types/userState.enum";
-import { groupInfoSelector } from "src/app/teacher/store/selector";
 import { blockParticipantAction, blockParticipantFailedAction, blockParticipantSuccessAction } from "./action/blockParticipant.action";
 import { createGroupAction, createGroupFailedAction, createGroupSuccessAction } from "./action/createGroup.action";
 import { createParticipantAction, createParticipantFailedAction, createParticipantSuccessAction } from "./action/createParticipant.actions";

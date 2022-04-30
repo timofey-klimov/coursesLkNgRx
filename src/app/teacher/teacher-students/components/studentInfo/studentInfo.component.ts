@@ -1,20 +1,19 @@
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { IAssignTest } from "src/app/shared/types/assignTest.interface";
 import { IStudent } from "src/app/shared/types/student.interface";
-import { getStudentInfoAction } from "../../../store/actions/getStudentInfo.action";
-import { studentInfoLoadingSelector, studentInfoSelector, wasErrorInStudentInfoSelector } from "../../../store/selector";
-import { IGetStudentInfoResponse } from "../../../types/getStudentInfo.response";
+import { getStudentInfoAction } from "../../store/actions/getStudentInfo.action";
+import { studentInfoLoadingSelector, studentInfoSelector, wasErrorInStudentInfoSelector } from "../../store/selector";
+import { IGetStudentInfoResponse } from "../../types/getStudentInfo.response";
 
 @Component({
     selector: 'studentInfo',
     templateUrl: './studentInfo.component.html',
     styleUrls: ['./studentInfo.component.scss']
 })
-export class StudentInfoComponent implements OnInit, OnDestroy {
-
+export class StudentInfoComponent {
     studentInfo$: Observable<IGetStudentInfoResponse>;
     isLoading$: Observable<boolean>;
     subscription: Subscription;

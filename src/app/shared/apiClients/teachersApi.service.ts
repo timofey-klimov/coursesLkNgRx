@@ -6,10 +6,10 @@ import { IGetGroupInfoRequest } from "src/app/teacher/teacher-groups/types/getGr
 import { IGetGroupInfoResponse } from "src/app/teacher/teacher-groups/types/getGroupInfo.response";
 import { IGetGroupsRequest } from "src/app/teacher/teacher-groups/types/getGroups.request";
 import { IGetGroupsResponse } from "src/app/teacher/teacher-groups/types/getGroups.response";
-import { IGetManagedStudentsRequest } from "src/app/teacher/types/getManagedStudents.request";
-import { IGetManagedStudentsResponse } from "src/app/teacher/types/getManagedStudents.response";
-import { IGetStudentInfoRequest } from "src/app/teacher/types/getStudentInfo.request";
-import { IGetStudentInfoResponse } from "src/app/teacher/types/getStudentInfo.response";
+import { IGetManagedStudentsRequest } from "src/app/teacher/teacher-students/types/getManagedStudents.request";
+import { IGetManagedStudentsResponse } from "src/app/teacher/teacher-students/types/getManagedStudents.response";
+import { IGetStudentInfoRequest } from "src/app/teacher/teacher-students/types/getStudentInfo.request";
+import { IGetStudentInfoResponse } from "src/app/teacher/teacher-students/types/getStudentInfo.response";
 import { IGetTeacherTestsRequest } from "src/app/teacher/teacher-tests/types/getTests.request";
 import { IGetTeacherTestsResponse } from "src/app/teacher/teacher-tests/types/getTests.response";
 import { environment } from "src/environments/environment";
