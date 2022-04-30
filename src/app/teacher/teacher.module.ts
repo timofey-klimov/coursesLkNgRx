@@ -4,13 +4,8 @@ import { AuthGuard } from "../shared/guards/auth.guard";
 import { TeacherLayoutComponent } from "./teacher-layout/teacherLayout.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../materials/materials.module";
-import { QuillModule } from "ngx-quill";
 import { CommonModule } from "@angular/common";
-import { StoreModule } from "@ngrx/store";
-import { TeachersApiService } from "../shared/apiClients/teachersApi.service";
-import { EffectsModule } from "@ngrx/effects";
 import { SpinnerModule } from "../shared/modules/spinner/spinner.module";
-import { TestApiService } from "../shared/apiClients/testApi.service";
 import { SharedModule } from "../shared/shared.module";
 
 const routes: Routes = [
